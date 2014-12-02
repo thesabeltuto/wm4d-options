@@ -16,6 +16,7 @@ function WM4D_OPTIONS_PLUGIN_register_theme_options() {
 	//register our settings
 	register_setting( 'wm4d-options-group', 'wm4d_options_css' );
 	register_setting( 'wm4d-options-group', 'wm4d_options_script' );
+	register_setting( 'wm4d-options-group', 'wm4d_options_html' );
 	register_setting( 'wm4d-options-group', 'wm4d_options_testimonials' );
 	register_setting( 'wm4d-options-group', 'wm4d_options_before_afters' );
 	register_setting( 'wm4d-options-group', 'wm4d_options_office_images' );
@@ -34,7 +35,6 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
             <li id="wm4d_li2"><a href="#">Page Texts</a></li>
             <li id="wm4d_li3"><a href="#">Support</a></li>
             <li id="wm4d_li4"><a href="#">About</a></li>
-            <li id="donate"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=PH&item_name=TT%2dPlugins&item_number=tt%2dplugins¤cy_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">Donate</a></li>
        </ul>
     </div>
 
@@ -55,6 +55,10 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
 			<h3>Custom Script</h3>
 			<div class="wm4d_section"><textarea type="text" name="wm4d_options_script" rows="7" cols="60" /><?php echo get_option('wm4d_options_script'); ?></textarea>
             <br />Enter your custom script in javascript or jquery. No need to add &lt;script&gt; tags.
+            </div>
+			<h3>Custom HTML</h3>
+			<div class="wm4d_section"><textarea type="text" name="wm4d_options_html" rows="7" cols="60" /><?php echo get_option('wm4d_options_html'); ?></textarea>
+            <br />Enter your custom scripts in javascript, jquery or css. Accepts HTML script and style tags.
             </div>
 
     		<?php submit_button(); ?>
@@ -93,7 +97,7 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
             	<p>Custom Codes was created for you to be able to customize your website without having to edit the theme files and worry about the theme updates. This section saves your Styles and Scripts to the database. You can easily update your themes and keep your customizations.</p>
             	<p><strong>Custom Style</strong> is where you enter your custom style in css. No need to add &lt;style&gt; tags. This plugin automatically adds these codes to the header of your website. However should you wish to add the custom option to your theme, you may add it using `wm4d_options_css`.</p>
                 <p><strong>Custom Script</strong> is where you enter your custom script in javascript or jquery. No need to add &lt;script&gt; tags. This plugin automatically adds these codes to the header of your website. However should you wish to add the custom option to your theme, you may add it using `wm4d_options_script`.</p>
-                <p><strong>Custom HTML</strong> is currently NOT supported. This is where you supposedly add generated scripts like google scripts, etc. to be added inside the &lt;head&gt; of your website. Should you wish to add this feature for this plugin, please donate and contact the author.</p>
+                <p><strong>Custom HTML</strong> is where you add generated scripts like google scripts, etc. to be added inside the &lt;head&gt; of your website. This area accepts HTML script and style tags. However should you wish to add the custom option to your theme, you may add it using `wm4d_options_html`.</p>
             </div>
 
 			<h3>Page Texts</h3>
@@ -108,10 +112,10 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
 			<h3>Custom Post Types</h3>
             <div class="wm4d_section wm4d_support">
             	<p>Custom Post Types are created for ease of navigation and categorization of contents for your website.</p>
-            	<p><strong>Procedures</strong> is where you add Procedures or Services contents. Contents posted in this wm4d_section will be displayed as a regular post page.</p>
-            	<p><strong>Offers</strong> is where you add offer contents. This custom post type is based on the original wm4d plugin. This is where you link your procedures to specific Offers. Contents posted in this wm4d_section will be displayed as a regular post page. However in this plugin, we use the Special Offer widget to display on your website.</p>
-            	<p><strong>Testimonials</strong> is where you add Testimonial contents. Contents posted in this wm4d_section will be displayed as a regular post page. A widget is available for this post type for you to display a slider wm4d_section to your website.</p>
-            	<p><strong>Office Images</strong> is where you add Office contents. Contents posted in this wm4d_section will be displayed as a regular post page. A widget is available for this post type for you to display a slider wm4d_section to your website.</p>
+            	<p><strong>Procedures</strong> is where you add Procedures or Services contents. Contents posted in this section will be displayed as a regular post page.</p>
+            	<p><strong>Offers</strong> is where you add offer contents. This custom post type is based on the original wm4d plugin. This is where you link your procedures to specific Offers. Contents posted in this section will be displayed as a regular post page. However in this plugin, we use the Special Offer widget to display on your website.</p>
+            	<p><strong>Testimonials</strong> is where you add Testimonial contents. Contents posted in this section will be displayed as a regular post page. A widget is available for this post type for you to display a slider section to your website.</p>
+            	<p><strong>Office Images</strong> is where you add Office contents. Contents posted in this section will be displayed as a regular post page. A widget is available for this post type for you to display a slider section to your website.</p>
             </div>
 
 
@@ -152,6 +156,5 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
         
 	</form>
     
-        <div class="wm4d_footer">Plugin created by <a href="http://thesabeltuto.blogspot.com" target="_blank">Thesabel Tuto</a> | Plugin site at <a href="http://ttplugins.wordpress.com/" target="_blank">TT Plugins</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=PH&item_name=TT%2dPlugins&item_number=tt%2dplugins¤cy_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">DONATE!</a></div>
 	</div>
 <?php } ?>

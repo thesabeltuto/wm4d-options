@@ -3,7 +3,7 @@
 	Plugin Name: WM4D-Options
 	Plugin URI: http://wm4d.com
 	Description: This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D</a> plugin that includes custom post types and widgets of  before and afters, prodecures, offers, office images and testimonials. This plugin also includes theme options that can help you edit styles and scripts on dashboard.
-	Version: 3.0
+	Version: 3.0.4
 	Author: Thesabel Tuto
 	Author URI: http://thesabeltuto.blogspot.com
 	Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=PH&item_name=TT%2dPlugins&item_number=tt%2dplugins¤cy_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted

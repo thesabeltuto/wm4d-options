@@ -94,7 +94,7 @@ a.read-more { visibility: hidden; }
 
 .testimonial-content, #before-after-cycle img, #office-images-cycle img { text-align: center; margin: 0 auto; display: inherit; }
 
-.testimonial-excerpt { text-align: left !important; font-style: italic; margin-bottom: 0; padding: 0 7px 20px 0; background: url(../images/comment_box_bottom-right_bg.png) no-repeat right bottom scroll; }
+.testimonial-excerpt { text-align: left !important; font-style: italic; margin-bottom: 0; padding: 0 7px 20px 0; }
 
 /** POPUP FORMS ***/
 	.fancybox-inner {overflow-x: hidden!important; overflow-y:auto!important;}

@@ -3,6 +3,12 @@
 add_filter( 'widget_text', 'shortcode_unautop');
 add_filter( 'widget_text', 'do_shortcode');
 
+/** MAKE THUMBNAILS WORK ON CUSTOM POSTS **/
+add_action( 'after_setup_theme', 'wm4d_theme_additionals', 99 );
+function wm4d_theme_additionals() {
+	add_theme_support( 'post-thumbnails', array( 'procedures', 'offers', 'before-and-afters', 'office-images', 'testimonials' ) );
+}
+
 /** PROCEDURE CUSTOM TYPE **/
 add_action( 'init', 'custom_post_procedures' );
 function custom_post_procedures() {
@@ -312,7 +318,7 @@ class gsthirteen_special_offer extends WP_Widget {
 	}
  
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'price' => '', 'service_offer' => '', 'options_list' => '', 'tagline' => '', 'consult_btn' => '', 'extend_offer' => '', 'gform_consult_id' => '', 'gform_extend_id' => '') );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'price' => '', 'service_offer' => '', 'options_list' => '', 'tagline' => '', 'consult_btn' => '', 'extend_offer' => '', 'gform_consult_id' => '', 'gform_extend_id' => '', 'gform_consult_url' => '', 'gform_extend_url' => '') );
 		$title = $instance['title'];
 		$price = $instance['price'];
 		$service_offer = $instance['service_offer'];
@@ -322,7 +328,9 @@ class gsthirteen_special_offer extends WP_Widget {
 		$extend_offer = $instance['extend_offer'];
 		$gform_consult_id = $instance['gform_consult_id'];
 		$gform_extend_id = $instance['gform_extend_id'];
-		?>
+		$gform_consult_url = $instance['gform_consult_url'];
+		$gform_extend_url = $instance['gform_extend_url'];
+	  ?>
 		<p>
 		<label for="<?php echo $this->get_field_id('title'); ?>">Title:</label>
 		<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo   $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title ?>"   />
@@ -347,11 +355,15 @@ class gsthirteen_special_offer extends WP_Widget {
 		<label for="<?php echo $this->get_field_id('consult_btn'); ?>">Consult Button Label:</label>
 		<input id="<?php echo $this->get_field_id( 'consult_btn' ); ?>" name="<?php echo  $this->get_field_name( 'consult_btn' ); ?>" type="text" value="<?php echo $consult_btn ?>" />
 		</p>
-		
 		<p>
 		<label for="<?php echo $this->get_field_id('gform_consult_id'); ?>">Consult Offer Gravity Forms ID:</label>
 		<input id="<?php echo $this->get_field_id( 'gform_consult_id' ); ?>" name="<?php echo  $this->get_field_name( 'gform_consult_id' ); ?>" type="text" value="<?php echo $gform_consult_id ?>" />
 		</p> 
+		<p>
+		<label for="<?php echo $this->get_field_id('gform_consult_url'); ?>">Consult Offer Page URL:</label>
+		<input id="<?php echo $this->get_field_id( 'gform_consult_url' ); ?>" name="<?php echo  $this->get_field_name( 'gform_consult_url' ); ?>" type="text" value="<?php echo $gform_consult_url ?>" />
+		</p> 
+
 		<p>
 		<label for="<?php echo $this->get_field_id('extend_offer'); ?>">Extend Offer Label:</label>
 		<input id="<?php echo $this->get_field_id( 'extend_offer' ); ?>" name="<?php echo  $this->get_field_name( 'extend_offer' ); ?>" type="text" value="<?php echo $extend_offer ?>" />
@@ -360,6 +372,10 @@ class gsthirteen_special_offer extends WP_Widget {
 		<p>
 		<label for="<?php echo $this->get_field_id('gform_extend_id'); ?>">Extend Offer Gravity Forms ID:</label>
 		<input id="<?php echo $this->get_field_id( 'gform_extend_id' ); ?>" name="<?php echo  $this->get_field_name( 'gform_extend_id' ); ?>" type="text" value="<?php echo $gform_extend_id ?>" />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('gform_extend_url'); ?>">Extend Offer Page URL:</label>
+		<input id="<?php echo $this->get_field_id( 'gform_extend_url' ); ?>" name="<?php echo  $this->get_field_name( 'gform_extend_url' ); ?>" type="text" value="<?php echo $gform_extend_url ?>" />
 		</p>
 		<?php
 	}
@@ -375,6 +391,8 @@ class gsthirteen_special_offer extends WP_Widget {
 		$instance['extend_offer'] = $new_instance['extend_offer'];
 		$instance['gform_consult_id'] = $new_instance['gform_consult_id'];
 		$instance['gform_extend_id'] = $new_instance['gform_extend_id'];
+		$instance['gform_consult_url'] = $new_instance['gform_consult_url'];
+		$instance['gform_extend_url'] = $new_instance['gform_extend_url'];
 		return $instance;
 	}
  
@@ -389,6 +407,8 @@ class gsthirteen_special_offer extends WP_Widget {
 		$extend_offer = apply_filters( 'widget_extend_offer', $instance['extend_offer']  );
 		$gform_consult_id = apply_filters('widget_gform_consult_id', $instance['gform_consult_id']);
 		$gform_extend_id = apply_filters('widget_gform_extend_id', $instance['gform_extend_id']);
+		$gform_consult_url = apply_filters('widget_gform_consult_url', $instance['gform_consult_url']);
+		$gform_extend_url = apply_filters('widget_gform_extend_url', $instance['gform_extend_url']);
 		$offer_expires_date = date("Y-m-d");
 	
 		echo $before_widget; 
@@ -397,9 +417,9 @@ class gsthirteen_special_offer extends WP_Widget {
 		echo '<span>' . $service_offer . '</span></div>';
 		echo '<div id="offer-details"><div id="offer-features">' . $options_list . '</div></div>';
 		echo '<div id="tagline">'. $tagline . '</div>'; /*OpenInNewTab();*/
-		echo '<div id="consult-btn-text" onclick="" > <a class="various" target="_blank" href="#gform-consult-form-'. $gform_consult_id . '">' . $consult_btn . '</a></div>';
+		echo '<div id="consult-btn-text"><div class="various" href="#gform-consult-form-'. $gform_consult_id . '"><a href="' . $gform_consult_url . '" target="_blank">' . $consult_btn . '</a></div></div>';
 		echo '<div id="expire-offer">Offer expires: ' . $offer_expires_date . '</div>';
-		echo '<div id="extend-offer"><a class="various" href="#gform-extend-form-'. $gform_extend_id . '">' . $extend_offer . '</a></div>';
+		echo '<div id="extend-offer"><div class="various" href="#gform-extend-form-'. $gform_extend_id . '"><a href="' . $gform_extend_url . '" target="_blank" >' . $extend_offer . '</a></div></div>';
 		echo '<div id="gform-consult-form-' .  $gform_consult_id . '" style="display:none;width:500px;">';
 		echo do_shortcode('[gravityform id="'. $gform_consult_id . '" ajax="true"]');
 		echo '</div>';
@@ -463,8 +483,8 @@ class gsdental_testimonials extends WP_Widget {
 		$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1);
 		$loop = new WP_Query($slider_args);
 		while ($loop->have_posts()) : $loop->the_post();
-			echo '<div class="the-testimonial"><div class="testimonial-content">' . get_the_content() . '</div>';
-			//echo '<div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
+			//echo '<div class="the-testimonial"><div class="testimonial-content">' . get_the_content() . '</div>';
+			echo '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
 			echo '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
 		endwhile;
 			
