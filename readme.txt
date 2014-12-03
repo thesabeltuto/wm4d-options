@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228J
 Tags: wm4d
 Requires at least: 3.5.1
 Tested up to: 4.0
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,9 +30,10 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 
 == Changelog ==
 
-1. Dashboard for Support, About, and Donate buttons.
-2. Widgets display fix
-2. Responsive fix.
+3.0.5 Fix on office images widget slider 
+3 Responsive fix.
+2 Widgets display fix
+1 Dashboard for Support, About, and Donate buttons.
 
 == Upgrade notice ==
 

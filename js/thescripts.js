@@ -48,6 +48,14 @@ jQuery(document).ready(function($) {
 	   $("#cycle").cycle("resume");
 	});
 	
+ 	$("#office-images-cycle").cycle({
+		fx:      'scrollHorz',
+		slideExpr: 'img',
+		fit:           1,
+		prev:    '#office-images-prev',
+		next:    '#office-images-next'
+	});
+
  	$("#before-after-cycle").cycle({
 		fx:      'scrollHorz',
 		slideExpr: 'img',
@@ -55,6 +63,5 @@ jQuery(document).ready(function($) {
 		prev:    '#before-after-prev',
 		next:    '#before-after-next'
 	});
-
 
 });

@@ -592,9 +592,9 @@ class gsdental_office_images extends WP_Widget {
 		endwhile;
 			
 		echo '</ul>';
-		echo '<div id="office_images-nav">';
-		echo '<a href="#"><span id="office_images-prev">Prev</span></a>'; 
-		echo  '<a href="#"><span id="office_images-next">Next</span></a>';
+		echo '<div id="office-images-nav">';
+		echo '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
+		echo  '<a href="#"><span id="office-images-next">Next</span></a>';
 		echo '</div>';
 		echo $after_widget;
 	}

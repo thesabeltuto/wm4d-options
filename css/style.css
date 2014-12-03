@@ -78,9 +78,9 @@
 #before-after-cycle img, #office-images-cycle img, .testimonial-content embed, .testimonial-content iframe, .testimonial-content object, .testimonial-content video { max-width: 100%; height: 98%; }
 .aaplayer embed, .aaplayer iframe, .aaplayer object, .aaplayer video { max-width: 100%; height: 20px;}
 
-#before-after-nav, #testimonial-nav, #office_images-nav, #before-after-nav a, #testimonial-nav a, #office_images-nav a { clear: both;	margin-top: 10px; text-decoration: none; }
-#before-after-nav a:hover, #testimonial-nav a:hover , #office_images-nav a:hover, #next:hover, #before-after-next:hover, #office_images-next:hover, #before-after-nav span:hover, #office_images-nav span:hover, #testimonial-nav span:hover { text-decoration: underline; }
-#next, #before-after-next, #office_images-next, .testimonial-title { float: right; }
+#before-after-nav, #testimonial-nav, #office-images-nav, #before-after-nav a, #testimonial-nav a, #office-images-nav a { clear: both;	margin-top: 10px; text-decoration: none; }
+#before-after-nav a:hover, #testimonial-nav a:hover , #office-images-nav a:hover, #next:hover, #before-after-next:hover, #office-images-next:hover, #before-after-nav span:hover, #office-images-nav span:hover, #testimonial-nav span:hover { text-decoration: underline; }
+#next, #before-after-next, #office-images-next, .testimonial-title { float: right; }
 a.read-more { visibility: hidden; }
 
 #testimonial-nav span { clear: both; margin: 0 auto; width: 33%; text-align: center; display: inline-block; }
@@ -90,7 +90,7 @@ a.read-more { visibility: hidden; }
 
 .gsdental_before_after p, .gsdental_testimonials p { line-height: 20px; font-size: 12px; padding-left: 15px; }
 
-#before-after-cycle, .the-testimonial{ max-width: 100%; position:relative!important; overflow: hidden!important; float:right!important;}
+#before-after-cycle, #office-images-cycle, .the-testimonial{ max-width: 100%; position:relative!important; overflow: hidden!important; float:right!important;}
 
 .testimonial-content, #before-after-cycle img, #office-images-cycle img { text-align: center; margin: 0 auto; display: inherit; }
 
@@ -101,20 +101,20 @@ a.read-more { visibility: hidden; }
 
 /* SAFARI AND CHROME FIX */ 
 @media (-webkit-min-device-pixel-ratio:0) {
-	#before-after-cycle, .the-testimonial{ width: 100%; height: 100%; }
+	#before-after-cycle, #office-images-cycle, .the-testimonial{ width: 100%; height: 100%; }
 	#before-after-cycle img, #office-images-cycle img { width: 100%; height:auto; }
 	.testimonial-content embed, .testimonial-content iframe, .testimonial-content object, .testimonial-content video { width: 100%; height:auto; }
 }
 
 @media (min-width: 801px) and (max-width: 950px) {
-	#before-after-cycle, .the-testimonial{ width: 100%; height: 100%; }
+	#before-after-cycle, #office-images-cycle, .the-testimonial{ width: 100%; height: 100%; }
 	#before-after-cycle img, #office-images-cycle img { width: 100%; height:auto; }
 	.testimonial-content embed, .testimonial-content iframe, .testimonial-content object, .testimonial-content video { width: 100%; height:auto; }
 
 }
 
 @media (max-width: 800px) {
-	#before-after-cycle, .the-testimonial{ width: 100%; height: 100%; }
+	#before-after-cycle, #office-images-cycle, .the-testimonial{ width: 100%; height: 100%; }
 	#before-after-cycle img, #office-images-cycle img { width: 100%; height:auto; }
 	.testimonial-content embed, .testimonial-content iframe, .testimonial-content object, .testimonial-content video { width: 100%;  height:auto; }
 }
