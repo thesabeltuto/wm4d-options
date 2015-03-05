@@ -48,20 +48,20 @@ jQuery(document).ready(function($) {
 	   $("#cycle").cycle("resume");
 	});
 	
- 	$("#office-images-cycle").cycle({
-		fx:      'scrollHorz',
-		slideExpr: 'img',
-		fit:           1,
-		prev:    '#office-images-prev',
-		next:    '#office-images-next'
-	});
-
  	$("#before-after-cycle").cycle({
 		fx:      'scrollHorz',
 		slideExpr: 'img',
 		fit:           1,
 		prev:    '#before-after-prev',
 		next:    '#before-after-next'
+	});
+
+ 	$("#office-images-cycle").cycle({
+		fx:      'scrollHorz',
+		slideExpr: 'img',
+		fit:           1,
+		prev:    '#office-images-prev',
+		next:    '#office-images-next'
 	});
 
 });

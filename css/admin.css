@@ -7,6 +7,8 @@
 
 .wm4d_wrap a, .wm4d_wrap a:visited, .wm4d_wrap a:active { color: #0074a2; }
 .wm4d_wrap a:hover { color: #2ea2cc; }
+.empty { color: #C00505; }
+.filled { color: #2DC569; }
 
 
 /** NAVIGATION **/
@@ -34,11 +36,13 @@
 
 .wm4d_wrap h3 { display: block; }
 
-.wm4d_wrap .wm4d_section { display: block; }
+.wm4d_wrap .wm4d_section { display: inline-table; margin: 10px 10px 0 0;}
 
 .wm4d_wrap .wm4d_section.wm4d_support { display: block; border: 1px solid #0074a2; background: #EFF8FA; padding: 0 20px; margin-right: 20px; }
 
 .wm4d_wrap .wm4d_section.about { display: block; border: 1px solid #0074a2; background: #EFF8FA; padding: 0 20px; margin-right: 20px; }
+
+.wm4d_wrap .wm4d_section.home { display: inline-table; border: 1px dashed #0074a2; background: #EFF8FA; padding: 0 20px 15px 20px;  margin: 10px 10px 0 0; max-width: 500px; }
 
 /** FOOTER AREA **/
 
