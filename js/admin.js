@@ -1,14 +1,29 @@
-//jQuery(document).ready(function($) {
-//	jQuery('div.wm4d_content').hide();
-//	jQuery('div#wm4d_li-1').show();
-//	jQuery('#wm4d_nav li').removeClass('active');
-//	jQuery('#wm4d_nav li#wm4d_li1').addClass('active');
-//	jQuery('#wm4d_nav li').click(function() {
-//		var id = jQuery(this).attr('id').substr(7);
-//			jQuery('div.wm4d_content').hide();
-//			jQuery('#wm4d_nav li').removeClass('active');
-//			jQuery('#wm4d_nav li#wm4d_li'+id).addClass('active');
-//			jQuery('div.wm4d_content#wm4d_li-'+id).show();
-//	});
+jQuery(document).ready(function($) {
+	multiple_select();
+	jQuery('#wm4d_select_options').click(function() {
+		multiple_select();
+	});
+});
+
+function multiple_select() {
+	if( jQuery('#wm4d_select_options input').attr('checked') ) {
+		jQuery('div#wm4d_primary_options').hide();
+		jQuery('div#wm4d_multiple_options').show();
+		jQuery('.wm4d_select_primary').hide();
+		jQuery('.wm4d_select_multiple').show();
+	} else {
+		jQuery('div#wm4d_primary_options').show();
+		jQuery('div#wm4d_multiple_options').hide();
+		jQuery('.wm4d_select_primary').show();
+		jQuery('.wm4d_select_multiple').hide();
+	}
 	
-//});
+//	if( jQuery('#wm4d_select_options_flipper input').attr('value') == 'primary' ) {
+//		jQuery('.wm4d_select_primary').show();
+//		jQuery('.wm4d_select_multiple').hide();
+//	}
+//	if( jQuery('#wm4d_select_options_flipper input').attr('value') == 'multiple' ) {
+//		jQuery('.wm4d_select_primary').hide();
+//		jQuery('.wm4d_select_multiple').show();
+//	}
+}

@@ -81,7 +81,7 @@
 #before-after-nav, #testimonial-nav, #office-images-nav, #before-after-nav a, #testimonial-nav a, #office-images-nav a { clear: both;	margin-top: 10px; text-decoration: none; }
 #before-after-nav a:hover, #testimonial-nav a:hover , #office-images-nav a:hover, #next:hover, #before-after-next:hover, #office-images-next:hover, #before-after-nav span:hover, #office-images-nav span:hover, #testimonial-nav span:hover { text-decoration: underline; }
 #next, #before-after-next, #office-images-next, .testimonial-title { float: right; }
-a.read-more { visibility: hidden; }
+/*a.read-more { visibility: hidden; }*/
 
 #testimonial-nav span { clear: both; margin: 0 auto; width: 33%; text-align: center; display: inline-block; }
 #testimonial-nav span#prev { text-align: left; }

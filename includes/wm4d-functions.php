@@ -10,7 +10,7 @@ function wm4d_theme_additionals() {
 }
 
 /** PROCEDURE CUSTOM TYPE **/
-add_action( 'init', 'custom_post_procedures' );
+//add_action( 'init', 'custom_post_procedures' );
 function custom_post_procedures() {
 	$labels = array(
 		'name'               => _x( 'Procedures', 'post type general name' ),
@@ -72,7 +72,7 @@ function gsdental_body_classes( $classes ) {
 }
 
 /** OFFERS CUSTOM TYPE **/
-add_action( 'init', 'custom_post_offers' );
+//add_action( 'init', 'custom_post_offers' );
 function custom_post_offers() {
 	$labels = array(
 		'name'               => _x( 'Offers', 'post type general name' ),
@@ -142,7 +142,7 @@ function gsdental_taxonomies_offers() {
 }
 
 /** TESTIMONIALS CUSTOM TYPE **/
-add_action( 'init', 'custom_post_testimonials' );
+//add_action( 'init', 'custom_post_testimonials' );
 function custom_post_testimonials() {
 	$labels = array(
 		'name'               => _x( 'Testimonials', 'post type general name' ),
@@ -212,7 +212,7 @@ function gsdental_taxonomies_testimonials() {
 }
 
 /** BEFORE & AFTERS CUSTOM POST **/
-add_action( 'init', 'custom_post_before_and_afters' );
+//add_action( 'init', 'custom_post_before_and_afters' );
 function custom_post_before_and_afters() {
 	$labels = array(
 		'name'               => _x( 'Before & Afters', 'post type general name' ),
@@ -260,7 +260,7 @@ function custom_post_before_and_afters_messages( $messages ) {
 }
 
 /** OFFICE IMAGES CUSTOM TYPE **/
-add_action( 'init', 'custom_post_office_images' );
+//add_action( 'init', 'custom_post_office_images' );
 function custom_post_office_images() {
 	$labels = array(
 		'name'               => _x( 'Office Images', 'post type general name' ),
