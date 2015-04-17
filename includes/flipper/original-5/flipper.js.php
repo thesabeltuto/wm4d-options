@@ -1,16 +1,16 @@
-<?
+<?php
 header('Content-type: text/javascript');
 ?>
 var nFlipper = {
 	fromNum:null,
 	getRefNumbers: function(){
 		var rn = {};       
-<? foreach (flipper_get_all() as $ref=>$row) { ?>
+<?php foreach (flipper_get_all() as $ref=>$row) { ?>
         rn['<?=$ref?>']={};
-    <? foreach ($row as $s=>$r) { ?> 
+    <?php foreach ($row as $s=>$r) { ?> 
        
         rn['<?=$ref?>']['<?=$s?>']='<?=chop($r)?>';
-    <? }
+    <?php }
     };
     ?>       
 		return rn;
@@ -79,19 +79,20 @@ var nFlipper = {
 //  \(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})
 
             found = element.nodeValue.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})([ .-]?)([0-9]{4})/ig);   
-            if (found) {
-            	phoneClean = found[0].replace(/[^0-9]/g,"");
-//                console.log(this.rnr);                
-            	for (var key2 in this.rnr) {
-					this.fromNum = key2;
-					this.toNum = this.rnr[key2];
-//                    console.log(""+key2+": "+this.toNum);
-                    if (phoneClean == key2) {
-//                        console.log("Replacing "+found[0] + ' to '+this.toNum);
-                        element.nodeValue = element.nodeValue.replace(found[0],this.toNum);
-                    }
-				};
-            };
+            if (found) 
+	            for (var j in found)  {
+                    phoneClean = found[j].replace(/[^0-9]/g,"");
+ //                   console.log(found[j]);                
+                    for (var key2 in this.rnr) {
+                        this.fromNum = key2;
+                        this.toNum = this.rnr[key2];
+    //                    console.log(""+key2+": "+this.toNum);
+                        if (phoneClean == key2) {
+//                            console.log("Replacing "+found[j] + ' to '+this.toNum);
+                            element.nodeValue = element.nodeValue.replace(found[j],this.toNum);
+                        }
+                    };
+                };
 
 //			element.nodeValue = element.nodeValue.replace(this.fromNum,this.toNum);
 		};
@@ -99,19 +100,7 @@ var nFlipper = {
     
 	toNum:null,
 	
-	process: function() {
-    	var keepCookie=false;
-        var ref = this.getQueryVariable('ref');
-        var cref = this.getCookie('ref');
-		
-        if (typeof ref != 'undefined' && ref!="") {
-            if (keepCookie && ref=='_cleanit') this.setCookie('ref','undefined');
-//            console.log(cref==null);
-            if (!keepCookie || cref===null) this.setCookie('ref',ref);	
-        };
-
-        ref = this.getCookie('ref');
-		console.log('ref is '+this.getCookie('ref'));
+	process: function(ref) {
 		if (ref!=null) {
 			var rn = this.getRefNumbers();
             if (rn.hasOwnProperty(ref)) {
@@ -151,5 +140,19 @@ var nFlipper = {
 	}
 }
 window.onload = function(e){ 
-	nFlipper.process();
+    var keepCookie=<?=flipper_get_keep_cookie()?"true":"false";?>;
+    var ref = nFlipper.getQueryVariable('ref');
+    var cref = nFlipper.getCookie('ref');
+    
+    if (typeof ref != 'undefined' && ref!="") {
+        if (keepCookie && ref=='_cleanit') nFlipper.setCookie('ref','undefined');
+        console.log(ref);
+        if (!keepCookie || (cref===null || cref=='undefined')) nFlipper.setCookie('ref',ref);	
+    };
+
+    ref = nFlipper.getCookie('ref');
+    console.log('ref is '+nFlipper.getCookie('ref'));
+<? 	if (get_option('wm4d_flipper_select')=="enable") { ?>
+	nFlipper.process(ref);
+<? } ?>    
 }

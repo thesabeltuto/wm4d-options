@@ -100,19 +100,7 @@ var nFlipper = {
     
 	toNum:null,
 	
-	process: function() {
-    	var keepCookie=false;
-        var ref = this.getQueryVariable('ref');
-        var cref = this.getCookie('ref');
-		
-        if (typeof ref != 'undefined' && ref!="") {
-            if (keepCookie && ref=='_cleanit') this.setCookie('ref','undefined');
-//            console.log(cref==null);
-            if (!keepCookie || cref===null) this.setCookie('ref',ref);	
-        };
-
-        ref = this.getCookie('ref');
-		console.log('ref is '+this.getCookie('ref'));
+	process: function(ref) {
 		if (ref!=null) {
 			var rn = this.getRefNumbers();
             if (rn.hasOwnProperty(ref)) {
@@ -152,5 +140,19 @@ var nFlipper = {
 	}
 }
 window.onload = function(e){ 
-	nFlipper.process();
+    var keepCookie=<?=flipper_get_keep_cookie()?"true":"false";?>;
+    var ref = nFlipper.getQueryVariable('ref');
+    var cref = nFlipper.getCookie('ref');
+    
+    if (typeof ref != 'undefined' && ref!="") {
+        if (keepCookie && ref=='_cleanit') nFlipper.setCookie('ref','undefined');
+        console.log(ref);
+        if (!keepCookie || (cref===null || cref=='undefined')) nFlipper.setCookie('ref',ref);	
+    };
+
+    ref = nFlipper.getCookie('ref');
+    console.log('ref is '+nFlipper.getCookie('ref'));
+<? 	if (get_option('wm4d_flipper_select')=="enable") { ?>
+	nFlipper.process(ref);
+<? } ?>    
 }

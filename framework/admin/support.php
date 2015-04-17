@@ -22,12 +22,13 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
                 <p><strong>Client's Name</strong> is for the identification of who owns the website. HTML tags are not advisable. Shortcode is `[client_name]`.</p>
                 <p><strong>Practice Name</strong> is a copy of the website title. HTML tags are not advisable. Shortcode is `[practice_name]`.</p>
                 <p><strong>Enable / Disable Multiple Information</strong> is where you enable or disable multiple doctors, phone numbers and/or locations.</p>
-                <p><strong>Enable / Disable International Phone Format</strong> is where you enable or disable the international phone format which is +99(999)999-9999. Standard phone format is (999)999-9999.</p>
+                <p><strong>Enable / Disable International Phone Format</strong> is where you enable or disable the international phone format which is +99 (999) 999-9999. Standard phone format is (999) 999-9999.</p>
 				<?php //PRIMARY SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
                 <p><strong>Doctor's Name</strong> is where you enter the star Doctor's name and his/her corresponding titles. HTML tags are not advisable. Shortcode is `[doctor_name]`.</p>
                 <p><strong>Phone Number</strong> is where you enter the main phone number of the office. HTML tags are not advisable. Shortcode is `[phone_number]`.</p>
-                <p><strong>Office Location</strong> is where you enter the location of the office. You may enter up to 4 address lines here. HTML tags are not advisable. Shortcode is `[location]`.</p>
+                <p><strong>Office Location</strong> is where you enter the location of the office. You may enter up to 4 address lines here. HTML tags are not advisable. Shortcode is `[location short="true"]`.</p>
+                <p><strong>Short Location</strong> is where you enter the short version of the office. HTML tags are not advisable. Shortcode is `[location]`.</p>
 				<?php } ?>
 				<?php //MULTIPLE SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') == 'enable') { ?>

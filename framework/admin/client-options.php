@@ -47,7 +47,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                 <h2><input id="wm4d_phone_format_select" name="wm4d_phone_format_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_phone_format_select') == 'enable' ); ?> /> &nbsp;
                 Enable / Disable International Phone Format</h2>
                 <hr />
-                <p>Enabling this will allow you to change the format of phone numbers from (999)999-9999 to international +99(999)999-9999.
+                <p>Enabling this will allow you to change the format of phone numbers from (999) 999-9999 to international +99 (999) 999-9999.
                 </p>
                 </div>
                 
@@ -71,7 +71,14 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                     <div class="wm4d_section">
                     <h3>Office Location</h3>
                     <textarea name="wm4d_location" cols="60" rows="4" value="<?php echo get_option('wm4d_location'); ?>"><?php echo get_option('wm4d_location'); ?></textarea>
-                    <br />Enter the Location of the Office. Format up to 4 lines of address information.
+                    <br />Enter the Location of the Office.<br />
+                    Format up to 4 lines of address information.
+                    </div>
+                    
+                    <div class="wm4d_section">
+                    <h3>Short Location</h3>
+                    <input name="wm4d_location_short" class="wm4d_location_short" type="text" size="60" value="<?php echo get_option('wm4d_location_short'); ?>" />
+                    <br />Enter the short version of Office Location.
                     </div>
                 </div>
                     
@@ -188,6 +195,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                         <li><strong>Doctor's Name:</strong> `[doctor_name]`</li>
                         <li><strong>Phone Number:</strong> `[phone_number]`</li>
                         <li><strong>Office Location:</strong> `[location]`</li>
+                        <li><strong>Short Location:</strong> `[location short="true"]`</li>
                    	</ol>
                 </div>
                 <div class="wm4d_select_multiple">
@@ -238,7 +246,8 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                         <li><strong>Doctor's Name:</strong> `%doctor_name%`</li>
                         <li><strong>Phone Number:</strong> `%phone_number%`</li>
                         <li><strong>Office Location:</strong> `%location%`</li>
-                   	</ol>
+                         <li><strong>Office Location:</strong> `%location_short%`</li>
+                  	</ol>
                 </div>
                 <div class="wm4d_select_multiple">
                 <h3>Multiple Information</h3>

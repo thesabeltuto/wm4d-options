@@ -305,22 +305,22 @@ function convert_phone_format() {
 	jQuery('#wm4d_select_phone_format').click(function() {
         if( jQuery('input#wm4d_phone_format_select').attr('checked') )  {
            jQuery('input.phone_format').each(function() { 
-                jQuery(this).mask("+99(999)999-9999");
+                jQuery(this).mask("+99 (999) 999-9999");
             });
         } else {
             jQuery('input.phone_format').each(function() { 
-                jQuery(this).mask("(999)999-9999");
+                jQuery(this).mask("(999) 999-9999");
             });
         }
 	});
     
 	if ( '<?=$phone_format?>' == 'enable') {
         jQuery('input.phone_format').each(function() { 
-            jQuery(this).mask("+99(999)999-9999");
+            jQuery(this).mask("+99 (999) 999-9999");
         });
     } else {
         jQuery('input.phone_format').each(function() { 
-            jQuery(this).mask("(999)999-9999");
+            jQuery(this).mask("(999) 999-9999");
         });
     }
 }

@@ -57,7 +57,12 @@ function wm4d_phone( $atts ){
 }
 
 function wm4d_location( $atts ){
-	$wm4d_location = nl2br(get_option('wm4d_location'));
+	extract(shortcode_atts(array( 'short' => false ), $atts ));
+	if($atts == true) {
+		$wm4d_location = get_option('wm4d_location_short');
+	} else {
+		$wm4d_location = nl2br(get_option('wm4d_location'));
+	}	
 	return $wm4d_location;
 }
 
