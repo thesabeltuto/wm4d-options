@@ -152,7 +152,7 @@ window.onload = function(e){
 
     ref = nFlipper.getCookie('ref');
     console.log('ref is '+nFlipper.getCookie('ref'));
-<? 	if (get_option('wm4d_flipper_select')=="enable") { ?>
+<?php 	if (get_option('wm4d_flipper_select')=="enable") { ?>
 	nFlipper.process(ref);
-<? } ?>    
+<?php } ?>    
 }

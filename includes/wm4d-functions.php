@@ -4,10 +4,10 @@ add_filter( 'widget_text', 'shortcode_unautop');
 add_filter( 'widget_text', 'do_shortcode');
 
 /** MAKE THUMBNAILS WORK ON CUSTOM POSTS **/
-add_action( 'after_setup_theme', 'wm4d_theme_additionals', 99 );
-function wm4d_theme_additionals() {
-	add_theme_support( 'post-thumbnails', array( 'procedures', 'offers', 'before-and-afters', 'office-images', 'testimonials' ) );
-}
+//add_action( 'after_setup_theme', 'wm4d_theme_additionals', 99 );
+//function wm4d_theme_additionals() {
+//	add_theme_support( 'post-thumbnails', array( 'procedures', 'offers', 'before-and-afters', 'office-images', 'testimonials' ) );
+//}
 
 /** PROCEDURE CUSTOM TYPE **/
 //add_action( 'init', 'custom_post_procedures' );
