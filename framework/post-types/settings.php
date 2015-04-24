@@ -3,9 +3,18 @@ require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/doctors.php');
 require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/team.php');
 
 /** MAKE THUMBNAILS WORK ON CUSTOM POSTS **/
-add_action( 'after_setup_theme', 'WM4D_OPTIONS_PLUGIN_post_type_thumbs', 110 );
+add_action( 'after_setup_theme', 'WM4D_OPTIONS_PLUGIN_post_type_thumbs', 99 );
 function WM4D_OPTIONS_PLUGIN_post_type_thumbs() {
-	add_theme_support( 'post-thumbnails', array( 'doctors', 'team') );
+	add_theme_support( 'post-thumbnails' );
+//	add_theme_support( 'post-thumbnails', array( 
+//		'doctors', 
+//		'team',
+//		'procedures',
+//		'offers',
+//		'before-and-afters',
+//		'office-images',
+//		'testimonials'
+//	) );
 }
 
 add_action( 'init', 'custom_post_procedures' );

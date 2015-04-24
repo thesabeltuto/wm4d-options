@@ -82,8 +82,6 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
 <?php */?>
 				<?php //PRIMARY SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
-                 <input type="hidden" name="wm4d_select_options" value="primary"/>
-                <div class="wm4d_select_primary">
                 <h2>Phone Numbers to Flip</h2>
                 <hr />
                 <?php
@@ -119,14 +117,12 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                     <div class="wm4d_table_wrap_foot_left">Link: <input type="text" readonly="readonly" value="<?=$domain.$wm4d_flipper_referers[$i]?>" size="48"/></div>
                     <div class="wm4d_table_wrap_foot_right"><input type="button" class="wm4d_add wm4d_trigger_submit" name="submit" value="Save Changes"  /></div>
                     </div>
-                    </div>
+                    <?php /*?></div><?php */?>
                 <?php } ?>
                 </div>
 				<?php } ?>
  				<?php //MULTIPLE SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') == 'enable') { ?>
-                <input type="hidden" name="wm4d_select_options" value="multiple"/>
-                <div class="wm4d_select_multiple">
                 <h2>Phone Numbers to Flip</h2>
                 <hr />
                 <?php $x=0; // count index for selected campaign phones
@@ -163,7 +159,6 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                     <hr/>
                     <div class="wm4d_table_wrap_foot_left">Link: <input type="text" readonly="readonly" value="<?=$domain.$wm4d_flipper_referers[$i]?>" size="48"/></div>
                     <div class="wm4d_table_wrap_foot_right"><input type="button" class="wm4d_add wm4d_trigger_submit" name="submit" value="Save Changes"  /></div>
-                    </div>
                     </div>
                 <?php } // for referers?>                 
                 </div>   
