@@ -185,7 +185,7 @@ function special_offer($atts){
 		'extend_form_url' => ''
 	), $atts ));
 	$offer_expires_date = date("Y-m-d");
-	
+
 	$special_offer = '<div id-"special-offer">'; 
 	$special_offer .= '<div id="offer-heading">'.$title.'</div>';
 	$special_offer .= '<div id="offer-wrap"><div id="offer"><h2>' . $price . '</h2>';
@@ -213,8 +213,10 @@ function testimonials( $atts ) {
 		'url' => '/testimonials/'
 	), $atts ));
 	
+	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
+	
 	$testimonials = '<div id="testimonials">';
-	$testimonials .= '<h2 class="widget-title">'.$title.'</h2>';
+	$testimonials .= $title;
 	$testimonials .= '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
 	
 	$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1);
@@ -238,8 +240,10 @@ function testimonials( $atts ) {
 function before_afters( $atts ) {
 	extract(shortcode_atts(array( 'title' => 'Before and Afters' ), $atts ));
 	
+	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
+	
 	$bna = '<div id="before-after">';
-	$bna .= '<h2 class="widget-title">'.$before_after_title.'</h2>';
+	$bna .= $title;
 	$bna .= '<ul id="before-after-cycle">';
 	
 	$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1);
@@ -261,8 +265,10 @@ function before_afters( $atts ) {
 function office_images( $atts ) {
 	extract(shortcode_atts(array( 'title' => 'Office Images' ), $atts ));
 	
+	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
+
 	$office = '<div id="office-images">';
-	$office .= '<h2 class="widget-title">'.$office_images_title.'</h2>';
+	$office .= $title;
 	$office .= '<ul id="office-images-cycle">';
 	
 	$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1);
