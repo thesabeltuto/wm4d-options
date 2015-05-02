@@ -202,6 +202,8 @@ function special_offer($atts){
 	$special_offer .= do_shortcode('[gravityform id="'. $extend_form_id . '" ajax="true"]');
 	$special_offer .= '</div>';
 	$special_offer .= '</div>';
+
+	wp_reset_postdata();
 	
 	return $special_offer;
 }
@@ -233,6 +235,8 @@ function testimonials( $atts ) {
 	$testimonials .= '<a href="#"><span id="next">Next</span></a>';
 	$testimonials .= '</div>';
 	$testimonials .= '</div>';
+
+	wp_reset_postdata();
 	
 	return $testimonials;
 }
@@ -259,6 +263,8 @@ function before_afters( $atts ) {
 	$bna .= '</div>';
 	$bna .= '</div>';
 	
+	wp_reset_postdata();
+
 	return $bna;
 }
 
@@ -283,6 +289,8 @@ function office_images( $atts ) {
 	$office .=  '<a href="#"><span id="office-images-next">Next</span></a>';
 	$office .= '</div>';
 	$office .= '</div>';
+	
+	wp_reset_postdata();
 
 	return $office;
 }
