@@ -47,10 +47,12 @@ function add_referers() {
 		var tr_wrap = '<tr id="doctors_TBA'+tr_max+'">';
 		var id = '<td><input type="text" readonly="readonly" name="wm4d_doctors_id" value="TBA" size="1"  tabindex="-1"/></td>';
 		var doctors = '<td><input type="text" name="wm4d_doctors[]"  size="48" /></td>';
+		var docs_titles = '<td><input type="text" name="wm4d_docs_titles[]"  size="20" /></td>';
 		var remove = '<td><input type="button" class="wm4d_remove wm4d_doctors_remove" name="wm4d_doctors_remove" value="-"  tabindex="-1"/></td>';
 	
 		tr_wrap +=id;
 		tr_wrap +=doctors;
+		tr_wrap +=docs_titles;
 		tr_wrap +=remove;
 		tr_wrap += '</tr>';
 	        

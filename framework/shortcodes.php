@@ -52,7 +52,17 @@ function wm4d_client( $atts ){
 }
 
 function wm4d_doctor( $atts ){
-	$wm4d_doctor = get_option('wm4d_doctor');
+	extract(shortcode_atts(array( 'title' => false ), $atts ));
+
+	if($atts == true ) {
+		$name = get_option('wm4d_doctor');
+		$title = get_option('wm4d_doc_titles');
+		
+		$wm4d_doctor = $name .', '. $title;
+	} else {
+		$wm4d_doctor = get_option('wm4d_doctor');
+	}
+	
 	return $wm4d_doctor;
 }
 
@@ -72,29 +82,55 @@ function wm4d_location( $atts ){
 }
 
 function wm4d_doctors( $atts ){
-	extract(shortcode_atts(array( 'id' => '' ), $atts ));
+	extract(shortcode_atts(array( 'id' => '', 'title' => false ), $atts ));
 	
 	$id -=1;
 	
 	$doctors = get_option('wm4d_doctors');
+	$titles = get_option('wm4d_docs_titles');
 	
-	if($atts =='') {
-		$alldoctors = '';
-		$maxdoctors = count($doctors);
-		$i = 0;
-	   foreach( $doctors as $d ) {
-		   if ( $i == 0 ) {
-			   $alldoctors .= $doctors[$i].', ';
-		   } else if ($i == $maxdoctors-1) {
-			   $alldoctors .= $doctors[$i];
-		   } else {
-			   $alldoctors .= $doctors[$i].', ';
-			   }
-		   $i++;
-	   }
-	   return $alldoctors;
-	} else {
-		return $doctors[$id];
+	switch($title) {
+		case false: 
+			if ($id == -1) {
+				$alldoctors = '';
+				$maxdoctors = count($doctors);
+				$i = 0;
+				foreach( $doctors as $d ) {
+				   if ( $i == 0 ) {
+					   $alldoctors .= $doctors[$i].', ';
+				   } else if ($i == $maxdoctors-1) {
+					   $alldoctors .= $doctors[$i];
+				   } else {
+					   $alldoctors .= $doctors[$i].', ';
+					   }
+				   $i++;
+				}
+				return $alldoctors;
+			} else {
+				return $doctors[$id];
+			}
+		case true:
+			if ($id == -1) {
+				$alldoctors = '';
+				$maxdoctors = count($doctors);
+				$i = 0;
+				foreach( $doctors as $d ) {
+					if ( $i == 0 ) {
+					   $alldoctors .= $doctors[$i].', '.$titles[$i].', ';
+					} else if ($i == $maxdoctors-1) {
+					   $alldoctors .= $doctors[$i].', '.$titles[$i];
+					} else {
+					   $alldoctors .= $doctors[$i].', '.$titles[$i].', ';
+					   }
+					$i++;
+				}
+				return $alldoctors;
+			} else {
+				$name = $doctors[$id];
+				$title = $titles[$id];
+				$doctor = $name . ', ' . $title;
+				return $doctor;
+			}
 	}
 }
 
@@ -202,8 +238,6 @@ function special_offer($atts){
 	$special_offer .= do_shortcode('[gravityform id="'. $extend_form_id . '" ajax="true"]');
 	$special_offer .= '</div>';
 	$special_offer .= '</div>';
-
-	wp_reset_postdata();
 	
 	return $special_offer;
 }
@@ -235,8 +269,6 @@ function testimonials( $atts ) {
 	$testimonials .= '<a href="#"><span id="next">Next</span></a>';
 	$testimonials .= '</div>';
 	$testimonials .= '</div>';
-
-	wp_reset_postdata();
 	
 	return $testimonials;
 }
@@ -263,8 +295,6 @@ function before_afters( $atts ) {
 	$bna .= '</div>';
 	$bna .= '</div>';
 	
-	wp_reset_postdata();
-
 	return $bna;
 }
 
@@ -289,8 +319,6 @@ function office_images( $atts ) {
 	$office .=  '<a href="#"><span id="office-images-next">Next</span></a>';
 	$office .= '</div>';
 	$office .= '</div>';
-	
-	wp_reset_postdata();
 
 	return $office;
 }

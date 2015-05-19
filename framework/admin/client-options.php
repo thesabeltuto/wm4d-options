@@ -3,6 +3,7 @@
 function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
 	WM4D_OPTIONS_PLUGIN_selection();
 	if ( get_option('wm4d_doctors') == '' ) $wm4d_doctors = '';  else $wm4d_doctors = get_option('wm4d_doctors');
+	if ( get_option('wm4d_docs_titles') == '' ) $wm4d_docs_titles = '';  else $wm4d_docs_titles = get_option('wm4d_docs_titles');
 	if ( get_option('wm4d_locations') == '' ) $wm4d_locations = '';  else $wm4d_locations = get_option('wm4d_locations');
 	if ( get_option('wm4d_phones') == '' ) $wm4d_phones = ''; else $wm4d_phones = get_option('wm4d_phones'); //get_option('wm4d_phones'); //explode("\n",get_option('wm4d_phones'));
 	if ( get_option('wm4d_phones_loc') == '' ) $wm4d_phones_loc = ''; else $wm4d_phones_loc = get_option('wm4d_phones_loc'); //get_option('wm4d_phones'); //explode("\n",get_option('wm4d_phones'));
@@ -61,6 +62,12 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                     <input name="wm4d_doctor" type="text" size="60" value="<?php echo get_option('wm4d_doctor'); ?>" />
                     <br />Enter the Doctor's Name here.
                     </div>
+                    
+                    <div class="wm4d_section">
+                    <h3>Doctor's Titles</h3>
+                    <input name="wm4d_doc_titles" type="text" size="60" value="<?php echo get_option('wm4d_doc_titles'); ?>" />
+                    <br />Enter the Doctor's Titles here.
+                    </div>
     
                     <div class="wm4d_section">
                     <h3>Phone Number</h3>
@@ -94,6 +101,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                         <thead>
                             <th>ID</th>
                             <th>Doctor's Name</th>
+                            <th>Doctor's Titles</th>
                             <th><input type="button" class="wm4d_add wm4d_doctors_add" id="wm4d_doctors_add" name="wm4d_primary_add" value="+"  /> </th>
                         </thead>
                     <?php
@@ -102,6 +110,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                         <tr id="doctors_<?=$id?>">
                             <td><input type="text" readonly="readonly" name="wm4d_doctors_id" value="<?=$id?>" size="1" tabindex="-1"/></td>
                             <td><input type="text" name="wm4d_doctors[]" value="<?=$wm4d_doctors[$i]?>" size="48"/></td>
+                            <td><input type="text" name="wm4d_docs_titles[]" value="<?=$wm4d_docs_titles[$i]?>" size="20"/></td>
                             <td><input type="button" class="wm4d_remove wm4d_doctors_remove" name="wm4d_doctors_remove" value="-"  tabindex="-1"></td>
                         </tr>
                     <?php } ?>
@@ -193,6 +202,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                 <h3>Single Information</h3>
                     <ol>
                         <li><strong>Doctor's Name:</strong> `[doctor_name]`</li>
+                        <li><strong>Doctor's Name with Title:</strong> `[doctor_name title="true"]`</li>
                         <li><strong>Phone Number:</strong> `[phone_number]`</li>
                         <li><strong>Office Location:</strong> `[location]`</li>
                         <li><strong>Short Location:</strong> `[location short="true"]`</li>
@@ -204,7 +214,9 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                         <li><strong>Doctors' Names:</strong>
                             <ol>
                                 <li>Show all: `[doctor_names]`</li>
-                                <li>Show specific Doctor's Name: `[doctor_names id="#"]`</li>
+                                <li>Show all with Title: `[doctor_names title="true"]`</li>
+								<li>Show specific Doctor's Name: `[doctor_names id="#"]`</li>
+								<li>Show specific Doctor's Name with Title: `[doctor_names id="#" title="true"]`</li>
                             </ol>
                         </li>
                         

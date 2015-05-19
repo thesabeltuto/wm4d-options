@@ -25,15 +25,18 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
                 <p><strong>Enable / Disable International Phone Format</strong> is where you enable or disable the international phone format which is +99 (999) 999-9999. Standard phone format is (999) 999-9999.</p>
 				<?php //PRIMARY SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
-                <p><strong>Doctor's Name</strong> is where you enter the star Doctor's name and his/her corresponding titles. HTML tags are not advisable. Shortcode is `[doctor_name]`.</p>
+                <p><strong>Doctor's Name</strong> is where you enter the star Doctor's name only. HTML tags are not advisable. Shortcode is `[doctor_name]`.</p>
+                <p><strong>Doctor's Titles</strong> is where you enter the star Doctor's corresponding titles only. HTML tags are not advisable. Shortcode for the doctor's name with title is `[doctor_name title="true"]`.</p>
                 <p><strong>Phone Number</strong> is where you enter the main phone number of the office. HTML tags are not advisable. Shortcode is `[phone_number]`.</p>
                 <p><strong>Office Location</strong> is where you enter the location of the office. You may enter up to 4 address lines here. HTML tags are not advisable. Shortcode is `[location short="true"]`.</p>
                 <p><strong>Short Location</strong> is where you enter the short version of the office. HTML tags are not advisable. Shortcode is `[location]`.</p>
 				<?php } ?>
 				<?php //MULTIPLE SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') == 'enable') { ?>
-                <p><strong>Doctors' Names</strong> is where you enter multiple Doctors' names and their corresponding titles. HTML tags are not advisable.
+                <p><strong>Doctors' Names</strong> is where you enter multiple Doctors' names only. HTML tags are not advisable.
                 Shortcodes are `[doctor_names]` to show all doctors' names and `[doctor_names id="#"]` enter a number in `#` to show specific doctor.
+                <p><strong>Doctors' Titles</strong> is where you enter multiple Doctors' corresponding titles only. HTML tags are not advisable.
+                Shortcodes are `[doctor_names title="true"]` to show all doctors' names with titles and `[doctor_names id="#" title="true"]` enter a number in `#` to show specific doctor's name with titles.
                 <p><strong>Phone Numbers by Location</strong> is where you enter multiple phone numbers with corresponding locations.
                 Please do assign each phone numbers with corresponding short name of office location. HTML tags are not advisable.
                 Shortcodes are `[phone_numbers]` to show all phone numbers and `[phone_numbers id="#"]` enter a number in `#` to show specific phone numbers by location.

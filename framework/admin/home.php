@@ -10,9 +10,11 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
 	if ( get_option('wm4d_footer') == ''  ) $footvalue='currently <span class="empty">empty</span>'; else $footvalue='<span class="filled">filled</span>';
 	if ( get_option('wm4d_client') == ''  ) $wm4d_client='currently <span class="empty">empty</span>'; else $wm4d_client=get_option('wm4d_client');
 	if ( get_option('wm4d_doctor') == ''  ) $wm4d_doctor='currently <span class="empty">empty</span>'; else $wm4d_doctor=get_option('wm4d_doctor');
+	if ( get_option('wm4d_doc_titles') == ''  ) $wm4d_doc_titles='currently <span class="empty">empty</span>'; else $wm4d_doc_titles=get_option('wm4d_doc_titles');
 	if ( get_option('wm4d_phone') == ''  ) $wm4d_phone='currently <span class="empty">empty</span>'; else $wm4d_phone=get_option('wm4d_phone');
 	if ( get_option('wm4d_location') == ''  ) $wm4d_location='currently <span class="empty">empty</span>'; else $wm4d_location=get_option('wm4d_location');
 	if ( get_option('wm4d_doctors') == ''  ) $wm4d_doctors='is currently <span class="empty">empty</span>'; else $wm4d_doctors="are:";
+	if ( get_option('wm4d_docs_titles') == ''  ) $wm4d_docs_titles='is currently <span class="empty">empty</span>'; else $wm4d_docs_titles="are:";
 	if ( get_option('wm4d_phones') == ''  ) $wm4d_phones='is currently <span class="empty">empty</span>'; else $wm4d_phones="are:";
 	if ( get_option('wm4d_locations') == ''  ) $wm4d_locations='is currently <span class="empty">empty</span>'; else $wm4d_locations="are:";
 	if ( get_option('wm4d_practice') == ''  ) $wm4d_practice='currently <span class="empty">empty</span>'; else $wm4d_practice=get_option('wm4d_practice');
@@ -52,17 +54,18 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
                     <li>Currently Active: <?=$wm4d_multiple_select; ?>.</li>
                     <li>Phone Format is <?=$wm4d_phone_format_select; ?>.</li>
                     <?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
-                    <li>Doctor's Name is <?=$wm4d_doctor; ?>.</li>
+                    <li>Doctor's Name with Titles:<br /> <?=$wm4d_doctor.', '.$wm4d_doc_titles; ?>.</li>
                     <li>Phone Number is <?=$wm4d_phone; ?>.</li>
                     <li>Office Location is:<br /><?=nl2br($wm4d_location); ?>.</li>
                     <?php } ?>
                     <?php if ( get_option('wm4d_multiple_select') == 'enable' ) { ?>
-                    <li>Doctors' Names <?=$wm4d_doctors;
+                    <li>Doctors' Names with Titles <?=$wm4d_doctors;
 						$doctors = get_option('wm4d_doctors');
+						$titles = get_option('wm4d_docs_titles');
 					   if($doctors != '') {
 						   echo '<ol>';
 						   for($i = 0; $i < sizeof($doctors);$i++) {
-							   echo '<li>'.$doctors[$i].'</li>';
+							   echo '<li>'.$doctors[$i].', '.$titles[$i].'</li>';
 						   }
 						   echo '</ol>';
 					   }

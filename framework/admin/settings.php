@@ -60,11 +60,13 @@ function WM4D_OPTIONS_PLUGIN_register_client_options() {
 	register_setting( 'wm4d-client-group', 'wm4d_client' );
 
 	register_setting( 'wm4d-client-group', 'wm4d_doctor' );
+	register_setting( 'wm4d-client-group', 'wm4d_doc_titles' );
 	register_setting( 'wm4d-client-group', 'wm4d_phone' );
 	register_setting( 'wm4d-client-group', 'wm4d_location' );
 	register_setting( 'wm4d-client-group', 'wm4d_location_short' );
 	
 	register_setting( 'wm4d-client-group', 'wm4d_doctors' );
+	register_setting( 'wm4d-client-group', 'wm4d_docs_titles' );
 	register_setting( 'wm4d-client-group', 'wm4d_phones' );
 	register_setting( 'wm4d-client-group', 'wm4d_locations' );
 
