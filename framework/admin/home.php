@@ -180,14 +180,18 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
                     <li>Practice Name: `[practice_name]`</li>
                     <?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
                     <li>Doctor's Name: `[doctor_name]`</li>
+                    <li>Doctor's Name with Titles: `[doctor_name title="true"]`</li>
                     <li>Phone Number: `[phone_number]`</li>
                     <li>Office Location: `[location]`</li>
+                    <li>Office Location Short: `[location short="true"]`</li>
                     <?php } ?>
                     <?php if ( get_option('wm4d_multiple_select') == 'enable' ) { ?>
                     <li>Doctors' Names:
                         <ol>
                             <li>Show all: `[doctor_names]`</li>
                             <li>Show specific Doctor's name: `[doctor_names id="#"]`</li>
+                            <li>Show all with titles: `[doctor_names title="true"]`</li>
+                            <li>Show specific Doctor's name with titles: `[doctor_names id="#" title="true"]`</li>
                         </ol>
                     </li>
                     
