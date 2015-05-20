@@ -261,6 +261,7 @@ function testimonials( $atts ) {
 		$testimonials .= '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
 		$testimonials .= '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
 	endwhile;
+	wp_reset_query();
 		
 	$testimonials .= '</div>';
 	$testimonials .= '<div id="testimonial-nav">';
@@ -287,6 +288,7 @@ function before_afters( $atts ) {
 	while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
 		$bna .= the_post_thumbnail();
 	endwhile;
+	wp_reset_query();
 		
 	$bna .= '</ul>';
 	$bna .= '<div id="before-after-nav">';
@@ -312,6 +314,7 @@ function office_images( $atts ) {
 	while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
 		$office .= the_post_thumbnail();
 	endwhile;
+	wp_reset_query();
 		
 	$office .= '</ul>';
 	$office .= '<div id="office-images-nav">';
