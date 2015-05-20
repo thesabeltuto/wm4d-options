@@ -214,24 +214,38 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                         <li><strong>Doctors' Names:</strong>
                             <ol>
                                 <li>Show all: `[doctor_names]`</li>
-                                <li>Show all with Title: `[doctor_names title="true"]`</li>
-								<li>Show specific Doctor's Name: `[doctor_names id="#"]`</li>
-								<li>Show specific Doctor's Name with Title: `[doctor_names id="#" title="true"]`</li>
+                                <li>Show all with titles: `[doctor_names title="true"]`</li>
+                                <li>Show all in a sentence: `[doctor_names and="true"]`</li>
+                                <li>Show all with titles in a sentence: `[doctor_names title="true" and="true"]`</li>
+                                <li>Show specific Doctor's name: `[doctor_names id="#"]`</li>
+                                <li>Show specific Doctor's name with titles: `[doctor_names id="#" title="true"]`</li>
+                                <li>Show number of Doctor: `[doctor_names count="true"]`</li>
                             </ol>
                         </li>
                         
                         <li><strong>Phone Numbers by Location:</strong>
                             <ol>
                                 <li>Show all: `[phone_numbers]`</li>
-                                <li>Show specific Phone Number and Location: `[phone_numbers id="#"]`</li>
-                                <li>Show specific Phone Number: `[phone_numbers id="#" only="phone"]`</li>
+                                <li>Show all phone numbers: `[phone_numbers only="phone"]`</li>
+                                <li>Show all locations: `[phone_numbers only="location"]`</li>
+                                <li>Show all in a sentence: `[phone_numbers and="true"]`</li>
+                                <li>Show all phone numbers in a sentence: `[phone_numbers only="phone" and="true"]`</li>
+                                <li>Show all locations in a sentence: `[phone_numbers only="location" and="true"]`</li>
+                                <li>Show specific Phone number and location: `[phone_numbers id="#"]`</li>
+                                <li>Show specific Phone number: `[phone_numbers id="#" only="phone"]`</li>
                                 <li>Show specific Location: `[phone_numbers id="#" only="location"]`</li>
+                                <li>Show number of phones: `[phone_numbers count="true"]`</li>
                            </ol>
                         </li>
                         <li><strong>Office Locations:</strong>
                             <ol>
                                 <li>Show all: `[locations]`</li>
+                                <li>Show all short locations: `[locations short="true"]`</li>
+                                <li>Show all in a sentence: `[locations and="true"]`</li>
+                                <li>Show all short locations in a sentence: `[locations short="true" and="true"]`</li>
                                 <li>Show specific Location: `[locations  id="#"]`</li>
+                                <li>Show specific Short location: `[locations  id="#" short="true" ]`</li>
+                                <li>Show number of locations: `[locations count="true"]`</li>
                             </ol>
                         </li>
                   </ol>

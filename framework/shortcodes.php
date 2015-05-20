@@ -52,13 +52,13 @@ function wm4d_client( $atts ){
 }
 
 function wm4d_doctor( $atts ){
-	extract(shortcode_atts(array( 'title' => false ), $atts ));
+	extract(shortcode_atts(array( 'title' => '' ), $atts ));
 
-	if($atts == true ) {
+	if($title == true ) {
 		$name = get_option('wm4d_doctor');
-		$title = get_option('wm4d_doc_titles');
+		$titles = get_option('wm4d_doc_titles');
 		
-		$wm4d_doctor = $name .', '. $title;
+		$wm4d_doctor = $name .', '. $titles;
 	} else {
 		$wm4d_doctor = get_option('wm4d_doctor');
 	}
@@ -72,8 +72,8 @@ function wm4d_phone( $atts ){
 }
 
 function wm4d_location( $atts ){
-	extract(shortcode_atts(array( 'short' => false ), $atts ));
-	if($atts == true) {
+	extract(shortcode_atts(array( 'short' => '' ), $atts ));
+	if($short == true) {
 		$wm4d_location = get_option('wm4d_location_short');
 	} else {
 		$wm4d_location = nl2br(get_option('wm4d_location'));
@@ -82,60 +82,73 @@ function wm4d_location( $atts ){
 }
 
 function wm4d_doctors( $atts ){
-	extract(shortcode_atts(array( 'id' => '', 'title' => false ), $atts ));
+	extract(shortcode_atts(array( 'id' => '', 'title' => '', 'and' => '', 'count' => '' ), $atts ));
 	
-	$id -=1;
+	$array_id = $id-1;
 	
 	$doctors = get_option('wm4d_doctors');
 	$titles = get_option('wm4d_docs_titles');
-	
-	switch($title) {
-		case false: 
-			if ($id == -1) {
-				$alldoctors = '';
-				$maxdoctors = count($doctors);
-				$i = 0;
-				foreach( $doctors as $d ) {
-				   if ( $i == 0 ) {
-					   $alldoctors .= $doctors[$i].', ';
-				   } else if ($i == $maxdoctors-1) {
-					   $alldoctors .= $doctors[$i];
-				   } else {
-					   $alldoctors .= $doctors[$i].', ';
-					   }
-				   $i++;
-				}
-				return $alldoctors;
-			} else {
-				return $doctors[$id];
-			}
-		case true:
-			if ($id == -1) {
-				$alldoctors = '';
-				$maxdoctors = count($doctors);
-				$i = 0;
-				foreach( $doctors as $d ) {
-					if ( $i == 0 ) {
-					   $alldoctors .= $doctors[$i].', '.$titles[$i].', ';
-					} else if ($i == $maxdoctors-1) {
-					   $alldoctors .= $doctors[$i].', '.$titles[$i];
-					} else {
-					   $alldoctors .= $doctors[$i].', '.$titles[$i].', ';
-					   }
-					$i++;
-				}
-				return $alldoctors;
-			} else {
-				$name = $doctors[$id];
-				$title = $titles[$id];
-				$doctor = $name . ', ' . $title;
-				return $doctor;
-			}
+	$alldoctors = '';
+	$maxdoctors = count($doctors);
+	$blast = $maxdoctors-1;
+	$blast2 = $maxdoctors-2;
+
+	if ( $and == true ) {
+		foreach( $doctors as $k => $v ) {
+		   if ( $k == 0 ) {
+			   $alldoctors .= $v.', ';
+			   $alldoctitles .= $v.', '.$titles[$k].', ';
+		   } elseif ($k == $blast) {
+			   $alldoctors .= $v;
+			   $alldoctitles .= $v.', '.$titles[$k];
+		   } elseif ($k == $blast2) {
+			   $alldoctors .= $v.' and ';
+			   $alldoctitles .= $v.', '.$titles[$k].' and ';
+		   } else {
+			   $alldoctors .= $v.', ';
+			   $alldoctitles .= $v.', '.$titles[$k].', ';
+		   }
+		}
+	} else {
+		foreach( $doctors as $k => $v ) {
+		   if ( $k == 0 ) {
+			   $alldoctors .= $v.', ';
+			   $alldoctitles .= $v.', '.$titles[$k].', ';
+		   } elseif ($k == $blast) {
+			   $alldoctors .= $v;
+			   $alldoctitles .= $v.', '.$titles[$k];
+		   } else {
+			   $alldoctors .= $v.', ';
+			   $alldoctitles .= $v.', '.$titles[$k].', ';
+		   }
+		}
 	}
+	
+	if ( $title == true ) {
+		if ($id == '') {
+			return $alldoctitles;
+		} else {
+			$name = $doctors[$array_id];
+			$title = $titles[$array_id];
+			$doctor = $name . ', ' . $title;
+			return $doctor;
+		}
+	} else {
+		if ( $count == true ) {
+			return $maxdoctors;
+		}
+		if ($id == '') {
+			return $alldoctors;
+		} else {
+			return $doctors[$array_id];
+		}
+	}
+	
+	
 }
 
 function wm4d_phones( $atts ){
-	extract(shortcode_atts(array( 'id' => '', 'only' => ''), $atts ));
+	extract(shortcode_atts(array( 'id' => '', 'only' => '', 'and' => '', 'count' => ''), $atts ));
 
 	$phonesdata = get_option('wm4d_phones');
 	$phonesdata_loc = get_option('wm4d_phones_loc');
@@ -144,60 +157,140 @@ function wm4d_phones( $atts ){
 	$array_id = $id -1;
 	
 	$allphones = '';
+	$onlyphones = '';
+	$onlylocs = '';
 	$maxphones = count($phonesdata);
+	$blast = $maxphones-1;
+	$blast2 = $maxphones-2;
 	$i = 0;
-	foreach( $phonesdata as $p ) {
-		$n = $i+1;
-		
-		if ( $i == 0 ) {
-		   $allphones .= $phonesdata[$i].' - '.$phonesdata_loc[$i].', ';
-		} elseif ($i == $maxphones-1) {
-		   $allphones .= $phonesdata[$i].' - '.$phonesdata_loc[$i].'';
-		} else {
-		   $allphones .= $phonesdata[$i].' - '.$phonesdata_loc[$i].', ';
+	
+	if ( $and == true ) {
+		foreach( $phonesdata as $k => $v ) {
+			if ( $k == 0 ) {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k].', ';
+			   $onlyphones .= $v.', ';
+			   $onlylocs .= $phonesdata_loc[$k].', ';
+			} elseif ($k == $blast) {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k];
+			   $onlyphones .= $v;
+			   $onlylocs .= $phonesdata_loc[$k];
+			} elseif ($k == $blast2) {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k].' and ';
+			   $onlyphones .= $v.' and ';
+			   $onlylocs .= $phonesdata_loc[$k].' and ';
+			} else {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k].', ';
+			   $onlyphones .= $v.', ';
+			   $onlylocs .= $phonesdata_loc[$k].', ';
+			}
 		}
-		$i++;
+	} else {
+		foreach( $phonesdata as $k => $v ) {
+			if ( $k == 0 ) {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k].', ';
+			   $onlyphones .= $v.', ';
+			   $onlylocs .= $phonesdata_loc[$k].', ';
+			} elseif ($k == $blast) {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k];
+			   $onlyphones .= $v;
+			   $onlylocs .= $phonesdata_loc[$k];
+			} else {
+			   $allphones .= $v.' - '.$phonesdata_loc[$k].', ';
+			   $onlyphones .= $v.', ';
+			   $onlylocs .= $phonesdata_loc[$k].', ';
+			}
+		}
 	}
 
-	if($id == '' ) {
-		return $allphones;
+	if( $only == 'phone' ) {
+		if($id != '' ) {
+			return $phonesdata[$array_id];
+		} else {
+			return $onlyphones;
+		}
 	}
-	if( $only == 'phone') {
-	   return $phonesdata[$array_id];
+	if( $only == 'location' ) {
+		if($id != '' ) {
+		   return $phonesdata_loc[$array_id];
+		} else {
+			return $onlylocs;
+		}
 	}
-	if( $only == 'location') {
-	   return $phonesdata_loc[$array_id];
+	else {
+		if($id != '' ) {
+			return $allphones;
+		} else {
+			return $phonesdata[$array_id].' - '.$phonesdata_loc[$array_id];
+		}
 	}
 	
-	else {
-		return $phonesdata[$array_id].' - '.$phonesdata_loc[$array_id];
+	if ( $count == true ) {
+		return 	$maxphones;
 	}
 }
 
 function wm4d_locations( $atts ){
-	extract(shortcode_atts(array( 'id' => '' ), $atts ));
+	extract(shortcode_atts(array( 'id' => '', 'count' => '', 'short' => '', 'and' => '' ), $atts ));
 
-	$id -=1;
+	$array_id = $id-1;
 
 	$locations = get_option('wm4d_locations');
+	$phones_loc = get_option('wm4d_phones_loc');
+	$alllocations = '';
+	$shortlocations = '';
+	$maxlocations = count($locations);
+	$blast = $maxlocations-1;
+	$blast2 = $maxlocations-2;
 	
-	if($atts =='') {
-		$alllocations = '';
-		$maxlocations = count($locations);
-		$i = 0;
-	   foreach( $locations as $l ) {
-		   if ( $i == 0 ) {
-			   $alllocations .= nl2br($locations[$i]).', ';
-		   } else if ($i == $maxlocations-1) {
-			   $alllocations .= nl2br($locations[$i]);
-		   } else {
-			   $alllocations .= nl2br($locations[$i]).', ';
+	if ($and == true) {
+		foreach( $locations as $k => $v ) {
+			if ( $k == 0 ) {
+			   $alllocations .= nl2br($v).', ';
+			   $shortlocations .= $phones_loc[$k].', ';
+			} elseif ($k == $blast) {
+			   $alllocations .= nl2br($v);
+			   $shortlocations .= $phones_loc[$k];
+			} elseif ($k == $blast2) {
+			   $alllocations .= nl2br($v).' and ';
+			   $shortlocations .= $phones_loc[$k].' and ';
+			} else {
+			   $alllocations .= nl2br($v).', ';
+			   $shortlocations .= $phones_loc[$k].', ';
 			   }
-		   $i++;
-	   }
-	   return $alllocations;
+		}
 	} else {
-		return nl2br($locations[$id]);
+		foreach( $locations as $k => $v ) {
+			if ( $k == 0 ) {
+			   $alllocations .= nl2br($v).', ';
+			   $shortlocations .= $phones_loc[$k].', ';
+			} elseif ($k == $blast) {
+			   $alllocations .= nl2br($v);
+			   $shortlocations .= $phones_loc[$k];
+			} else {
+			   $alllocations .= nl2br($v).', ';
+			   $shortlocations .= $phones_loc[$k].', ';
+			   }
+		}
+	}
+	
+	if ( $count == true) {
+		return $maxlocations;
+	} else {
+		if ($id == '') {
+			if ($short == '') {
+				return $alllocations;
+			} else {
+				return $shortlocations;
+			}
+		} else {
+			if ($short == '') {
+				$thelocation = nl2br($locations[$array_id]);	
+				return $thelocation;
+			} else {
+				$theshortlocation = $phones_loc[$array_id];	
+				return $thelocation;
+			}
+		}
 	}
 }
 
@@ -244,7 +337,7 @@ function special_offer($atts){
 
 function testimonials( $atts ) {
 	extract(shortcode_atts(array(
-		'title' => 'Testimonials',
+		'title' => '',
 		'all' => 'See All',
 		'url' => '/testimonials/'
 	), $atts ));
@@ -261,7 +354,7 @@ function testimonials( $atts ) {
 		$testimonials .= '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
 		$testimonials .= '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
 	endwhile;
-	wp_reset_query();
+	wp_reset_postdata();
 		
 	$testimonials .= '</div>';
 	$testimonials .= '<div id="testimonial-nav">';
@@ -275,7 +368,7 @@ function testimonials( $atts ) {
 }
 
 function before_afters( $atts ) {
-	extract(shortcode_atts(array( 'title' => 'Before and Afters' ), $atts ));
+	extract(shortcode_atts(array( 'title' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 	
@@ -286,9 +379,9 @@ function before_afters( $atts ) {
 	$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1);
 	$before_after_loop = new WP_Query($before_after_args);
 	while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
-		$bna .= the_post_thumbnail();
+		$bna .= get_the_post_thumbnail();
 	endwhile;
-	wp_reset_query();
+	//wp_reset_postdata();
 		
 	$bna .= '</ul>';
 	$bna .= '<div id="before-after-nav">';
@@ -301,7 +394,7 @@ function before_afters( $atts ) {
 }
 
 function office_images( $atts ) {
-	extract(shortcode_atts(array( 'title' => 'Office Images' ), $atts ));
+	extract(shortcode_atts(array( 'title' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 
@@ -312,10 +405,10 @@ function office_images( $atts ) {
 	$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1);
 	$office_images_loop = new WP_Query($office_images_args);
 	while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
-		$office .= the_post_thumbnail();
+		$office .= get_the_post_thumbnail();
 	endwhile;
-	wp_reset_query();
-		
+	wp_reset_postdata();
+	
 	$office .= '</ul>';
 	$office .= '<div id="office-images-nav">';
 	$office .= '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
