@@ -21,27 +21,30 @@ function WM4D_OPTIONS_PLUGIN_submenu_page_options() {
             <hr />
             <p>Enabling this will activate the WM4D functions, custom posts and widgets in your site.
             </p>
-
-			<h2>Page Texts</h2>
-            <hr />
-			<?php WM4D_OPTIONS_PLUGIN__page_option_post_types(); ?>    
-			<div class="wm4d_section">
-			<h3>Before and Afters Page Text</h3>
-            <textarea type="text" name="wm4d_before_afters" rows="7" cols="60" /><?php echo get_option('wm4d_before_afters'); ?></textarea>
-            <br />Enter your desired text for Before and Afters archive page.
-            </div>
-
-			<div class="wm4d_section">
-			<h3>Testimonials Page Text</h3>
-            <textarea type="text" name="wm4d_testimonials" rows="7" cols="60" /><?php echo get_option('wm4d_testimonials'); ?></textarea>
-            <br />Enter your desired text for Testimonials archive page.
-            </div>
-
-			<div class="wm4d_section">
-			<h3>Office Images Page Text</h3>
-            <textarea type="text" name="wm4d_office_images" rows="7" cols="60" /><?php echo get_option('wm4d_office_images'); ?></textarea>
-            <br />Enter your desired text for Office Images archive page.
-            </div>
+		
+			<?php if ( get_option('wm4d_functions_select') == 'enable' ) { ?>
+                <h2>Page Texts</h2>
+                <hr />
+                <?php WM4D_OPTIONS_PLUGIN__page_option_post_types(); ?>    
+                <div class="wm4d_section">
+                <h3>Before and Afters Page Text</h3>
+                <textarea type="text" name="wm4d_before_afters" rows="7" cols="60" /><?php echo get_option('wm4d_before_afters'); ?></textarea>
+                <br />Enter your desired text for Before and Afters archive page.
+                </div>
+    
+                <div class="wm4d_section">
+                <h3>Testimonials Page Text</h3>
+                <textarea type="text" name="wm4d_testimonials" rows="7" cols="60" /><?php echo get_option('wm4d_testimonials'); ?></textarea>
+                <br />Enter your desired text for Testimonials archive page.
+                </div>
+    
+                <div class="wm4d_section">
+                <h3>Office Images Page Text</h3>
+                <textarea type="text" name="wm4d_office_images" rows="7" cols="60" /><?php echo get_option('wm4d_office_images'); ?></textarea>
+                <br />Enter your desired text for Office Images archive page.
+                </div>
+            <?php } ?>
+        
     		<?php submit_button(); ?>
 		</div>
 	</form>
