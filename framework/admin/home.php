@@ -219,7 +219,7 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
                             <li>Show all in a sentence: `[locations and="true"]`</li>
                             <li>Show all short locations in a sentence: `[locations short="true" and="true"]`</li>
                             <li>Show specific Location: `[locations  id="#"]`</li>
-                            <li>Show specific Short location: `[locations  id="#" short="true" ]`</li>
+                            <li>Show specific Short location: `[locations  id="#" short="true"]`</li>
                             <li>Show number of locations: `[locations count="true"]`</li>
                         </ol>
                     </li>

@@ -95,10 +95,7 @@ function wm4d_doctors( $atts ){
 
 	if ( $and == true ) {
 		foreach( $doctors as $k => $v ) {
-		   if ( $k == 0 ) {
-			   $alldoctors .= $v.', ';
-			   $alldoctitles .= $v.', '.$titles[$k].', ';
-		   } elseif ($k == $blast) {
+		   if ($k == $blast) {
 			   $alldoctors .= $v;
 			   $alldoctitles .= $v.', '.$titles[$k];
 		   } elseif ($k == $blast2) {
@@ -111,10 +108,7 @@ function wm4d_doctors( $atts ){
 		}
 	} else {
 		foreach( $doctors as $k => $v ) {
-		   if ( $k == 0 ) {
-			   $alldoctors .= $v.', ';
-			   $alldoctitles .= $v.', '.$titles[$k].', ';
-		   } elseif ($k == $blast) {
+		   if ($k == $blast) {
 			   $alldoctors .= $v;
 			   $alldoctitles .= $v.', '.$titles[$k];
 		   } else {
@@ -166,11 +160,7 @@ function wm4d_phones( $atts ){
 	
 	if ( $and == true ) {
 		foreach( $phonesdata as $k => $v ) {
-			if ( $k == 0 ) {
-			   $allphones .= $v.' - '.$phonesdata_loc[$k].', ';
-			   $onlyphones .= $v.', ';
-			   $onlylocs .= $phonesdata_loc[$k].', ';
-			} elseif ($k == $blast) {
+			if ($k == $blast) {
 			   $allphones .= $v.' - '.$phonesdata_loc[$k];
 			   $onlyphones .= $v;
 			   $onlylocs .= $phonesdata_loc[$k];
@@ -186,11 +176,7 @@ function wm4d_phones( $atts ){
 		}
 	} else {
 		foreach( $phonesdata as $k => $v ) {
-			if ( $k == 0 ) {
-			   $allphones .= $v.' - '.$phonesdata_loc[$k].', ';
-			   $onlyphones .= $v.', ';
-			   $onlylocs .= $phonesdata_loc[$k].', ';
-			} elseif ($k == $blast) {
+			if ($k == $blast) {
 			   $allphones .= $v.' - '.$phonesdata_loc[$k];
 			   $onlyphones .= $v;
 			   $onlylocs .= $phonesdata_loc[$k];
@@ -244,10 +230,7 @@ function wm4d_locations( $atts ){
 	
 	if ($and == true) {
 		foreach( $locations as $k => $v ) {
-			if ( $k == 0 ) {
-			   $alllocations .= nl2br($v).', ';
-			   $shortlocations .= $phones_loc[$k].', ';
-			} elseif ($k == $blast) {
+			if ($k == $blast) {
 			   $alllocations .= nl2br($v);
 			   $shortlocations .= $phones_loc[$k];
 			} elseif ($k == $blast2) {
@@ -260,10 +243,7 @@ function wm4d_locations( $atts ){
 		}
 	} else {
 		foreach( $locations as $k => $v ) {
-			if ( $k == 0 ) {
-			   $alllocations .= nl2br($v).', ';
-			   $shortlocations .= $phones_loc[$k].', ';
-			} elseif ($k == $blast) {
+			if ($k == $blast) {
 			   $alllocations .= nl2br($v);
 			   $shortlocations .= $phones_loc[$k];
 			} else {
@@ -284,11 +264,11 @@ function wm4d_locations( $atts ){
 			}
 		} else {
 			if ($short == '') {
-				$thelocation = nl2br($locations[$array_id]);	
+				$thelocation = nl2br($locations[$array_id]);
 				return $thelocation;
 			} else {
 				$theshortlocation = $phones_loc[$array_id];	
-				return $thelocation;
+				return $theshortlocation;
 			}
 		}
 	}
