@@ -117,8 +117,10 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                     <div class="wm4d_table_wrap_foot_left">Link: <input type="text" readonly="readonly" value="<?=$domain.$wm4d_flipper_referers[$i]?>" size="48"/></div>
                     <div class="wm4d_table_wrap_foot_right"><input type="button" class="wm4d_add wm4d_trigger_submit" name="submit" value="Save Changes"  /></div>
                     </div>
+                    </div>
                     <?php /*?></div><?php */?>
                 <?php } ?>
+                    <div class="clear"></div>
                 </div>
 				<?php } ?>
  				<?php //MULTIPLE SELETED ?>
@@ -160,14 +162,16 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                     <div class="wm4d_table_wrap_foot_left">Link: <input type="text" readonly="readonly" value="<?=$domain.$wm4d_flipper_referers[$i]?>" size="48"/></div>
                     <div class="wm4d_table_wrap_foot_right"><input type="button" class="wm4d_add wm4d_trigger_submit" name="submit" value="Save Changes"  /></div>
                     </div>
-                <?php } // for referers?>                 
+                    </div>
+                <?php } // for referers?> 
+                <div class="clear"></div>                
                 </div>   
                 <?php } //if multiple selected ?>
       		<?php submit_button(); ?>
             </div>
         </form>
 	</div>
-
+<style>#wpfooter { position: inherit!important; }</style>
 <?php
 }
 
