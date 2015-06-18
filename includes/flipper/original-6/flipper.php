@@ -5,7 +5,7 @@ add_action( 'wp_ajax_nopriv_get_flipper_js', 'flipper_get_js');
 add_action( 'wp_ajax_get_flipper_js', 'flipper_get_js');
 
 function flipper_get_keep_cookie() {
-	$keep_cookie=true;
+	$keep_cookie=false;
 	return $keep_cookie;
 }
 function flipper_adding_scripts() {
@@ -34,29 +34,50 @@ if (get_option('wm4d_flipper_select')=="enable") {
 //	echo  $_COOKIE['ref'];
 };
 */
-//print_r($_COOKIE);
+//print_r($_COOKIE['ref']);
 
 
-//if (preg_match("/master-play/im",$_SERVER['HTTP_HOST'])) 
+
 add_filter("gform_pre_submission_filter", "flipper_add_wm4d_rid");
 
 function flipper_add_wm4d_rid($form) {
-	$in = serialize(array('ref'=>$_COOKIE['ref'],'time'=>time()));
-	$cr=flipper_wm4d_rid_encode($in);
-	$out="[{WM4D Record ID: ".$cr."}]";
-	foreach ($form['notifications'] as $id=>$nt) {
-		if ($nt['name']=='Admin Notification') {
-			$form['notifications'][$id]['message'].="<br>\n$out";
-		}
+	if (preg_match("/master-play/im",$_SERVER['HTTP_HOST'])) {
+		session_start();
+		$in = serialize(array('ref'=>$_COOKIE['ref'],'time'=>time(),'_referer'=>$_SERVER['HTTP_REFERER']));
+		$cr=$in;
+
+		print_r($GLOBALS);
+		print_r($in);
+		exit;
+	} else {
+			$in = serialize(array('ref'=>$_COOKIE['ref'],'time'=>time(),'_referer'=>$_SERVER['HTTP_REFERER']));
+			$cr=flipper_wm4d_rid_encode($in);
 	};
+	$out="[{WM4D Record ID: ".$cr."}]";
+	if (isset($form['notifications'])) // for new multisite gf
+		foreach ($form['notifications'] as $id=>$nt) {
+			if ($nt['name']=='Admin Notification') {
+				$form['notifications'][$id]['message'].="<br>\n$out";
+			}
+		};
+
+	if (isset($form['notification'])) // For Old Multisite - gf
+//		foreach ($form['notifications'] as $id=>$nt) {
+//			if ($nt['name']=='Admin Notification') {
+				$form['notification']['message'].="<br>\n$out";
+//			}
+//		};
+/*
+	if (preg_match("/pembroke-pines-comprehensive-dentistry/im",$_SERVER['HTTP_HOST'])) {
+		print_r($form);exit;
+	};
+*/	
 	return $form;
 
 //	print_r($form);exit;
 //	print_r(unserialize(flipper_wm4d_rid_decode($cr)));
 //	echo $out;//exit;
 }
-
-
 
 function flipper_get_replace1() {
 	$res=array();
@@ -102,9 +123,18 @@ function flipper_format_phone($in) {
 }
 
 function flipper_get_all() {
-	if (get_option('wm4d_multiple_select')!='enable' )
+	if (get_option('wm4d_multiple_select')!='enable' ) {		
 		$res=flipper_get_replace1();
-	else {
+		foreach ($res as $ref=>$row) {
+			foreach ($row as $k=>$v) {
+				unset($res[$ref][$k]);
+				if ($v!="") 
+					$res[$ref][flipper_clean_phone($k)] = flipper_format_phone($v);
+			};
+			
+		};
+//	print_r($res);exit;
+	} else {
 		
 		$tmp2 = flipper_get_replace_many();
 
@@ -224,7 +254,7 @@ function flipper_do_api_request($options=array()) {
 //	print_r($_SERVER['HTTP_HOST']);	
 	$domain=$_SERVER['HTTP_HOST'];
 //	$domain="dentistofnorcross.com";
-//	$domain="invisalign-in-toronto.com";
+//	$domain="http://miamibreastreconstruction.com/";
 
 	$request="get_campaign_by_domain?k=$key&d=".urlencode($domain);
 //	echo $request;exit;

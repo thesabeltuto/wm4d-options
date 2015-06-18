@@ -27,6 +27,8 @@ jQuery(document).ready(function($) {
     
     
     update_on_select();
+    
+    referer_list_on_change();
 });
 
 
@@ -343,4 +345,31 @@ function  update_on_select() {
             jQuery(this).next().attr('value', hidden);
             });
         });
+}
+
+function referer_list_on_change() {
+	var flipnote = "Please SAVE the changes in the Referer List before you reset the flipper. <br />Please RELOAD if you want to cancel the changes.";
+    
+    jQuery('input.wm4d_referers_add').on('click', function() {
+        jQuery('div.flipnum').remove();
+        jQuery('div.flipnote').html(flipnote);
+        jQuery('div.flipnote').show();
+    });
+    
+    jQuery('input.wm4d_referer_remove').on('click', function() {
+        jQuery('div.flipnum').remove();
+        jQuery('div.flipnote').html(flipnote);
+        jQuery('div.flipnote').show();
+    });
+    
+	jQuery('tr[id^="referer_"]').each(function() {
+        var id = jQuery(this).attr('id').substr(8);
+    	
+        jQuery(this).children().next().children().change(function(){
+        	jQuery('div.flipnum').remove();
+            jQuery('div.flipnote').html(flipnote);
+            jQuery('div.flipnote').show();
+       });
+        
+    });
 }

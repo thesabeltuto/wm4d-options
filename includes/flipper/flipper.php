@@ -1,11 +1,33 @@
 <?php /* Flipper by Andrey */
 
+/*		$check = sha1( time() );
+
+$domain="www.ru";
+$domain="lebanon-nj-dentist.com";
+
+//		switch_to_blog( 1 );
+		$ajax_url = admin_url( 'admin-ajax.php' );
+		$ajax_url = str_replace( parse_url( $ajax_url, PHP_URL_HOST ), $domain, $ajax_url );
+//		restore_current_blog();
+		$response = wp_remote_request( add_query_arg( array(
+			'action' => 'domainmapping_heartbeat_check',
+			'check'  => $check,
+		), $ajax_url ), array( 'sslverify' => false ) );
+
+		print_r($response);exit;
+*/
+//		$status = !is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) == 200 && preg_replace('/\W*/', '', wp_remote_retrieve_body( $response ) ) == $check ? 1 : 0;
+//		$this->set_valid_transient( $domain, $status );
+//		print_r($status);exit;
+
+
+
 
 add_action( 'wp_ajax_nopriv_get_flipper_js', 'flipper_get_js');
 add_action( 'wp_ajax_get_flipper_js', 'flipper_get_js');
 
 function flipper_get_keep_cookie() {
-	$keep_cookie=true;
+	$keep_cookie=false;
 	return $keep_cookie;
 }
 function flipper_adding_scripts() {
@@ -34,29 +56,50 @@ if (get_option('wm4d_flipper_select')=="enable") {
 //	echo  $_COOKIE['ref'];
 };
 */
-//print_r($_COOKIE);
+//print_r($_COOKIE['ref']);
 
 
-//if (preg_match("/master-play/im",$_SERVER['HTTP_HOST'])) 
+
 add_filter("gform_pre_submission_filter", "flipper_add_wm4d_rid");
 
 function flipper_add_wm4d_rid($form) {
-	$in = serialize(array('ref'=>$_COOKIE['ref'],'time'=>time()));
-	$cr=flipper_wm4d_rid_encode($in);
-	$out="[{WM4D Record ID: ".$cr."}]";
-	foreach ($form['notifications'] as $id=>$nt) {
-		if ($nt['name']=='Admin Notification') {
-			$form['notifications'][$id]['message'].="<br>\n$out";
-		}
+	if (preg_match("/master-play/im",$_SERVER['HTTP_HOST'])) {
+		session_start();
+		$in = serialize(array('ref'=>$_COOKIE['ref'],'time'=>time(),'_referer'=>$_SERVER['HTTP_REFERER']));
+		$cr=$in;
+
+		print_r($GLOBALS);
+		print_r($in);
+		exit;
+	} else {
+			$in = serialize(array('ref'=>$_COOKIE['ref'],'time'=>time(),'_referer'=>$_SERVER['HTTP_REFERER']));
+			$cr=flipper_wm4d_rid_encode($in);
 	};
+	$out="[{WM4D Record ID: ".$cr."}]";
+	if (isset($form['notifications'])) // for new multisite gf
+		foreach ($form['notifications'] as $id=>$nt) {
+			if ($nt['name']=='Admin Notification') {
+				$form['notifications'][$id]['message'].="<br>\n$out";
+			}
+		};
+
+	if (isset($form['notification'])) // For Old Multisite - gf
+//		foreach ($form['notifications'] as $id=>$nt) {
+//			if ($nt['name']=='Admin Notification') {
+				$form['notification']['message'].="<br>\n$out";
+//			}
+//		};
+/*
+	if (preg_match("/pembroke-pines-comprehensive-dentistry/im",$_SERVER['HTTP_HOST'])) {
+		print_r($form);exit;
+	};
+*/	
 	return $form;
 
 //	print_r($form);exit;
 //	print_r(unserialize(flipper_wm4d_rid_decode($cr)));
 //	echo $out;//exit;
 }
-
-
 
 function flipper_get_replace1() {
 	$res=array();
@@ -102,9 +145,18 @@ function flipper_format_phone($in) {
 }
 
 function flipper_get_all() {
-	if (get_option('wm4d_multiple_select')!='enable' )
+	if (get_option('wm4d_multiple_select')!='enable' ) {		
 		$res=flipper_get_replace1();
-	else {
+		foreach ($res as $ref=>$row) {
+			foreach ($row as $k=>$v) {
+				unset($res[$ref][$k]);
+				if ($v!="") 
+					$res[$ref][flipper_clean_phone($k)] = flipper_format_phone($v);
+			};
+			
+		};
+//	print_r($res);exit;
+	} else {
 		
 		$tmp2 = flipper_get_replace_many();
 
@@ -136,6 +188,18 @@ function flipper_get_all() {
 
 }
 
+/*
+function flipper_get_phone() {
+	$items=array();
+	$kk=explode("\n",get_option('wm4d_phone'));
+	foreach ($kk as $it) {
+		$kkk=explode(":",$it);	
+		$items[]=array('phone'=>$kkk[0], 'ref'=>$kkk[1]);
+	};
+	return $items;	
+}
+*/
+
 function flipper_get_phones() {
 	$items=array();
 	$kk=get_option('wm4d_phones');
@@ -147,50 +211,50 @@ function flipper_get_phones() {
 }
 
 function flipper_get_referers() {
-////	echo get_option('wm4d_flipper_referers')=='';exit;
-//	if (get_option('wm4d_flipper_select')=='enable' && trim(get_option('wm4d_flipper_referers'))=='') {
-////		echo trim(get_option('wm4d_flipper_referers'))=='';exit;
-//		update_option('wm4d_flipper_referers',implode(", ",array('yahoo','bing','google','facebook')));
-////		echo get_option('wm4d_flipper_referers');
-//	}
+//	echo get_option('wm4d_flipper_referers')=='';exit;
+	if (get_option('wm4d_flipper_select')=='enable' && trim(get_option('wm4d_flipper_referers'))=='') {
+//		echo trim(get_option('wm4d_flipper_referers'))=='';exit;
+		update_option('wm4d_flipper_referers',implode(", ",array('yahoo','bing','google','facebook')));
+//		echo get_option('wm4d_flipper_referers');
+	}
 	$res=get_option('wm4d_flipper_referers');
 	foreach ($res as $i=>$r) $res[$i]=strtolower(trim($r)); 
 	return $res;
 }
 
-//function flipper_update_number() {
-////	echo "in";exit;
-//	$refs = flipper_get_referers();
-//	$phones = flipper_get_replace1();
-//	$out=array();
-//	foreach ($refs as $ref) {
-////	print_r("ref_{$ref}");
-//
-////		foreach ($phones as $i=>$phone) {
-////			$num=key($phone);
-//			if (isset($_POST["ref_${ref}"]) && $_POST["ref_${ref}"]!="") $out[]="{$ref}:".$_POST["ref_${ref}"];
-////		};
-//	};
-////	print_r(implode("\n", $out));exit;
-//	update_option("wm4d_flipper_phone", $out);
-////exit;
-//}
+function flipper_update_number() {
+//	echo "in";exit;
+	$refs = flipper_get_referers();
+	$phones = flipper_get_replace1();
+	$out=array();
+	foreach ($refs as $ref) {
+//	print_r("ref_{$ref}");
 
-//function flipper_update_numbers() {
-//	$refs = flipper_get_referers();
-//	$phones = flipper_get_phones();
-//	$out=array();
-////	print_r($refs);
-////exit;
-//	foreach ($refs as $ref) {
 //		foreach ($phones as $i=>$phone) {
-//			if (isset($_POST["ref_${ref}_index_".($i+1).""]) && $_POST["ref_${ref}_index_".($i+1).""]!="") $out[]="".($i+1).":{$ref}:".$_POST["ref_${ref}_index_".($i+1).""];
+//			$num=key($phone);
+			if (isset($_POST["ref_${ref}"]) && $_POST["ref_${ref}"]!="") $out[]="{$ref}:".$_POST["ref_${ref}"];
 //		};
-//	};
-////	print_r(implode("\n", $out));exit;
-//	update_option("wm4d_flipper_phones", $out);
-////exit;
-//}
+	};
+//	print_r(implode("\n", $out));exit;
+	update_option("wm4d_flipper_phone", $out);
+//exit;
+}
+
+function flipper_update_numbers() {
+	$refs = flipper_get_referers();
+	$phones = flipper_get_phones();
+	$out=array();
+//	print_r($refs);
+//exit;
+	foreach ($refs as $ref) {
+		foreach ($phones as $i=>$phone) {
+			if (isset($_POST["ref_${ref}_index_".($i+1).""]) && $_POST["ref_${ref}_index_".($i+1).""]!="") $out[]="".($i+1).":{$ref}:".$_POST["ref_${ref}_index_".($i+1).""];
+		};
+	};
+//	print_r(implode("\n", $out));exit;
+	update_option("wm4d_flipper_phones", $out);
+//exit;
+}
 
 function flipper_get_numbers() {
 	$res=json_decode(flipper_do_api_request());
@@ -212,7 +276,7 @@ function flipper_do_api_request($options=array()) {
 //	print_r($_SERVER['HTTP_HOST']);	
 	$domain=$_SERVER['HTTP_HOST'];
 //	$domain="dentistofnorcross.com";
-//	$domain="invisalign-in-toronto.com";
+//	$domain="http://miamibreastreconstruction.com/";
 
 	$request="get_campaign_by_domain?k=$key&d=".urlencode($domain);
 //	echo $request;exit;
@@ -223,24 +287,24 @@ function flipper_do_api_request($options=array()) {
 //	file_get_contents();
 }
 
-//if (isset($_POST['submit'])) {
-//
-//	if (isset($_POST['wm4d_referers'])){
-//		foreach ($_POST['wm4d_referers'] as $i=>$ref) {
-//				if ($ref=="") unset($_POST['wm4d_referers'][$i]);
-//		};
-//
-//		update_option("wm4d_flipper_referers", $_POST['wm4d_referers']);
-//	};
-////print_r(get_option('wm4d_flipper_referers'));exit;
-////	print_r($_POST['wm4d_select_options']=='primary');exit;
-//	if ($_POST['wm4d_select_options']=='primary') flipper_update_number();
-//	elseif ($_POST['wm4d_select_options']=='multiple') flipper_update_numbers();
-//
-////	print_r(implode(", ", $_POST['wm4d_referers']));exit;
-//
-////	exit;
-//};
+if (isset($_POST['submit'])) {
+
+	if (isset($_POST['wm4d_referers'])){
+		foreach ($_POST['wm4d_referers'] as $i=>$ref) {
+				if ($ref=="") unset($_POST['wm4d_referers'][$i]);
+		};
+
+		update_option("wm4d_flipper_referers", $_POST['wm4d_referers']);
+	};
+//print_r(get_option('wm4d_flipper_referers'));exit;
+//	print_r($_POST['wm4d_select_options']=='primary');exit;
+	if ($_POST['wm4d_select_options']=='primary') flipper_update_number();
+	elseif ($_POST['wm4d_select_options']=='multiple') flipper_update_numbers();
+
+//	print_r(implode(", ", $_POST['wm4d_referers']));exit;
+
+//	exit;
+};
 
 add_filter('gform_field_value_ref', 'capsure_ref');
 function capsure_ref($value){

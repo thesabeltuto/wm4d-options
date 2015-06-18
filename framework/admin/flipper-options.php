@@ -84,11 +84,12 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
                 <h2>Phone Numbers to Flip</h2>
                 <hr />
+                <div class="wm4d_section table flipnote"></div>
                 <?php
                 for($i = 0; $i < sizeof($wm4d_flipper_referers);$i++) {   
 					$size = strlen($wm4d_phone);
                 ?>              
-                <div class="wm4d_section table">
+                <div class="wm4d_section table flipnum">
                 <h3>Referer: <strong><?=$wm4d_flipper_referers[$i]?></strong></h3>
 
                     <div class="wm4d_table_wrap">
@@ -129,7 +130,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <hr />
                 <?php $x=0; // count index for selected campaign phones
 				for($i = 0; $i < sizeof($wm4d_flipper_referers);$i++) { ?>                
-                <div class="wm4d_section table">
+                <div class="wm4d_section table flipnum">
                 <h3>Referer: <strong><?=$wm4d_flipper_referers[$i]?></strong></h3>
                     <div class="wm4d_table_wrap">
                     <table id="multiple" border="0" cellspacing="0" cellpadding="8" class="wm4d_table_form">
@@ -167,6 +168,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <div class="clear"></div>                
                 </div>   
                 <?php } //if multiple selected ?>
+                                
       		<?php submit_button(); ?>
             </div>
         </form>

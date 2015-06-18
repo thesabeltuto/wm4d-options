@@ -86,7 +86,9 @@ var nFlipper = {
                     for (var key2 in this.rnr) {
                         this.fromNum = key2;
                         this.toNum = this.rnr[key2];
-    //                    console.log(""+key2+": "+this.toNum);
+//                        console.log(""+key2+": "+this.toNum);
+//                        console.log(phoneClean);
+
                         if (phoneClean == key2) {
 //                            console.log("Replacing "+found[j] + ' to '+this.toNum);
                             element.nodeValue = element.nodeValue.replace(found[j],this.toNum);
@@ -104,37 +106,45 @@ var nFlipper = {
 		if (ref!=null) {
 			var rn = this.getRefNumbers();
             if (rn.hasOwnProperty(ref)) {
-/*            	for (var key in rn[ref]) {
-					this.fromNum = key;
-					this.toNum = rn[ref][key];
-*/
 //                    console.log(rn[ref]);
 					this.rnr = rn[ref];
 					this.recurse(document.getElementsByTagName('html')[0]);
                     
-                    var links = document.getElementsByTagName("a");
-                    for(var j=0; j<links.length; j++) {
-                      for (var att, i = 0, atts = links[j].attributes, n = atts.length; i < n; i++){
-                          att = atts[i];
-                          
-                          found = att.nodeValue.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})([ .-]?)([0-9]{4})/ig);   
-                          if (found) {
-                              phoneClean = found[0].replace(/[^0-9]/g,"");
-                                        
-                              for (var key2 in this.rnr) {
-                                  this.fromNum = key2;
-                                  this.toNum = this.rnr[key2];
-              //                    console.log(""+key2+": "+this.toNum);
-                                  if (phoneClean == key2) {
-              //                        console.log("Replacing "+found[0] + ' to '+this.toNum);
-                                      links[j].attributes[i].nodeValue = att.nodeValue.replace(found[0],this.toNum);
-                                  }
-                              };
-                          };                                                  
-//                          links[j].attributes[i].nodeValue=att.nodeValue.replace(this.fromNum,this.toNum);
-                      }
-                    }
-//                };
+                    var searchAttr=[];
+                    searchAttr.push(document.getElementsByTagName("a"));
+                    searchAttr.push(document.getElementsByClassName("pointer"));
+//                    console.log(searchAttr.length);
+                    var links = null;
+//                    var links = document.getElementsByTagName("a");
+//                    for(var k=0; k<searchAttr.length; k++)
+                    while (searchAttr.length>0) {
+                        links = searchAttr.pop();
+//    	                console.log(searchAttr.length);
+
+//						console.log(links);                        
+                        for(var j=0; j<links.length; j++) {
+                          for (var att, i = 0, atts = links[j].attributes, n = atts.length; i < n; i++){
+                              att = atts[i];
+                              
+                              found = att.nodeValue.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})([ .-]?)([0-9]{4})/ig);   
+                              if (found) {
+//                              	  console.log(links[j].innerHTML);
+                                  phoneClean = found[0].replace(/[^0-9]/g,"");
+                                            
+                                  for (var key2 in this.rnr) {
+                                      this.fromNum = key2;
+                                      this.toNum = this.rnr[key2];
+//                                      console.log(""+key2+": "+this.toNum);
+                                      if (phoneClean == key2) {
+//                                          console.log("Replacing "+found[0] + ' to '+this.toNum);
+                                          links[j].attributes[i].nodeValue = att.nodeValue.replace(found[0],this.toNum);
+                                      }
+                                  };
+                              };                                                  
+    //                        links[j].attributes[i].nodeValue=att.nodeValue.replace(this.fromNum,this.toNum);
+                          }
+                        }
+                };
             };
 		};
 	}

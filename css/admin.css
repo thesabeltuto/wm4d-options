@@ -50,6 +50,8 @@
 
 .wm4d_wrap .wm4d_section.table {  display: inline-table; margin: 10px 20px 0 0; }
 
+.wm4d_wrap .wm4d_section.flipnote { display: none; }
+
 /** FOOTER AREA **/
 
 .wm4d_wrap .wm4d_footer { background: #2ea2cc; margin: 20px 0 0 0; padding: 8px 8px 8px 20px; border-top: 8px solid #1E8DBB; color: #fff; text-shadow: 1px 1px 1px #1D4E61; }
