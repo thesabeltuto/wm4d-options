@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228J
 Tags: wm4d
 Requires at least: 3.5.1
 Tested up to: 4.0
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,7 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 5. Major Fixes. New shortcodes for testimonials, before and afters and office images widgets.
 6. Additional shortcode attributes on client options - multiple information and shortcode fixes for widgets.
 7. Updated Flipper page and ajax.
+8. Fixed custom code to accept shortcode in the footer.
 
 == Upgrade notice ==
 
