@@ -531,20 +531,22 @@ class gsdental_before_after extends WP_Widget {
 		$before_after_title = apply_filters( 'widget_title', $instance['before_after_title'] );
 		
 		echo $before_widget;
-		echo '<h2 class="widget-title">'.$before_after_title.'</h2>';
-		echo '<ul id="before-after-cycle">';
-		
-		$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1);
-		$before_after_loop = new WP_Query($before_after_args);
-		while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
-			echo the_post_thumbnail();
-		endwhile;
-			
-		echo '</ul>';
-		echo '<div id="before-after-nav">';
-		echo '<a href="#"><span id="before-after-prev">Prev</span></a>'; 
-		echo  '<a href="#"><span id="before-after-next">Next</span></a>';
-		echo '</div>';
+        $before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1,'meta_key'=>'_thumbnail_id');
+        $before_after_loop = new WP_Query($before_after_args);
+        if($before_after_loop->found_posts>0) {
+            echo '<h2 class="widget-title">' . $before_after_title . '</h2>';
+            echo '<ul id="before-after-cycle">';
+            while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
+                echo the_post_thumbnail();
+            endwhile;
+            echo '</ul>';
+            if($before_after_loop->found_posts>1) {
+                echo '<div id="before-after-nav">';
+                echo '<a href="#"><span id="before-after-prev">Prev</span></a>';
+                echo '<a href="#"><span id="before-after-next">Next</span></a>';
+                echo '</div>';
+            }
+        }
 		echo $after_widget;
 	}
 }

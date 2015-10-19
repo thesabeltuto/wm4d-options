@@ -66,8 +66,26 @@ function wm4d_doctor( $atts ){
 	return $wm4d_doctor;
 }
 
-function wm4d_phone( $atts ){
+function wm4d_phone( $atts,$content="" ){
 	$wm4d_phone = get_option('wm4d_phone');
+	$wm4d_phone=flipper_process_phone($wm4d_phone, $content);
+//	extract(shortcode_atts(array( ), $atts ));
+//	print_r($atts);	exit;
+/*
+	if (isset($_GET['esi']) && $_GET['esi']=='true') {		
+//		$wm4d_phone ="@".$wm4d_phone;
+		echo "Using ESI";
+		if ($wm4d_phone!="") $wm4d_phone=flipper_get_esi($wm4d_phone);	
+//			echo "<!-- ";
+//			print_r($_COOKIE);
+//			echo 'include src="/phone.php?p='.urlencode($match1)."\n";
+//			echo '<esi:include src="/wp-admin/admin-ajax.php?action=get_flipper_phone&p='.urlencode($match1).'"/>';
+
+//			echo '<esi:include src="/phone.php?"/>';
+//			echo "-->";
+
+	};
+*/
 	return $wm4d_phone;
 }
 

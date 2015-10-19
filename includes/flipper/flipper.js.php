@@ -75,7 +75,7 @@ var nFlipper = {
 			for (var i = 0; i < element.childNodes.length; i++) 
 				this.recurse(element.childNodes[i]);
 		if( element.nodeName == 'SCRIPT' || element.nodeName == 'STYLE' ) return;	
-		if (element.nodeType == Node.TEXT_NODE && /\S/.test(element.nodeValue)/* element.nodeValue != ''*/) {
+		if (/*element.nodeType == Node.TEXT_NODE*/element.nodeType == 3 && /\S/.test(element.nodeValue)/* element.nodeValue != ''*/) {
 //  \(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})
 
             found = element.nodeValue.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})([ .-]?)([0-9]{4})/ig);   
@@ -150,7 +150,19 @@ var nFlipper = {
 	}
 }
 window.onload = function(e){ 
-    var keepCookie=<?=flipper_get_keep_cookie()?"true":"false";?>;
+<?
+	$opts=flipper_get_settings();
+?>
+    var wm4dLanding = nFlipper.getCookie('wm4d_landing');
+//alert(wm4dLanding);
+    if (/*true || */wm4dLanding===null || wm4dLanding=='undefined') {
+//		alert(window.location.href);
+
+    	nFlipper.setCookie('wm4d_landing',window.location.href);	
+    }
+    
+<?	if ($opts['client_mode']) { ?>
+    var keepCookie=<?=$opts['keep_cookie']?"true":"false";?>;
     var ref = nFlipper.getQueryVariable('ref');
     var cref = nFlipper.getCookie('ref');
     
@@ -159,10 +171,15 @@ window.onload = function(e){
         console.log(ref);
         if (!keepCookie || (cref===null || cref=='undefined')) nFlipper.setCookie('ref',ref);	
     };
-
-    ref = nFlipper.getCookie('ref');
-    console.log('ref is '+nFlipper.getCookie('ref'));
-<?php 	if (get_option('wm4d_flipper_select')=="enable") { ?>
+<? } ?>
+    ref = nFlipper.getCookie('ref');    
+    console.log('wm4d_landing is '+nFlipper.getCookie('wm4d_landing'));
+    console.log('ref is '+nFlipper.getCookie('ref')+' keep cookie is <?=$opts['keep_cookie'];?>');
+<?php 
+//print_r(get_option('wm4d_flipper_select')=="enable");
+//	if (($opts['client_mode'] && $opts['client_flip']) || get_option('wm4d_flipper_select')=="enable") {
+	if (/*$opts['client_mode'] && */$opts['client_flip'] && get_option('wm4d_flipper_select')=="enable") {
+		 ?>
 	nFlipper.process(ref);
 <?php } ?>    
 }
