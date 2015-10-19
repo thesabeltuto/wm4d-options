@@ -32,7 +32,7 @@ function custom_post_procedures() {
 		'description'   => 'Holds our procedures and procedure specific data',
 		'public'        => true,
 		'menu_position' => 5,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'post-formats' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'post-formats', 'revisions' ),
 		'has_archive'   => true
 	);
 	register_post_type( 'procedures', $args );	
@@ -164,7 +164,7 @@ function custom_post_testimonials() {
 		'description'   => 'Holds our testimonials and testimonial specific data',
 		'public'        => true,
 		'menu_position' => 7,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'revisions' ),
 		'has_archive'   => true,
 	);
 	register_post_type( 'testimonials', $args );	
@@ -234,7 +234,7 @@ function custom_post_before_and_afters() {
 		'description'   => 'Holds our Before & Afters specific data',
 		'public'        => true,
 		'menu_position' => 8,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'images' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'images', 'revisions' ),
 		'has_archive'   => true,
 	);
 	register_post_type( 'before-and-afters', $args );	
@@ -282,7 +282,7 @@ function custom_post_office_images() {
 		'description'   => 'Holds our office images and office images specific data',
 		'public'        => true,
 		'menu_position' => 9,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'post-formats' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'post-formats', 'revisions' ),
 		'has_archive'   => true,
 	);
 	register_post_type( 'office-images', $args );	

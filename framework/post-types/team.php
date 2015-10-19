@@ -21,7 +21,7 @@ function custom_post_team() {
 		'description'   => 'Holds our team and team specific data',
 		'public'        => true,
 		'menu_position' => 7,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'revisions' ),
 		'has_archive'   => true,
 	);
 	register_post_type( 'team', $args );	

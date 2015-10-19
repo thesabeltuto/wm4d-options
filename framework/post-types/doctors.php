@@ -21,7 +21,7 @@ function custom_post_doctors() {
 		'description'   => 'Holds our doctors and doctor specific data',
 		'public'        => true,
 		'menu_position' => 7,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'revisions' ),
 		'has_archive'   => true,
 	);
 	register_post_type( 'doctors', $args );	
