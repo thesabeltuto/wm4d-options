@@ -211,11 +211,11 @@ function get_campaign_numbers($campaign, $type, $campaign_selected) {
 }
 
 function get_server_mode($mode_selected){
-	if( is_array($mode_selected) == true) $mode_selected = $mode_selected[0];
-	else $mode_selected = $mode_selected;
+	if( is_array($mode_selected) == true) $mode_selected = $mode_selected[0]; //array, when saved
+	else $mode_selected = $mode_selected; // string, default
 
-	$servermodes = array(
-						array("client","Client"),
+	$servermodes = array( // value, name
+						array("client", "Client"),
 						array("esi", "ESI"),
 						array("php", "PHP")
 					);
