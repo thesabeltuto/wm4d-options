@@ -60,12 +60,14 @@ if ( is_admin() ) {
 function load_WM4D_OPTIONS_PLUGIN_scripts_out() {
     wp_register_script('wm4d-option-thescripts.js', WM4D_OPTIONS_PLUGIN_URL.'/js/thescripts.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_JS_VERSION'], false);	
 	wp_register_style('wm4d-option-style',  WM4D_OPTIONS_PLUGIN_URL.'/css/style.css', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_CSS_VERSION'], '');
+    wp_register_script('wm4d-option-phonescript.js', WM4D_OPTIONS_PLUGIN_URL.'/js/phonescript.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_JS2_VERSION'], true);	
 
     wp_enqueue_script('wm4d-option-jquery.fancybox.pack.js', WM4D_OPTIONS_PLUGIN_URL.'/js/jquery.fancybox.pack.js');	
     wp_enqueue_script('wm4d-option-jquery.cycle.all.js', WM4D_OPTIONS_PLUGIN_URL.'/js/jquery.cycle.all.js');	
 	wp_enqueue_style('wm4d-option-jquery.fancybox.css',  WM4D_OPTIONS_PLUGIN_URL.'/css/jquery.fancybox.css');
     wp_enqueue_script('wm4d-option-thescripts.js');	
 	wp_enqueue_style('wm4d-option-style');
+    wp_enqueue_script('wm4d-option-phonescript.js');	
 
 	require(WM4D_OPTIONS_PLUGIN_DIR.'/includes/custom-codes.php');
 //	if(get_option('wm4d_testing_select') == 'enable') {
@@ -95,11 +97,8 @@ function load_WM4D_OPTIONS_PLUGIN_scripts() {
 }
 
 function load_WM4D_OPTIONS_HTML_footer_out() {
-    wp_register_script('wm4d-phonescript.js', WM4D_OPTIONS_PLUGIN_URL.'/js/phonescript.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_ADMIN_JS2_VERSION'], false);	
-	
 	$wm4d_footer = get_option('wm4d_footer');
 	if(!empty($wm4d_footer)) echo do_shortcode($wm4d_footer);
-    wp_enqueue_script('wm4d-phonescript.js');	
 }
 
 function WM4D_OPTIONS_PLUGIN_wm4d_functions() {
