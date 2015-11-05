@@ -91,8 +91,6 @@ jQuery(document).ready(function($) {
         }
 	});
 	
-	
-	
 });
 
 window.addEventListener("touchstart", function(ev){

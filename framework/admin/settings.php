@@ -87,11 +87,17 @@ function WM4D_OPTIONS_PLUGIN_register_flipper_options() {
 	
 	if(get_option('wm4d_flipper_referers')==''){
 		$default_referers=array('yahoo','bing','google','facebook', 'youtube', 'twitter');
-		update_option('wm4d_flipper_referers',	$default_referers);
+		update_option('wm4d_flipper_referers', $default_referers);
 	}
 
 	register_setting( 'wm4d-flipper-group', 'wm4d_flipper_campaign_phone' );
 	register_setting( 'wm4d-flipper-group', 'wm4d_flipper_campaign_phones' );
+
+	register_setting( 'wm4d-flipper-group', 'wm4d_flipper_server_mode' );
+	
+	if(get_option('wm4d_flipper_server_mode')==''){
+		update_option('wm4d_flipper_server_mode', 'client');
+	}
 }
 
 function WM4D_OPTIONS_PLUGIN_selection() {
@@ -191,6 +197,8 @@ function WM4D_OPTIONS_PLUGIN_selection() {
 			update_option( 'wm4d_flipper_referers', $wm4d_flipper_referers );
 			update_option( 'wm4d_flipper_campaign_phone', $wm4d_flipper_campaign_phone );
 			update_option( 'wm4d_flipper_campaign_phones', $wm4d_flipper_campaign_phones );
+
+			update_option( 'wm4d_flipper_server_mode', $wm4d_flipper_server_mode );
 
 		}
 }

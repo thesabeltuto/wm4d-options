@@ -10,9 +10,11 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
 	if ( get_option('wm4d_flipper_phones') == '' ) $wm4d_flipper_phones='is not initialized'; else $wm4d_flipper_phones=get_option('wm4d_flipper_phones');
 	if ( get_option('wm4d_flipper_campaign_phone') == '' ) $wm4d_flipper_campaign_phone=''; else $wm4d_flipper_campaign_phone=get_option('wm4d_flipper_campaign_phone');
 	if ( get_option('wm4d_flipper_campaign_phones') == '' ) $wm4d_flipper_campaign_phones=''; else $wm4d_flipper_campaign_phones=get_option('wm4d_flipper_campaign_phones');
+	if ( get_option('wm4d_flipper_server_mode') == '' ) $wm4d_flipper_server_mode=''; else $wm4d_flipper_server_mode=get_option('wm4d_flipper_server_mode');
 
 	$domain = get_bloginfo( 'url' ) . "?ref=";
 	$campaign = flipper_get_numbers();
+	
 ?>
 	<div class="wm4d_wrap">
 	<h1>WM4D Options</h1>
@@ -32,6 +34,16 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <hr />
                 <p>Enabling this will replace phone numbers in your site according to referer.
                 </p>
+                
+                <h2>Server Mode &nbsp;
+                    <select class="wm4d_server_mode" id="wm4d_flipper_server_mode" name="wm4d_flipper_server_mode[]">
+                        <?php echo get_server_mode($wm4d_flipper_server_mode); ?>
+                    </select>
+                </h2>
+                <hr />
+                <p>Select server mode to run the flipper script correctly.
+                </p>
+
 				<?php //REFERER LIST ?>
                 <h2>Referer List</h2>
                 <hr />
@@ -198,4 +210,25 @@ function get_campaign_numbers($campaign, $type, $campaign_selected) {
 	return $options;
 }
 
+function get_server_mode($mode_selected){
+	if( is_array($mode_selected) == true) $mode_selected = $mode_selected[0];
+	else $mode_selected = $mode_selected;
+
+	$servermodes = array(
+						array("client","Client"),
+						array("esi", "ESI"),
+						array("php", "PHP")
+					);
+	$options  = '';
+
+		for($i = 0; $i < sizeof($servermodes);$i++) {
+			if($mode_selected == $servermodes[$i][0]) { 
+				$options .= '<option value="'.$servermodes[$i][0].'" selected>'.$servermodes[$i][1].'</option>';
+			} else {
+				$options .= '<option value="'.$servermodes[$i][0].'">'.$servermodes[$i][1].'</option>';
+			}
+		}
+	
+	return $options;
+}
 ?>
