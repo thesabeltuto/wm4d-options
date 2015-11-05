@@ -150,7 +150,7 @@ var nFlipper = {
 	}
 }
 window.onload = function(e){ 
-<?
+<?php
 	$opts=flipper_get_settings();
 ?>
     var wm4dLanding = nFlipper.getCookie('wm4d_landing');
@@ -161,7 +161,7 @@ window.onload = function(e){
     	nFlipper.setCookie('wm4d_landing',window.location.href);	
     }
     
-<?	if ($opts['client_mode']) { ?>
+<?php	if ($opts['client_mode']) { ?>
     var keepCookie=<?=$opts['keep_cookie']?"true":"false";?>;
     var ref = nFlipper.getQueryVariable('ref');
     var cref = nFlipper.getCookie('ref');
@@ -171,7 +171,7 @@ window.onload = function(e){
         console.log(ref);
         if (!keepCookie || (cref===null || cref=='undefined')) nFlipper.setCookie('ref',ref);	
     };
-<? } ?>
+<?php } ?>
     ref = nFlipper.getCookie('ref');    
     console.log('wm4d_landing is '+nFlipper.getCookie('wm4d_landing'));
     console.log('ref is '+nFlipper.getCookie('ref')+' keep cookie is <?=$opts['keep_cookie'];?>');
