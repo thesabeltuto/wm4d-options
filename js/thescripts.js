@@ -1,15 +1,7 @@
 jQuery(document).ready(function($) {
 
 	$('.topbar_in li:last').addClass('last');
-    if (navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/webOS/i) ||
-        navigator.userAgent.match(/iPhone/i) ||
-        navigator.userAgent.match(/iPad/i) ||
-        navigator.userAgent.match(/iPod/i) ||
-        navigator.userAgent.match(/BlackBerry/) ||
-        navigator.userAgent.match(/Windows Phone/i) ||
-        navigator.userAgent.match(/ZuneWP7/i)
-    ) {
+    if ( isMobile() == true ) {
 		$('.menu-item,.nav > li').mouseenter(function(){
             $(this).children('ul').stop(true,true).animate({height:'show'});
         });
@@ -98,3 +90,19 @@ window.addEventListener("touchstart", function(ev){
 		setTimeout(function(){ console.log('show'); jQuery('.nav').show(); }, 900);
 	}
 });
+
+function isMobile() {
+	if (navigator.userAgent.match(/Android/i) ||
+        navigator.userAgent.match(/webOS/i) ||
+        navigator.userAgent.match(/iPhone/i) ||
+        navigator.userAgent.match(/iPad/i) ||
+        navigator.userAgent.match(/iPod/i) ||
+        navigator.userAgent.match(/BlackBerry/) ||
+        navigator.userAgent.match(/Windows Phone/i) ||
+        navigator.userAgent.match(/ZuneWP7/i)
+		){
+			return true;
+	} else { 
+	 return false;
+	}
+}
