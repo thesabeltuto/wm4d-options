@@ -3,20 +3,29 @@ jQuery(document).ready(function($) {
 	jquery_check_links('');
 
 	//responsive map
-	$("div.responsive-map").click(function(event) {
+	$("div.responsive-map").mouseenter(function(event) {
 		if($("div.gmap_marker").length > 0) {
 			jquery_check_links("div.gmap_marker");
-			$("div.responsive-map").off(event);
+		} else {
+			$("div.responsive-map").on("click", function(event) {
+				jquery_check_links("div.gmap_marker");
+				$("div.responsive-map").off(event);
+			});
 		}
 	});
-	
+
 	function jquery_check_links(element){
 		var element = element;
 		
 		$(element+" a[href]").each(function() {
 			var orig_href = $(this).attr("href");
-			var new_href = phonescripts(isMobile(), orig_href);
-			$(this).attr("href",new_href);
+			$(this).mouseenter(function(event) {
+				var new_href = phonescripts(isMobile(), orig_href);
+				$(this).attr("href",new_href);
+			});
+			$(this).mouseleave(function(event) {
+				$(this).attr("href",orig_href);
+			});
 		});
 	}
 });
