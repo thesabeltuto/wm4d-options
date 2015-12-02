@@ -5,7 +5,7 @@
 	Description: This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D</a> plugin that includes custom post types and widgets of  before and afters, prodecures, offers, office images and testimonials.
 	This plugin also includes theme options that can help you edit styles and scripts on dashboard. Client options has been added to provide flexibilty of information across the website.
 	Number flipper has been added to help you flip phone numbers for specific website visitors.
-	Version: 3.2.1
+	Version: 3.2.3
 	Author: Thesabel Tuto
 	Author URI: http://thesabeltuto.blogspot.com
 	Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=US&item_name=TT%2dPlugins%3a%20Support%20WordPress%20Plugin%20Development&item_number=TT%2dPlugins&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
@@ -34,10 +34,10 @@ define('WM4D_OPTIONS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WM4D_OPTIONS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 // Global variables
-$WM4D_OPTIONS_PLUGIN_VERSION = '3.2.1';
+$WM4D_OPTIONS_PLUGIN_VERSION = '3.2.4';
 $WM4D_OPTIONS_PLUGIN_CSS_VERSION = '3.0.8'; // style
-$WM4D_OPTIONS_PLUGIN_JS_VERSION = '3.1'; // thescript
-$WM4D_OPTIONS_PLUGIN_JS2_VERSION = '0.1'; // phonescript
+$WM4D_OPTIONS_PLUGIN_JS_VERSION = '3.1.1'; // thescript
+$WM4D_OPTIONS_PLUGIN_JS2_VERSION = '0.1.3'; // phonescript
 $WM4D_OPTIONS_PLUGIN_ADMIN_CSS_VERSION = '3.1.2'; // admin
 $WM4D_OPTIONS_PLUGIN_ADMIN_JS_VERSION = '3.1.4'; // admin
 $WM4D_OPTIONS_PLUGIN_ADMIN_JS2_VERSION = '1.4.2'; // maskedinput
@@ -53,7 +53,7 @@ if ( is_admin() ) {
 	add_action('init', 'load_WM4D_OPTIONS_PLUGIN_scripts_in');
 } else {
 	add_action('wp_head', 'load_WM4D_OPTIONS_PLUGIN_scripts_out');
-	add_action('wp_footer', 'load_WM4D_OPTIONS_HTML_footer_out', 999);
+	add_action('wp_footer', 'load_WM4D_OPTIONS_HTML_footer_out', 998, 1);
 }
 		require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/shortcodes.php');
 
@@ -73,11 +73,13 @@ function load_WM4D_OPTIONS_PLUGIN_scripts_out() {
 //	} else {
 //	}
 
+    wp_register_script('wm4d-option-phonescript.js', WM4D_OPTIONS_PLUGIN_URL.'/js/phonescript.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_JS2_VERSION'], true);
+    wp_enqueue_script('wm4d-option-phonescript.js');
 }
 
 function load_WM4D_OPTIONS_PLUGIN_scripts_in() {
     wp_register_script('wm4d-option-admin.js', WM4D_OPTIONS_PLUGIN_URL.'/js/admin.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_ADMIN_JS_VERSION'], false);	
-    wp_register_script('wm4d-jquery.maskedinput.js', WM4D_OPTIONS_PLUGIN_URL.'/js/jquery.maskedinput.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_ADMIN_JS2_VERSION'], false);	
+    wp_register_script('wm4d-jquery.maskedinput.js', WM4D_OPTIONS_PLUGIN_URL.'/js/jquery.maskedinput.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_ADMIN_JS2_VERSION'], true);	
 	wp_register_style('wm4d-option-admin.css',  WM4D_OPTIONS_PLUGIN_URL.'/css/admin.css', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_ADMIN_CSS_VERSION'], '');
 
     wp_enqueue_script('wm4d-option-admin.js');
@@ -90,16 +92,13 @@ function load_WM4D_OPTIONS_PLUGIN_scripts_in() {
 
 function load_WM4D_OPTIONS_PLUGIN_scripts() {
 	wp_enqueue_script('jquery');
-//    wp_register_script('wm4d-jquery-1.11.3.min.js', WM4D_OPTIONS_PLUGIN_URL.'/js/jquery-1.11.3.min.js', '', '1.11.3', false);	
+//  wp_register_script('wm4d-jquery-1.11.3.min.js', WM4D_OPTIONS_PLUGIN_URL.'/js/jquery-1.11.3.min.js', '', '1.11.3', false);	
 //	wp_enqueue_script('wm4d-jquery-1.11.3.min.js');	
 }
 
 function load_WM4D_OPTIONS_HTML_footer_out() {
-    wp_register_script('wm4d-phonescript.js', WM4D_OPTIONS_PLUGIN_URL.'/js/phonescript.js', '', $GLOBALS['WM4D_OPTIONS_PLUGIN_ADMIN_JS2_VERSION'], false);	
-	
 	$wm4d_footer = get_option('wm4d_footer');
 	if(!empty($wm4d_footer)) echo do_shortcode($wm4d_footer);
-    wp_enqueue_script('wm4d-phonescript.js');	
 }
 
 function WM4D_OPTIONS_PLUGIN_wm4d_functions() {

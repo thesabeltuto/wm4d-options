@@ -26,34 +26,6 @@ $content = apply_filters('the_content', $content);
 */
 
 function flipper_get_settings() {
-	$mode_selected = get_option('wm4d_flipper_server_mode');
-	if( is_array($mode_selected)) $mode_selected = $mode_selected[0]; //array, when saved
-//	else $mode_selected = $mode_selected; // string, default
-
-//	print_r(get_option('wm4d_flipper_server_mode'));exit;
-
-	$opts = array(
-		'track'=>true,
-		'flip'=>(get_option('wm4d_flipper_select')=="enable"),
-		'server_mode'=>false, //'esi','php'
-		'client_mode'=>'js',// 'js'
-		'client_flip'=>true,// 'js'
-		'keep_cookie'=>false  //for debug options
-
-	);
-	
-	if ($mode_selected=='esi') {
-		$opts['server_mode']='esi';
-		$opts['client_mode']=false;
-		$opts['client_flip']=false;
-	} elseif ($mode_selected=='php') {
-		$opts['server_mode']='php';
-		$opts['client_mode']=false;
-		$opts['client_flip']=false;
-	}
-//	echo "<!--".print_r($opts,true)."-->";
-	
-/*	
 	$opts = array(
 		'track'=>true,
 		'flip'=>(get_option('wm4d_flipper_select')=="enable"),
@@ -63,11 +35,10 @@ function flipper_get_settings() {
 
 		'keep_cookie'=>false  //for debug options
 	);
-*/	
 	$domains=array( 'dentist-wilmette',
 					'localhost',
 					'master2',
-//					'invisalign-in-toronto',
+					'invisalign-in-toronto',
 					'the-dentist-of-scottsdale-az',
 					'balharbourdentist',
 					'dentist-of-franklin-tn',
@@ -76,7 +47,7 @@ function flipper_get_settings() {
 					'dental-implants-irving',
 					'bostoninvisiblebraces' ,  //http://bostoninvisiblebraces.com/contact/
 					'indianapolis-in-dentist',
-					'awardwinningcosmeticdentist',
+//					'awardwinningcosmeticdentist',
 					'hallandale-comprehensive-dentistry',
 					'south-florida-dental-implants',
 					'dental-implants-wpb',
@@ -860,7 +831,6 @@ function flipper_wm4d_phone($attrs, $content = null) {
 function flipper_init() {
 //	echo "<!-- ".print_r(get_defined_functions(),true)."-->";
 	define('FLIPPER_INIT',true);
-	flipper_get_visitor_info();
 //	echo "<!-- ESI enabled-->";
 
 
