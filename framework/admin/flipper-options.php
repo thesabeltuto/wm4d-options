@@ -35,7 +35,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <p>Enabling this will replace phone numbers in your site according to referer.
                 </p>
                 
-                <h2>Server Mode &nbsp;
+                <h2>Flipper Mode &nbsp;
                     <select class="wm4d_server_mode" id="wm4d_flipper_server_mode" name="wm4d_flipper_server_mode[]">
                         <?php echo get_server_mode($wm4d_flipper_server_mode); ?>
                     </select>
@@ -215,10 +215,19 @@ function get_server_mode($mode_selected){
 	else $mode_selected = $mode_selected; // string, default
 
 	$servermodes = array( // value, name
-						array("client", "Client"),
-						array("esi", "ESI"),
-						array("php", "PHP")
+						array("client", "Client (Javascript based - old)"),
 					);
+
+	if (is_multisite()) $servermodes[]=array("esi", "Multisite (Varnish ESI)");
+	else $servermodes[]=array("php", "Single Website");
+
+
+	if ($mode_selected=='') {
+		if (is_multisite()) $mode_selected='esi';
+		else $mode_selected='php';
+	};
+//echo $mode_selected;exit;
+
 	$options  = '';
 
 		for($i = 0; $i < sizeof($servermodes);$i++) {
