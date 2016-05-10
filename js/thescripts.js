@@ -2,30 +2,24 @@ jQuery(document).ready(function($) {
 
 	$('.topbar_in li:last').addClass('last');
     if ( isMobile() == true ) {
-		$('.menu-item,.nav > li').mouseenter(function(){
+		$('.nav .menu-item,.nav > li').mouseenter(function(){
             $(this).children('ul').stop(true,true).animate({height:'show'});
         });
-		$('.menu-item').mouseleave(function () {
+		$('.nav .menu-item').mouseleave(function () {
 			if($(this).children('ul').is(':visible')){
 				$(this).children('ul').stop(true, true).animate({height: 'hide'});
-			}else{
+			}else{				
 				$(this).children('ul').stop(true, true).animate({height: 'show'});
 			}
         });
     }
     else {
-        $('.nav > li').mouseenter(function () {
+        $('.menu-item,.nav > li').mouseenter(function () {
             $(this).children('ul').stop(true, true).animate({height: 'show'});
         });
-        $('.nav > li').mouseleave(function () {
+        $('.menu-item,.nav > li').mouseleave(function () {
             $(this).children('ul').stop(true, true).animate({height: 'hide'});
-        });
-        $('.menu-item').mouseenter(function () {
-            $(this).children('ul').stop(true, true).animate({height: 'show'});
-        });
-        $('.menu-item').mouseleave(function () {
-            $(this).children('ul').stop(true, true).animate({height: 'hide'});
-        });
+        });       
     }
 	$('.extend-offer').mouseenter(function(){
 		$(this).animate({opacity:'0.7'});

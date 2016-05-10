@@ -15,8 +15,8 @@ add_shortcode( 'client_name', 'wm4d_client' );
 add_shortcode( 'practice_name', 'wm4d_practice' );	
 
 if ( get_option('wm4d_multiple_select') != 'enable' ) {
-	add_shortcode( 'doctor_name', 'wm4d_doctor' );	
-	add_shortcode( 'phone_number', 'wm4d_phone' );	
+	add_shortcode( 'doctor_name', 'wm4d_doctor' );
+	add_shortcode( 'phone_number', 'wm4d_phone' );		
 	add_shortcode( 'location', 'wm4d_location' );	
 }
 
@@ -88,6 +88,31 @@ function wm4d_phone( $atts,$content="" ){
 */
 	return $wm4d_phone;
 }
+
+
+add_filter( 'gform_merge_tag_filter', 'filter_all_fields', 10, 7 );
+function filter_all_fields( $value, $merge_tag, $modifier, $field ) {
+    if ( $field->type == 'phone' && $value !="") {
+		$new_phone=flipper_clean_phone($value);	
+		$local = preg_match('/(\([0-9]{3}+\)+ [0-9]{3}+\-[0-9]{4}+)/', $value);
+		$international = preg_match('/[0-9]{2}+ [0-9]{3}+ [0-9]{3}+ [0-9]{4}/', $value);
+		$uk = preg_match('/(\([0-9]{4}+\)+ [0-9]{3}+\-[0-9]{4}+)/', $value);
+
+		if ($local){		
+			 $new_phone = "+1".$new_phone;
+		}elseif ($international) {		
+			 $new_phone = "+".$new_phone;
+		}elseif ($uk) {		
+			 $new_phone = "+44".$new_phone;
+		}
+			return $new_phone;    
+	}
+	else {
+        return $value;
+    }
+}
+
+
 
 function wm4d_location( $atts ){
 	extract(shortcode_atts(array( 'short' => '' ), $atts ));
@@ -296,7 +321,17 @@ function wm4d_practice( $atts ){
 	$wm4d_practice = get_option('wm4d_practice');
 	return $wm4d_practice;
 }
-
+/* added to get practice name */
+add_filter( 'gform_field_value_practice_name', 'practice_name', 10, 3 );
+function practice_name( $value, $field, $name ) {
+    $wm4d_practice = get_option('wm4d_practice');
+	return $wm4d_practice;
+}
+add_filter( 'gform_field_value_year', 'get_year', 10, 3 );
+function get_year( $value, $field, $name ) {
+    $value = date("Y");
+	return $value;
+}
 function special_offer($atts){
 	extract(shortcode_atts(array(
 		'title' => 'Special Offer',

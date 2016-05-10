@@ -5,7 +5,7 @@
 	Description: This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D</a> plugin that includes custom post types and widgets of  before and afters, prodecures, offers, office images and testimonials.
 	This plugin also includes theme options that can help you edit styles and scripts on dashboard. Client options has been added to provide flexibilty of information across the website.
 	Number flipper has been added to help you flip phone numbers for specific website visitors.
-	Version: 3.2.3
+	Version: 3.2.4
 	Author: Thesabel Tuto
 	Author URI: http://thesabeltuto.blogspot.com
 	Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=US&item_name=TT%2dPlugins%3a%20Support%20WordPress%20Plugin%20Development&item_number=TT%2dPlugins&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
