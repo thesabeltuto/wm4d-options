@@ -377,78 +377,84 @@ function testimonials( $atts ) {
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 	
-	$testimonials = '<div id="testimonials">';
-	$testimonials .= $title;
-	$testimonials .= '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
-	
 	$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1);
 	$loop = new WP_Query($slider_args);
-	while ($loop->have_posts()) : $loop->the_post();
-		$testimonials .= '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
-		$testimonials .= '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
-	endwhile;
+	if($loop->found_posts>0) {
+		$testimonials = '<div id="testimonials">';
+		$testimonials .= $title;
+		$testimonials .= '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
+		while ($loop->have_posts()) : $loop->the_post();
+			$testimonials .= '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
+			$testimonials .= '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
+		endwhile;
+		$testimonials .= '</div>';
+		if($loop->found_posts>1) {
+			$testimonials .= '<div id="testimonial-nav">';
+			$testimonials .= '<a href="#"><span id="prev">Prev</span></a>'; 
+			$testimonials .= '<a href="'. $url .'"><span id="seeall">'. $all .'</span></a>'; 
+			$testimonials .= '<a href="#"><span id="next">Next</span></a>';
+			$testimonials .= '</div>';
+		}
+		$testimonials .= '</div>';
+	}
 	wp_reset_postdata();
-		
-	$testimonials .= '</div>';
-	$testimonials .= '<div id="testimonial-nav">';
-	$testimonials .= '<a href="#"><span id="prev">Prev</span></a>'; 
-	$testimonials .= '<a href="'. $url .'"><span id="seeall">'. $all .'</span></a>'; 
-	$testimonials .= '<a href="#"><span id="next">Next</span></a>';
-	$testimonials .= '</div>';
-	$testimonials .= '</div>';
 	
 	return $testimonials;
 }
 
 function before_afters( $atts ) {
-	extract(shortcode_atts(array( 'title' => '' ), $atts ));
+	extract(shortcode_atts(array( 'title' => '', 'category' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 	
-	$bna = '<div id="before-after">';
-	$bna .= $title;
-	$bna .= '<ul id="before-after-cycle">';
-	
-	$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1);
+	$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1, 'before_and_afters_categories' => $category );
 	$before_after_loop = new WP_Query($before_after_args);
-	while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
-		$bna .= get_the_post_thumbnail();
-	endwhile;
-	//wp_reset_postdata();
-		
-	$bna .= '</ul>';
-	$bna .= '<div id="before-after-nav">';
-	$bna .= '<a href="#"><span id="before-after-prev">Prev</span></a>'; 
-	$bna .=  '<a href="#"><span id="before-after-next">Next</span></a>';
-	$bna .= '</div>';
-	$bna .= '</div>';
+	if($before_after_loop->found_posts>0) {
+		$bna = '<div id="before-after">';
+		$bna .= $title;
+		$bna .= '<ul id="before-after-cycle">';
+		while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
+			$bna .= get_the_post_thumbnail();
+		endwhile;
+		$bna .= '</ul>';
+		if($before_after_loop->found_posts>1) {
+			$bna .= '<div id="before-after-nav">';
+			$bna .= '<a href="#"><span id="before-after-prev">Prev</span></a>'; 
+			$bna .=  '<a href="#"><span id="before-after-next">Next</span></a>';
+			$bna .= '</div>';
+		}
+		$bna .= '</div>';
+	}
+	wp_reset_postdata();
 	
 	return $bna;
 }
 
 function office_images( $atts ) {
-	extract(shortcode_atts(array( 'title' => '' ), $atts ));
+	extract(shortcode_atts(array( 'title' => '', 'category' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 
-	$office = '<div id="office-images">';
-	$office .= $title;
-	$office .= '<ul id="office-images-cycle">';
-	
-	$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1);
+	$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1, 'office_images_categories' => $category);
 	$office_images_loop = new WP_Query($office_images_args);
-	while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
-		$office .= get_the_post_thumbnail();
-	endwhile;
+	if($office_images_loop->found_posts>0) {
+		$office = '<div id="office-images">';
+		$office .= $title;
+		$office .= '<ul id="office-images-cycle">';	
+		while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
+			$office .= get_the_post_thumbnail();
+		endwhile;
+		$office .= '</ul>';
+		if($office_images_loop->found_posts>1) {
+			$office .= '<div id="office-images-nav">';
+			$office .= '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
+			$office .=  '<a href="#"><span id="office-images-next">Next</span></a>';
+			$office .= '</div>';
+		}
+		$office .= '</div>';
+	}
 	wp_reset_postdata();
 	
-	$office .= '</ul>';
-	$office .= '<div id="office-images-nav">';
-	$office .= '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
-	$office .=  '<a href="#"><span id="office-images-next">Next</span></a>';
-	$office .= '</div>';
-	$office .= '</div>';
-
 	return $office;
 }
 ?>

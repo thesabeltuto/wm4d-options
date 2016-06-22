@@ -259,6 +259,28 @@ function custom_post_before_and_afters_messages( $messages ) {
 	return $messages;
 }
 
+add_action( 'init', 'wm4d_taxonomies_before_and_afters', 0 );
+function wm4d_taxonomies_before_and_afters() {
+	$labels = array(
+		'name'              => _x( 'Before & Afters Categories', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Before & Afters Category', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Before & Afters Categories' ),
+		'all_items'         => __( 'All Before & Afters Categories' ),
+		'parent_item'       => __( 'Parent Before & Afters Category' ),
+		'parent_item_colon' => __( 'Parent Before & Afters Category:' ),
+		'edit_item'         => __( 'Edit Before & Afters Category' ), 
+		'update_item'       => __( 'Update Before & Afters Category' ),
+		'add_new_item'      => __( 'Add New Before & Afters Category' ),
+		'new_item_name'     => __( 'New Before & Afters Category' ),
+		'menu_name'         => __( 'Before & Afters Categories' ),
+	);
+	$args = array(
+		'labels' => $labels,
+		'hierarchical' => true,
+	);
+	register_taxonomy( 'before_and_afters_categories', 'before-and-afters', $args );
+}
+
 /** OFFICE IMAGES CUSTOM TYPE **/
 //add_action( 'init', 'custom_post_office_images' );
 function custom_post_office_images() {
@@ -305,6 +327,28 @@ function custom_post_office_images_msg( $messages ) {
 		10 => sprintf( __('Office Image draft updated. <a target="_blank" href="%s">Preview Office Image</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
 	);
 	return $messages;
+}
+
+add_action( 'init', 'wm4d_taxonomies_office_images', 0 );
+function wm4d_taxonomies_office_images() {
+	$labels = array(
+		'name'              => _x( 'Office Images Categories', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Office Images Category', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Office Images Categories' ),
+		'all_items'         => __( 'All Office Images Categories' ),
+		'parent_item'       => __( 'Parent Office Images Category' ),
+		'parent_item_colon' => __( 'Parent Office Images Category:' ),
+		'edit_item'         => __( 'Edit Office Images Category' ), 
+		'update_item'       => __( 'Update Office Images Category' ),
+		'add_new_item'      => __( 'Add New Office Images Category' ),
+		'new_item_name'     => __( 'New Office Images Category' ),
+		'menu_name'         => __( 'Office Images Categories' ),
+	);
+	$args = array(
+		'labels' => $labels,
+		'hierarchical' => true,
+	);
+	register_taxonomy( 'office_images_categories', 'office-images', $args );
 }
 
 /** Special Offer Widget **/
@@ -509,13 +553,18 @@ class gsdental_before_after extends WP_Widget {
 	}
 	
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'before_after_title' => '') );
+		$instance = wp_parse_args( (array) $instance, array( 'before_after_title' => '', 'before_after_category' => '') );
 		$before_after_title = $instance['before_after_title'];
+		$before_after_category = $instance['before_after_category'];
 		
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id('before_after_title'); ?>">Title:</label>
 		<input id="<?php echo $this->get_field_id( 'before_after_title' ); ?>" name="<?php echo   $this->get_field_name( 'before_after_title' ); ?>" type="text" value="<?php echo $before_after_title ?>"   />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('before_after_category'); ?>">Category Slug:</label>
+		<input id="<?php echo $this->get_field_id( 'before_after_category' ); ?>" name="<?php echo   $this->get_field_name( 'before_after_category' ); ?>" type="text" value="<?php echo $before_after_category ?>"   />
 		</p>
 		<?php
 	}
@@ -523,15 +572,17 @@ class gsdental_before_after extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['before_after_title'] = $new_instance['before_after_title'];
+		$instance['before_after_category'] = $new_instance['before_after_category'];
 		return $instance;
 	}
   
 	public function widget( $args, $instance ) {
 		extract( $args );
 		$before_after_title = apply_filters( 'widget_title', $instance['before_after_title'] );
+		$before_after_category = apply_filters( 'widget_categories_args', $instance['before_after_category'] );
 		
 		echo $before_widget;
-        $before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1,'meta_key'=>'_thumbnail_id');
+        $before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1,'meta_key'=>'_thumbnail_id', 'before_and_afters_categories'=>$before_after_category);
         $before_after_loop = new WP_Query($before_after_args);
         if($before_after_loop->found_posts>0) {
             echo '<h2 class="widget-title">' . $before_after_title . '</h2>';
@@ -562,13 +613,18 @@ class gsdental_office_images extends WP_Widget {
 	}
 	
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'office_images_title' => '') );
+		$instance = wp_parse_args( (array) $instance, array( 'office_images_title' => '', 'office_images_category' => '') );
 		$office_images_title = $instance['office_images_title'];
+		$office_images_category = $instance['office_images_category'];
 		
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id('office_images_title'); ?>">Title:</label>
 		<input id="<?php echo $this->get_field_id( 'office_images_title' ); ?>" name="<?php echo   $this->get_field_name( 'office_images_title' ); ?>" type="text" value="<?php echo $office_images_title ?>"   />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('office_images_category'); ?>">Category Slug:</label>
+		<input id="<?php echo $this->get_field_id( 'office_images_category' ); ?>" name="<?php echo   $this->get_field_name( 'office_images_category' ); ?>" type="text" value="<?php echo $office_images_category ?>"   />
 		</p>
 		<?php
 	}
@@ -576,28 +632,33 @@ class gsdental_office_images extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['office_images_title'] = $new_instance['office_images_title'];
+		$instance['office_images_category'] = $new_instance['office_images_category'];
 		return $instance;
 	}
   
 	public function widget( $args, $instance ) {
 		extract( $args );
 		$office_images_title = apply_filters( 'widget_title', $instance['office_images_title'] );
-		
-		echo $before_widget;
-		echo '<h2 class="widget-title">'.$office_images_title.'</h2>';
-		echo '<ul id="office-images-cycle">';
-		
-		$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1);
+		$office_images_category = apply_filters( 'widget_categories_args', $instance['office_images_category'] );
+				
+		$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1, 'office_images_categories' => $office_images_category );
 		$office_images_loop = new WP_Query($office_images_args);
-		while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
-			echo the_post_thumbnail();
-		endwhile;
-			
-		echo '</ul>';
-		echo '<div id="office-images-nav">';
-		echo '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
-		echo  '<a href="#"><span id="office-images-next">Next</span></a>';
-		echo '</div>';
+		if($office_images_loop->found_posts>0) {
+			echo $before_widget;
+			echo '<h2 class="widget-title">'.$office_images_title.'</h2>';
+			echo '<ul id="office-images-cycle">';		
+			while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
+				echo the_post_thumbnail();
+			endwhile;
+			echo '</ul>';
+			if($office_images_loop->found_posts>1) {
+				echo '<div id="office-images-nav">';
+				echo '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
+				echo  '<a href="#"><span id="office-images-next">Next</span></a>';
+				echo '</div>';
+				
+			}
+		}
 		echo $after_widget;
 	}
 }

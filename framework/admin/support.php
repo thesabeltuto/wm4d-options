@@ -133,9 +133,9 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
              	<p>Wigets are created to feature your Special Offers, Before and Afters, Office Images, and Testimonials in your website.</p>
            	<p><strong>Special Offer</strong> is widget where you can display your offers, NOT linked to any custom post type Offers above.
             Displaying different Special Offer to different Procedures or pages, you will need the <a href="https://wordpress.org/plugins/widget-context/" target="_blank">Widget Context</a> plugin.</p>
-             	<p><strong>Before and Afters</strong> is a widget slider that will cycle all content posted in the custom post type Before and Afters. It will display the featured image of the content.</p>
+             	<p><strong>Before and Afters</strong> is a widget slider that will cycle all content posted in the custom post type Before and Afters. It will display the featured image of the content. Shortcode is also available `[before_afters title=t category=n]` where <u>t</u> is your desired title and <u>n</u> is category slug.</p>
             	<p><strong>Testimonials</strong> is a widget slider that will cycle all content posted in the custom post type Testimonials. It will display images, texts, embeds, iframes, etc.</p>
-            	<p><strong>Office Images</strong> is a widget slider that will cycle all content posted in the custom post type Office Images. It will display the featured image of the content.</p>
+            	<p><strong>Office Images</strong> is a widget slider that will cycle all content posted in the custom post type Office Images. It will display the featured image of the content. Shortcode is also available `[office_images title=t category=n]` where <u>t</u> is your desired title and <u>n</u> is category slug.</p></p>
            </div>
 
 		</div>
