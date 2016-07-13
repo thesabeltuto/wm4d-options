@@ -5,8 +5,8 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
 	if ( get_option('wm4d_doctors') == '' ) $wm4d_doctors = '';  else $wm4d_doctors = get_option('wm4d_doctors');
 	if ( get_option('wm4d_docs_titles') == '' ) $wm4d_docs_titles = '';  else $wm4d_docs_titles = get_option('wm4d_docs_titles');
 	if ( get_option('wm4d_locations') == '' ) $wm4d_locations = '';  else $wm4d_locations = get_option('wm4d_locations');
-	if ( get_option('wm4d_phones') == '' ) $wm4d_phones = ''; else $wm4d_phones = get_option('wm4d_phones'); //get_option('wm4d_phones'); //explode("\n",get_option('wm4d_phones'));
-	if ( get_option('wm4d_phones_loc') == '' ) $wm4d_phones_loc = ''; else $wm4d_phones_loc = get_option('wm4d_phones_loc'); //get_option('wm4d_phones'); //explode("\n",get_option('wm4d_phones'));
+	if ( get_option('wm4d_phones') == '' ) $wm4d_phones = ''; else $wm4d_phones = get_option('wm4d_phones');
+	if ( get_option('wm4d_phones_loc') == '' ) $wm4d_phones_loc = ''; else $wm4d_phones_loc = get_option('wm4d_phones_loc');
 ?>
 	<div class="wm4d_wrap">
 	<h1>WM4D Options</h1>

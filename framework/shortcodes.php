@@ -7,51 +7,51 @@ add_filter('the_excerpt', 'do_shortcode');
 //add_filter('gform_notification', 'do_shortcode', 10, 3);
 //add_filter('wp_init', 'do_shortcode')
 
-add_shortcode( 'text_before_afters', 'wm4d_before_afters' );	
-add_shortcode( 'text_testimonials', 'wm4d_testimonials' );	
-add_shortcode( 'text_office_images', 'wm4d_office_images' );
+add_shortcode( 'text_before_afters', 'wm4d_short_before_afters' );	
+add_shortcode( 'text_testimonials', 'wm4d_short_testimonials' );	
+add_shortcode( 'text_office_images', 'wm4d_short_office_images' );
 
-add_shortcode( 'client_name', 'wm4d_client' );	
-add_shortcode( 'practice_name', 'wm4d_practice' );	
+add_shortcode( 'client_name', 'wm4d_short_client' );	
+add_shortcode( 'practice_name', 'wm4d_short_practice' );	
 
 if ( get_option('wm4d_multiple_select') != 'enable' ) {
-	add_shortcode( 'doctor_name', 'wm4d_doctor' );
-	add_shortcode( 'phone_number', 'wm4d_phone' );		
-	add_shortcode( 'location', 'wm4d_location' );	
+	add_shortcode( 'doctor_name', 'wm4d_short_doctor' );
+	add_shortcode( 'phone_number', 'wm4d_short_phone' );		
+	add_shortcode( 'location', 'wm4d_short_location' );	
 }
 
 if ( get_option('wm4d_multiple_select') == 'enable' ) {
-	add_shortcode( 'doctor_names', 'wm4d_doctors' );	
-	add_shortcode( 'phone_numbers', 'wm4d_phones' );	
-	add_shortcode( 'locations', 'wm4d_locations' );	
+	add_shortcode( 'doctor_names', 'wm4d_short_doctors' );	
+	add_shortcode( 'phone_numbers', 'wm4d_pshort_hones' );	
+	add_shortcode( 'locations', 'wm4d_short_locations' );	
 }
 
-add_shortcode( 'offer', 'special_offer' );
-add_shortcode( 'testimonials', 'testimonials' );
-add_shortcode( 'before_afters', 'before_afters' );
-add_shortcode( 'office_images', 'office_images' );
+add_shortcode( 'offer', 'wm4d_widget_special_offer' );
+add_shortcode( 'testimonials', 'wm4d_widget_testimonials' );
+add_shortcode( 'before_afters', 'wm4d_widget_before_afters' );
+add_shortcode( 'office_images', 'wm4d_widget_office_images' );
 
-function wm4d_before_afters( $atts ){
+function wm4d_short_before_afters( $atts ){
 	$wm4d_before_afters = get_option('wm4d_before_afters');
 	return $wm4d_before_afters;
 }
 
-function wm4d_testimonials( $atts ){
+function wm4d_short_testimonials( $atts ){
 	$wm4d_testimonials = get_option('wm4d_testimonials');
 	return $wm4d_testimonials;
 }
 
-function wm4d_office_images( $atts ){
+function wm4d_short_office_images( $atts ){
 	$wm4d_office_images = get_option('wm4d_office_images');
 	return $wm4d_office_images;
 }
 
-function wm4d_client( $atts ){
+function wm4d_short_client( $atts ){
 	$wm4d_client = get_option('wm4d_client');
 	return $wm4d_client;
 }
 
-function wm4d_doctor( $atts ){
+function wm4d_short_doctor( $atts ){
 	extract(shortcode_atts(array( 'title' => '' ), $atts ));
 
 	if($title == true ) {
@@ -66,55 +66,13 @@ function wm4d_doctor( $atts ){
 	return $wm4d_doctor;
 }
 
-function wm4d_phone( $atts,$content="" ){
+function wm4d_short_phone( $atts,$content="" ){
 	$wm4d_phone = get_option('wm4d_phone');
 	$wm4d_phone=flipper_process_phone($wm4d_phone, $content);
-//	extract(shortcode_atts(array( ), $atts ));
-//	print_r($atts);	exit;
-/*
-	if (isset($_GET['esi']) && $_GET['esi']=='true') {		
-//		$wm4d_phone ="@".$wm4d_phone;
-		echo "Using ESI";
-		if ($wm4d_phone!="") $wm4d_phone=flipper_get_esi($wm4d_phone);	
-//			echo "<!-- ";
-//			print_r($_COOKIE);
-//			echo 'include src="/phone.php?p='.urlencode($match1)."\n";
-//			echo '<esi:include src="/wp-admin/admin-ajax.php?action=get_flipper_phone&p='.urlencode($match1).'"/>';
-
-//			echo '<esi:include src="/phone.php?"/>';
-//			echo "-->";
-
-	};
-*/
 	return $wm4d_phone;
 }
 
-
-add_filter( 'gform_merge_tag_filter', 'filter_all_fields', 10, 7 );
-function filter_all_fields( $value, $merge_tag, $modifier, $field ) {
-    if ( $field->type == 'phone' && $value !="") {
-		$new_phone=flipper_clean_phone($value);	
-		$local = preg_match('/(\([0-9]{3}+\)+ [0-9]{3}+\-[0-9]{4}+)/', $value);
-		$international = preg_match('/[0-9]{2}+ [0-9]{3}+ [0-9]{3}+ [0-9]{4}/', $value);
-		$uk = preg_match('/(\([0-9]{4}+\)+ [0-9]{3}+\-[0-9]{4}+)/', $value);
-
-		if ($local){		
-			 $new_phone = "+1".$new_phone;
-		}elseif ($international) {		
-			 $new_phone = "+".$new_phone;
-		}elseif ($uk) {		
-			 $new_phone = "+44".$new_phone;
-		}
-			return $new_phone;    
-	}
-	else {
-        return $value;
-    }
-}
-
-
-
-function wm4d_location( $atts ){
+function wm4d_short_location( $atts ){
 	extract(shortcode_atts(array( 'short' => '' ), $atts ));
 	if($short == true) {
 		$wm4d_location = get_option('wm4d_location_short');
@@ -124,7 +82,7 @@ function wm4d_location( $atts ){
 	return $wm4d_location;
 }
 
-function wm4d_doctors( $atts ){
+function wm4d_short_doctors( $atts ){
 	extract(shortcode_atts(array( 'id' => '', 'title' => '', 'and' => '', 'count' => '' ), $atts ));
 	
 	$array_id = $id-1;
@@ -180,11 +138,9 @@ function wm4d_doctors( $atts ){
 			return $doctors[$array_id];
 		}
 	}
-	
-	
 }
 
-function wm4d_phones( $atts ){
+function wm4d_short_phones( $atts ){
 	extract(shortcode_atts(array( 'id' => '', 'only' => '', 'and' => '', 'count' => ''), $atts ));
 
 	$phonesdata = get_option('wm4d_phones');
@@ -258,7 +214,7 @@ function wm4d_phones( $atts ){
 	}
 }
 
-function wm4d_locations( $atts ){
+function wm4d_short_locations( $atts ){
 	extract(shortcode_atts(array( 'id' => '', 'count' => '', 'short' => '', 'and' => '' ), $atts ));
 
 	$array_id = $id-1;
@@ -317,22 +273,12 @@ function wm4d_locations( $atts ){
 	}
 }
 
-function wm4d_practice( $atts ){
+function wm4d_short_practice( $atts ){
 	$wm4d_practice = get_option('wm4d_practice');
 	return $wm4d_practice;
 }
-/* added to get practice name */
-add_filter( 'gform_field_value_practice_name', 'practice_name', 10, 3 );
-function practice_name( $value, $field, $name ) {
-    $wm4d_practice = get_option('wm4d_practice');
-	return $wm4d_practice;
-}
-add_filter( 'gform_field_value_year', 'get_year', 10, 3 );
-function get_year( $value, $field, $name ) {
-    $value = date("Y");
-	return $value;
-}
-function special_offer($atts){
+
+function wm4d_widget_special_offer($atts){
 	extract(shortcode_atts(array(
 		'title' => 'Special Offer',
 		'price' => '',
@@ -368,7 +314,7 @@ function special_offer($atts){
 	return $special_offer;
 }
 
-function testimonials( $atts ) {
+function wm4d_widget_testimonials( $atts ) {
 	extract(shortcode_atts(array(
 		'title' => '',
 		'all' => 'See All',
@@ -402,7 +348,7 @@ function testimonials( $atts ) {
 	return $testimonials;
 }
 
-function before_afters( $atts ) {
+function wm4d_widget_before_afters( $atts ) {
 	extract(shortcode_atts(array( 'title' => '', 'category' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
@@ -430,7 +376,7 @@ function before_afters( $atts ) {
 	return $bna;
 }
 
-function office_images( $atts ) {
+function wm4d_widget_office_images( $atts ) {
 	extract(shortcode_atts(array( 'title' => '', 'category' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
@@ -456,5 +402,42 @@ function office_images( $atts ) {
 	wp_reset_postdata();
 	
 	return $office;
+}
+
+/* GRAVITY FORM SHORTCODES */
+
+add_filter( 'gform_merge_tag_filter', 'wm4d_gform_filter_phones', 10, 7 );
+add_filter( 'gform_field_value_practice_name', 'wm4d_gform_practice_name', 10, 3 );
+add_filter( 'gform_field_value_year', 'wm4d_gform_get_year', 10, 3 );
+
+function wm4d_gform_filter_phones( $value, $merge_tag, $modifier, $field ) {
+    if ( $field->type == 'phone' && $value !="") {
+		$new_phone=flipper_clean_phone($value);	
+		$local = preg_match('/(\([0-9]{3}+\)+ [0-9]{3}+\-[0-9]{4}+)/', $value);
+		$international = preg_match('/[0-9]{2}+ [0-9]{3}+ [0-9]{3}+ [0-9]{4}/', $value);
+		$uk = preg_match('/(\([0-9]{4}+\)+ [0-9]{3}+\-[0-9]{4}+)/', $value);
+
+		if ($local){		
+			 $new_phone = "+1".$new_phone;
+		}elseif ($international) {		
+			 $new_phone = "+".$new_phone;
+		}elseif ($uk) {		
+			 $new_phone = "+44".$new_phone;
+		}
+			return $new_phone;    
+	}
+	else {
+        return $value;
+    }
+}
+
+/* added to get practice name */
+function wm4d_gform_practice_name( $value, $field, $name ) {
+    $wm4d_practice = get_option('wm4d_practice');
+	return $wm4d_practice;
+}
+function wm4d_gform_get_year( $value, $field, $name ) {
+    $value = date("Y");
+	return $value;
 }
 ?>
