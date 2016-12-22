@@ -1,7 +1,13 @@
 jQuery(document).ready(function($) {
 	multiple_select();
 	jQuery('#wm4d_select_options').click(function() {
+		console.log('wm4d_select_options');
 		multiple_select();
+	});
+	
+	flipper_select();
+	jQuery('#wm4d_flipper_select').click(function() {
+		flipper_select();
 	});
 });
 
@@ -16,5 +22,13 @@ function multiple_select() {
 		jQuery('div#wm4d_multiple_options').hide();
 		jQuery('.wm4d_select_primary').show();
 		jQuery('.wm4d_select_multiple').hide();
+	}
+}
+
+function flipper_select() {
+	if( jQuery('#wm4d_flipper_select input').attr('checked') ) {
+		jQuery('.flipper_select').show();
+	} else {
+		jQuery('.flipper_select').hide();
 	}
 }

@@ -68,7 +68,10 @@ function wm4d_short_doctor( $atts ){
 
 function wm4d_short_phone( $atts,$content="" ){
 	$wm4d_phone = get_option('wm4d_phone');
-	$wm4d_phone=flipper_process_phone($wm4d_phone, $content);
+	if ( get_option('wm4d_flipper_select') == 'enable' ) {
+		$wm4d_phone=flipper_process_phone($wm4d_phone, $content);
+	}
+	
 	return $wm4d_phone;
 }
 

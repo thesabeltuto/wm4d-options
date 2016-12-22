@@ -13,11 +13,13 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
 	if ( get_option('wm4d_flipper_server_mode') == '' ) $wm4d_flipper_server_mode=''; else $wm4d_flipper_server_mode=get_option('wm4d_flipper_server_mode');
 
 	$domain = get_bloginfo( 'url' ) . "?ref=";
-	$campaign = flipper_get_numbers();
+	if ( get_option('wm4d_flipper_select') == 'enable' ) {
+		$campaign = flipper_get_numbers();
+	}
 	
 ?>
 	<div class="wm4d_wrap">
-	<h1>WM4D Options</h1>
+	<h1>WM4D Options <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
     <div id="wm4d_nav">
         <ul>
 			<?php WM4D_OPTIONS_PLUGIN_navigation(); ?>
@@ -29,12 +31,16 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
     		<div class="wm4d_content" id="wm4d_li-6">
 			<h2>Flipper Options</h2>
     		<?php submit_button(); ?>
+                <div id="wm4d_flipper_select">
                 <h2><input name="wm4d_flipper_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_flipper_select') == 'enable' ); ?> /> &nbsp;
                 Enable / Disable Number Flipper</h2>
                 <hr />
                 <p>Enabling this will replace phone numbers in your site according to referer.
                 </p>
+                </div>
                 
+			<?php if ( get_option('wm4d_flipper_select') == 'enable' ) { ?>
+                <div id="wm4d_flipper_mode" class="wm4d_select flipper_select">
                 <h2>Flipper Mode &nbsp;
                     <select class="wm4d_server_mode" id="wm4d_flipper_server_mode" name="wm4d_flipper_server_mode[]">
                         <?php echo get_server_mode($wm4d_flipper_server_mode); ?>
@@ -43,8 +49,11 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <hr />
                 <p>Select server mode to run the flipper script correctly.
                 </p>
+                </div>
+                
 
 				<?php //REFERER LIST ?>
+                <div id="wm4d_flipper_list" class="wm4d_select flipper_select">
                 <h2>Referer List</h2>
                 <hr />
                 <div class="wm4d_section table">
@@ -67,6 +76,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <hr/>
                 <div class="wm4d_table_wrap_foot_left"><input type="button" class="wm4d_add wm4d_referers_add" id="wm4d_referers_add" name="wm4d_referers_add" value="Add Referer"  /></div>
                 <div class="wm4d_table_wrap_foot_right"><input type="button" class="wm4d_add wm4d_trigger_submit" name="submit" value="Save Changes"  /></div>
+                </div>
                 </div>
                 </div>
 
@@ -94,6 +104,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
 <?php */?>
 				<?php //PRIMARY SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
+                <div id="wm4d_flipper_primary" class="wm4d_select flipper_select">
                 <h2>Phone Numbers to Flip</h2>
                 <hr />
                 <div class="wm4d_section table flipnote"></div>
@@ -135,9 +146,11 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                 <?php } ?>
                     <div class="clear"></div>
                 </div>
+                </div>
 				<?php } ?>
  				<?php //MULTIPLE SELETED ?>
                 <?php if( get_option('wm4d_multiple_select') == 'enable') { ?>
+                <div id="wm4d_flipper_multiple" class="wm4d_select flipper_select">
                 <h2>Phone Numbers to Flip</h2>
                 <hr />
                 <?php $x=0; // count index for selected campaign phones
@@ -178,8 +191,10 @@ function WM4D_OPTIONS_PLUGIN_submenu_flipper_options() {
                     </div>
                 <?php } // for referers?> 
                 <div class="clear"></div>                
-                </div>   
+                </div>
+                </div> 
                 <?php } //if multiple selected ?>
+            <?php } //if enabled selected?>
                                 
       		<?php submit_button(); ?>
             </div>

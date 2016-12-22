@@ -1,6 +1,6 @@
 <?php /* Admin Dashboard Page*/
 
-function WM4D_OPTIONS_PLUGIN_theme_options_page() {
+function WM4D_OPTIONS_PLUGIN_home_page() {
 	if ( get_option('wm4d_css') == ''  ) $cssvalue='currently <span class="empty">empty</span>'; else $cssvalue='<span class="filled">filled</span>';
 	if ( get_option('wm4d_script') == ''  ) $scriptvalue='currently <span class="empty">empty</span>'; else $scriptvalue='<span class="filled">filled</span>';
 	if ( get_option('wm4d_html') == ''  ) $htmlvalue='currently <span class="empty">empty</span>'; else $htmlvalue='<span class="filled">filled</span>';
@@ -27,9 +27,11 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
 	if ( get_option('wm4d_flipper_referers') == '' ) $wm4d_flipper_referers='is currently <span class="empty">empty</span>'; else $wm4d_flipper_referers="includes:";
 	if ( get_option('wm4d_flipper_campaign_phone') == ''  ) $wm4d_flipper_campaign_phone='currently <span class="empty">empty</span>'; else $wm4d_flipper_campaign_phone='<span class="filled">filled</span>';
 	if ( get_option('wm4d_flipper_campaign_phones') == ''  ) $wm4d_flipper_campaign_phones='currently <span class="empty">empty</span>'; else $wm4d_flipper_campaign_phones='<span class="filled">filled</span>';
+	if ( get_option('wm4d_beta_select') == '' ) $wm4d_beta_select='currently <span class="empty">disabled</span>'; else $wm4d_beta_select='<span class="filled">enabled</span>';
+	if ( get_option('wm4d_console_select') == '' ) $wm4d_console_select='currently <span class="empty">disabled</span>'; else $wm4d_console_select='<span class="filled">enabled</span>';
 	?>
 	<div class="wm4d_wrap">
-	<h1>WM4D Options</h1>
+	<h1>WM4D Options <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
     <div id="wm4d_nav">
         <ul>
 			<?php WM4D_OPTIONS_PLUGIN_navigation(); ?>
@@ -39,12 +41,13 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
 			<h2>Welcome to the WM4D Options plugin.</h2>
             <br />
             
-            <div class="wm4d_section home links">
+<?php /*?>            <div class="wm4d_section home links">
             <h3>Please select the following to proceed:</h3>
 				<ol>
 					<?php WM4D_OPTIONS_PLUGIN_home_navigation(); ?>
 				</ol>
             </div>
+<?php */?>
 
             <div class="wm4d_section home">
             <h3>Client Options</h3>
@@ -98,7 +101,61 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
                     <?php } ?>
                </ol>               
             </div>            
-            
+ 
+            <div class="wm4d_section home">
+            <h3>Shortcodes</h3>
+                <ol>
+                    <li>Client's Name: `[client_name]`</li>
+                    <li>Practice Name: `[practice_name]`</li>
+                    <?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
+                    <li>Doctor's Name: `[doctor_name]`</li>
+                    <li>Doctor's Name with Titles: `[doctor_name title="true"]`</li>
+                    <li>Phone Number: `[phone_number]`</li>
+                    <li>Office Location: `[location]`</li>
+                    <li>Office Location Short: `[location short="true"]`</li>
+                    <?php } ?>
+                    <?php if ( get_option('wm4d_multiple_select') == 'enable' ) { ?>
+                    <li>Doctors' Names:
+                        <ol>
+                            <li>Show all: `[doctor_names]`</li>
+                            <li>Show all with titles: `[doctor_names title="true"]`</li>
+                            <li>Show all in a sentence: `[doctor_names and="true"]`</li>
+                            <li>Show all with titles in a sentence: `[doctor_names title="true" and="true"]`</li>
+                            <li>Show specific Doctor's name: `[doctor_names id="#"]`</li>
+                            <li>Show specific Doctor's name with titles: `[doctor_names id="#" title="true"]`</li>
+                            <li>Show number of Doctor: `[doctor_names count="true"]`</li>
+                        </ol>
+                    </li>
+                    
+                    <li>Phone Numbers by Location:
+                        <ol>
+                            <li>Show all: `[phone_numbers]`</li>
+                            <li>Show all phone numbers: `[phone_numbers only="phone"]`</li>
+                            <li>Show all locations: `[phone_numbers only="location"]`</li>
+                            <li>Show all in a sentence: `[phone_numbers and="true"]`</li>
+                            <li>Show all phone numbers in a sentence: `[phone_numbers only="phone" and="true"]`</li>
+                            <li>Show all locations in a sentence: `[phone_numbers only="location" and="true"]`</li>
+                            <li>Show specific Phone number and location: `[phone_numbers id="#"]`</li>
+                            <li>Show specific Phone number: `[phone_numbers id="#" only="phone"]`</li>
+                            <li>Show specific Location: `[phone_numbers id="#" only="location"]`</li>
+                            <li>Show number of phones: `[phone_numbers count="true"]`</li>
+                       </ol>
+                    </li>
+                    <li>Office Locations:
+                        <ol>
+                            <li>Show all: `[locations]`</li>
+                            <li>Show all short locations: `[locations short="true"]`</li>
+                            <li>Show all in a sentence: `[locations and="true"]`</li>
+                            <li>Show all short locations in a sentence: `[locations short="true" and="true"]`</li>
+                            <li>Show specific Location: `[locations  id="#"]`</li>
+                            <li>Show specific Short location: `[locations  id="#" short="true"]`</li>
+                            <li>Show number of locations: `[locations count="true"]`</li>
+                        </ol>
+                    </li>
+                    <?php } ?>
+              </ol>
+            </div>            
+
             <div class="wm4d_section home">
             <h3>Flipper Options</h3>
                <ol>
@@ -174,58 +231,12 @@ function WM4D_OPTIONS_PLUGIN_theme_options_page() {
             </div>            
  
             <div class="wm4d_section home">
-            <h3>Shortcodes</h3>
+            <h3>Support Status</h3>
                 <ol>
-                    <li>Client's Name: `[client_name]`</li>
-                    <li>Practice Name: `[practice_name]`</li>
-                    <?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
-                    <li>Doctor's Name: `[doctor_name]`</li>
-                    <li>Doctor's Name with Titles: `[doctor_name title="true"]`</li>
-                    <li>Phone Number: `[phone_number]`</li>
-                    <li>Office Location: `[location]`</li>
-                    <li>Office Location Short: `[location short="true"]`</li>
-                    <?php } ?>
-                    <?php if ( get_option('wm4d_multiple_select') == 'enable' ) { ?>
-                    <li>Doctors' Names:
-                        <ol>
-                            <li>Show all: `[doctor_names]`</li>
-                            <li>Show all with titles: `[doctor_names title="true"]`</li>
-                            <li>Show all in a sentence: `[doctor_names and="true"]`</li>
-                            <li>Show all with titles in a sentence: `[doctor_names title="true" and="true"]`</li>
-                            <li>Show specific Doctor's name: `[doctor_names id="#"]`</li>
-                            <li>Show specific Doctor's name with titles: `[doctor_names id="#" title="true"]`</li>
-                            <li>Show number of Doctor: `[doctor_names count="true"]`</li>
-                        </ol>
-                    </li>
-                    
-                    <li>Phone Numbers by Location:
-                        <ol>
-                            <li>Show all: `[phone_numbers]`</li>
-                            <li>Show all phone numbers: `[phone_numbers only="phone"]`</li>
-                            <li>Show all locations: `[phone_numbers only="location"]`</li>
-                            <li>Show all in a sentence: `[phone_numbers and="true"]`</li>
-                            <li>Show all phone numbers in a sentence: `[phone_numbers only="phone" and="true"]`</li>
-                            <li>Show all locations in a sentence: `[phone_numbers only="location" and="true"]`</li>
-                            <li>Show specific Phone number and location: `[phone_numbers id="#"]`</li>
-                            <li>Show specific Phone number: `[phone_numbers id="#" only="phone"]`</li>
-                            <li>Show specific Location: `[phone_numbers id="#" only="location"]`</li>
-                            <li>Show number of phones: `[phone_numbers count="true"]`</li>
-                       </ol>
-                    </li>
-                    <li>Office Locations:
-                        <ol>
-                            <li>Show all: `[locations]`</li>
-                            <li>Show all short locations: `[locations short="true"]`</li>
-                            <li>Show all in a sentence: `[locations and="true"]`</li>
-                            <li>Show all short locations in a sentence: `[locations short="true" and="true"]`</li>
-                            <li>Show specific Location: `[locations  id="#"]`</li>
-                            <li>Show specific Short location: `[locations  id="#" short="true"]`</li>
-                            <li>Show number of locations: `[locations count="true"]`</li>
-                        </ol>
-                    </li>
-                    <?php } ?>
-              </ol>
-            </div>            
+                    <li>PHP/WP Console Log <?=$wm4d_console_select; ?></li>
+                    <li>BETA-TEST PAGE <?=$wm4d_console_select; ?></li>
+                </ol>
+            </div>
 
             <div class="wm4d_section home">
             <h3>Support</h3>

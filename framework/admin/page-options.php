@@ -4,7 +4,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_page_options() {
 	WM4D_OPTIONS_PLUGIN_selection();
 ?>
 	<div class="wm4d_wrap">
-	<h1>WM4D Options</h1>
+	<h1>WM4D Options <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
     <div id="wm4d_nav">
         <ul>
 			<?php WM4D_OPTIONS_PLUGIN_navigation(); ?>

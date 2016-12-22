@@ -11,7 +11,7 @@ add_action( 'wp_ajax_add_wm4d_ajax_admin', 'add_wm4d_ajax_admin');
 function WM4D_OPTIONS_PLUGIN_theme_create_menu() {
 
 	//create new top-level menu
-	add_menu_page('WM4D Options', 'WM4D Options', 'administrator', 'wm4d_options', 'WM4D_OPTIONS_PLUGIN_theme_options_page', '', 59 );
+	add_menu_page('WM4D Options', 'WM4D Options', 'administrator', 'wm4d_options', 'WM4D_OPTIONS_PLUGIN_home_page', '', 59 );
 
 	//create new submenus
 	add_submenu_page( 'wm4d_options', 'Client Options', 'Client Options', 'manage_options', 'wm4d_options_client_options', 'WM4D_OPTIONS_PLUGIN_submenu_client_options' );
@@ -26,6 +26,7 @@ function WM4D_OPTIONS_PLUGIN_theme_create_menu() {
 	add_action('admin_init', 'WM4D_OPTIONS_PLUGIN_register_page_options' );
 	add_action('admin_init', 'WM4D_OPTIONS_PLUGIN_register_client_options' );
 	add_action('admin_init', 'WM4D_OPTIONS_PLUGIN_register_flipper_options' );
+	add_action('admin_init', 'WM4D_OPTIONS_PLUGIN_register_support_options' );
 
 }
 
@@ -100,6 +101,12 @@ function WM4D_OPTIONS_PLUGIN_register_flipper_options() {
 	}
 }
 
+function WM4D_OPTIONS_PLUGIN_register_support_options() {
+	//register support settings
+	register_setting( 'wm4d-support-group', 'wm4d_beta_select' );
+	register_setting( 'wm4d-support-group', 'wm4d_console_select' );
+}
+
 function WM4D_OPTIONS_PLUGIN_selection() {
 		if ( isset($_POST['submit']) ) {
 		
@@ -123,6 +130,21 @@ function WM4D_OPTIONS_PLUGIN_selection() {
 			else
 				update_option( 'wm4d_testing_select', 'false' );
 		
+			if ( isset( $_POST['wm4d_beta_select'] ) )
+				update_option( 'wm4d_beta_select', 'enable' );
+			else
+				update_option( 'wm4d_beta_select', 'false' );
+
+			if ( isset( $_POST['wm4d_map_select'] ) )
+				update_option( 'wm4d_map_select', 'enable' );
+			else
+				update_option( 'wm4d_map_select', 'false' );
+
+			if ( isset( $_POST['wm4d_console_select'] ) )
+				update_option( 'wm4d_console_select', 'enable' );
+			else
+				update_option( 'wm4d_console_select', 'false' );
+
 		
 			if(isset($_POST['wm4d_doctors'])){
 				$wm4d_doctors =array();
@@ -200,6 +222,27 @@ function WM4D_OPTIONS_PLUGIN_selection() {
 
 			update_option( 'wm4d_flipper_server_mode', $wm4d_flipper_server_mode );
 
+
+			if(isset($_POST['wm4d_map_addresses'])){
+				$wm4d_map_addresses =array();
+				foreach($_POST['wm4d_map_addresses'] as $key => $value){
+					array_push($wm4d_map_addresses, $value);
+				}
+			}
+
+			if(isset($_POST['wm4d_map_links'])){
+				$wm4d_map_links =array();
+				foreach($_POST['wm4d_map_links'] as $key => $value){
+					array_push($wm4d_map_links, $value);
+				}
+			}
+			
+			update_option( 'wm4d_map_address', $wm4d_map_address );
+			update_option( 'wm4d_map_addresses', $wm4d_map_addresses );
+
+			update_option( 'wm4d_map_link', $wm4d_map_link );
+			update_option( 'wm4d_map_links', $wm4d_map_links );
+			
 		}
 }
 ?>
