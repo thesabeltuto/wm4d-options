@@ -11,7 +11,7 @@ add_action( 'wp_ajax_add_wm4d_ajax_admin', 'add_wm4d_ajax_admin');
 function WM4D_OPTIONS_PLUGIN_theme_create_menu() {
 
 	//create new top-level menu
-	add_menu_page('WM4D Options', 'WM4D Options', 'administrator', 'wm4d_options', 'WM4D_OPTIONS_PLUGIN_home_page', '', 59 );
+	add_menu_page('WM4D Options', 'WM4D Options', 'administrator', 'wm4d_options', 'WM4D_OPTIONS_PLUGIN_home_page', '', 4 );
 
 	//create new submenus
 	add_submenu_page( 'wm4d_options', 'Client Options', 'Client Options', 'manage_options', 'wm4d_options_client_options', 'WM4D_OPTIONS_PLUGIN_submenu_client_options' );
