@@ -8,19 +8,19 @@
 	dt_sc_address
 	dt_sc_web
 */
-remove_shortcode ( "dt_sc_titled_box");
-remove_shortcode ( "dt_sc_icon_box_colored" );
-remove_shortcode ( "dt_sc_icon_box" );
-remove_shortcode ( "dt_sc_phone" );
-remove_shortcode ( "dt_sc_address" );
-remove_shortcode ( "dt_sc_web" );
-
-add_shortcode ( "dt_sc_titled_box", "dt_sc_titled_box_edited" );
-add_shortcode ( "dt_sc_icon_box_colored", "dt_sc_icon_box_colored_edited" );
-add_shortcode ( "dt_sc_icon_box", "dt_sc_icon_box_edited" );
-add_shortcode ( "dt_sc_phone", "dt_sc_phone_edited");
-add_shortcode ( "dt_sc_address", "dt_sc_address_edited");
-add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
+	remove_shortcode ( "dt_sc_titled_box");
+	remove_shortcode ( "dt_sc_icon_box_colored" );
+	remove_shortcode ( "dt_sc_icon_box" );
+	remove_shortcode ( "dt_sc_phone" );
+	remove_shortcode ( "dt_sc_address" );
+	remove_shortcode ( "dt_sc_web" );
+	
+	add_shortcode ( "dt_sc_titled_box", "dt_sc_titled_box_edited" );
+	add_shortcode ( "dt_sc_icon_box_colored", "dt_sc_icon_box_colored_edited" );
+	add_shortcode ( "dt_sc_icon_box", "dt_sc_icon_box_edited" );
+	add_shortcode ( "dt_sc_phone", "dt_sc_phone_edited");
+	add_shortcode ( "dt_sc_address", "dt_sc_address_edited");
+	add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
 
 /******* REPLACED SHORTCODES FROM ORGINAL *******/
 	/* Titles Box Shortcode */
@@ -91,6 +91,7 @@ add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
 		return $out;
 	}
 
+
 	/* Icon Boxes Shortcode */
 	function dt_sc_icon_box_edited($attrs, $content = null, $shortcodename = "") {
 		extract ( shortcode_atts ( array (
@@ -123,7 +124,7 @@ add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
 		extract ( shortcode_atts ( array (
 				'phone' => ''
 		), $attrs ) );
-		
+
 		$phone = call_phone_shortcode($phone);
 
 		$out = '<p class="dt-sc-contact-info">';
@@ -133,7 +134,8 @@ add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
 		$out .= '</p>';
 		
 		return $out;
-	}
+	 }
+
 
 	/* Address Shortcode */
 	function dt_sc_address_edited($attrs, $content = null) {
@@ -148,18 +150,20 @@ add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
 		if(!empty($line3)) $line3 = call_address_shortcode($line3, 'line3'); else $line3 = '';
 		if(!empty($line4)) $line4 = call_address_shortcode($line4, 'line4'); else $line4 = '';
 		
+		
 		$out = '<p class="dt-sc-contact-info address">';
 		$out .= "<i class='fa fa-rocket'></i>";
 		$out .= "<span>";
 		$out .= ( !empty($line1) ) ? $line1 : "";
-		$out .= ( !empty($line2) ) ? "<br>{$line2}" : "";
-		$out .= ( !empty($line3) ) ? "<br>{$line3}" : "";
-		$out .= ( !empty($line4) ) ? "<br>{$line4}" : "";
+		$out .= ( !empty($line2) ) ? "<br>$line2" : "";
+		$out .= ( !empty($line3) ) ? "<br>$line3" : "";
+		$out .= ( !empty($line4) ) ? "<br>$line4" : "";
 		$out .= "</span>";
 		$out .= '</p>';
 		
 		return $out;
-	}
+	 }
+
 	
 	/* Web Shortcode */
 	function dt_sc_web_edited($attrs, $content = null) {
@@ -172,10 +176,13 @@ add_shortcode ( "dt_sc_web", "dt_sc_web_edited");
 		$out .= "<i class='fa fa-globe' ></i>";
 		$out .= __('Web : ','dt_themes');
 		if( !empty( $url ) ) {
-			$out .= $url;
+			$out .= "<a target='_blank' href='{$url}'>";
+			$a = preg_replace('#^[^:/.]*[:/]+#i', '',urldecode( $url ));
+			$out .=	preg_replace('!\bwww3?\..*?\b!', '', $a);
+			$out .= "</a>";
 		}
 		$out .= '</p>';
 		
 		return $out;
-	}
+	 }
 ?>
