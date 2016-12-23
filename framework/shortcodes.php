@@ -22,7 +22,7 @@ if ( get_option('wm4d_multiple_select') != 'enable' ) {
 
 if ( get_option('wm4d_multiple_select') == 'enable' ) {
 	add_shortcode( 'doctor_names', 'wm4d_short_doctors' );	
-	add_shortcode( 'phone_numbers', 'wm4d_pshort_hones' );	
+	add_shortcode( 'phone_numbers', 'wm4d_short_phones' );	
 	add_shortcode( 'locations', 'wm4d_short_locations' );	
 }
 
