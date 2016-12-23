@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228J
 Tags: wm4d
 Requires at least: 3.5.1
 Tested up to: 4.0
-Stable tag: 3.2.9
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,7 +43,8 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 10. Updated before and afters and office images widgets and shortcodes.
 11. Updated functions names for php functions.
 12. Major fixes on bugs, added Mods, added Console logs, restructured major plugin functions.
-13. Fixed after theme loads scripts and codes.
+13. Fixed after theme loads, scripts and codes.
+14. Fixed gravity form loads, scripts and codes.
 
 == Upgrade notice ==
 
