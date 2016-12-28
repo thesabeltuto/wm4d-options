@@ -7,6 +7,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
 
 
 	if ( get_option('wm4d_map_select') == '' ) $wm4d_map_select='currently <span class="empty">disabled</span>'; else $wm4d_map_select='<span class="filled">enabled</span>';
+	if ( get_option('wm4d_map_console') == '' ) $wm4d_map_console='currently <span class="empty">disabled</span>'; else $wm4d_map_console='<span class="filled">enabled</span>';
 ?>
 	<div class="wm4d_mods_wrap">
 	<h1>WM4D Options - MODS <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
@@ -42,6 +43,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
             	<p>Responsive Styled Google Maps Plugin Modification</p>
 				<ol>
                     <li>Res Map Mod is currently <?=$wm4d_map_select?></li>
+                    <li>Jquery Console Log is currently <?=$wm4d_map_console?></li>
 					<?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
                     <li>Custom Map Location is <?=$wm4d_map_address?></li>
                     <li>Custom Map Link is <?=$wm4d_map_link?></li>

@@ -62,6 +62,7 @@ function WM4D_OPTIONS_PLUGIN_register_resmap_options(){
 	register_setting( 'wm4d-resmap-group', 'wm4d_map_address' );
 	register_setting( 'wm4d-resmap-group', 'wm4d_map_link' );
 	register_setting( 'wm4d-resmap-group', 'wm4d_map_select' );
+	register_setting( 'wm4d-resmap-group', 'wm4d_map_console' );
 
 	register_setting( 'wm4d-resmap-group', 'wm4d_map_addresses' );
 	register_setting( 'wm4d-resmap-group', 'wm4d_map_links' );
@@ -85,6 +86,11 @@ function WM4D_OPTIONS_PLUGIN_selection_resmap() {
 				update_option( 'wm4d_map_select', 'enable' );
 			else
 				update_option( 'wm4d_map_select', 'false' );
+				
+			if ( isset( $_POST['wm4d_map_console'] ) )
+				update_option( 'wm4d_map_console', 'enable' );
+			else
+				update_option( 'wm4d_map_console', 'false' );
 
 
 			if(isset($_POST['wm4d_map_addresses'])){

@@ -40,10 +40,12 @@ var map = b;
 	if ( option == true && map == true ) {
 		jQuery('div#wm4d_primary_options.map_select').hide();
 		jQuery('div#wm4d_multiple_options.map_select').show();
+		jQuery('div#wm4d_map_console.map_select').show();
 	}
 	if ( option == false  && map == true ){
 		jQuery('div#wm4d_primary_options.map_select').show();
 		jQuery('div#wm4d_multiple_options.map_select').hide();
+		jQuery('div#wm4d_map_console.map_select').show();
 	}
 	
 	if ( option == true && map == false ) {

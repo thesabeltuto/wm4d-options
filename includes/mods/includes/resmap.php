@@ -40,6 +40,15 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                 <p class="wm4d_map_text2"></p>
                 </div>
 
+                <div id="wm4d_map_console" class="map_select">
+                <h2><input id="wm4d_map_console" name="wm4d_map_console" type="checkbox" value="enable" <?php checked( get_option('wm4d_map_console') == 'enable' ); ?> /> &nbsp;
+                Enable / Disable Jquery Console Log</h2>
+                <hr />
+                <p>Enabling this will allow you to see the console logs of the mods in your browser.
+                </p>
+                </div>
+
+
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
                 
                 <div id="wm4d_primary_options" class="wm4d_select map_select">

@@ -1,6 +1,7 @@
 <?php header('Content-type: text/javascript');
 $wm4d_multiple_select = get_option('wm4d_multiple_select');
 $wm4d_map_select = get_option('wm4d_map_select');
+$wm4d_map_console = get_option('wm4d_map_console');
 $wm4d_address = urlencode(trim(preg_replace('/\s\s+/', ', ', get_option('wm4d_location'))));
 $wm4d_map_address = urlencode(trim(preg_replace('/\s\s+/', ', ', get_option('wm4d_map_address'))));
 $wm4d_map_link = get_option('wm4d_map_link');
@@ -24,7 +25,10 @@ if( '<?=$wm4d_map_select;?>' == 'enable' ) {
         jQuery("div.responsive-map div.gmap_marker").each().live('mouseenter',function(event) {
                 var current_link = jQuery(this).children("strong").children("a").attr("href");
                 var current_add = current_link.substr(30);
-                //console.log( 'resmap currentlink '+current_link );
+                if ( '<?=$wm4d_map_console?>' == 'enable' ) {
+                	console.log( 'resmap currentlink '+current_link );
+                	console.log( 'resmap current_add '+current_add );
+                }
                 
                 if ( '<?=$wm4d_multiple_select?>' == 'enable' ) {
                     var themaplink = wm4d_resmap_multiple(current_add);
@@ -43,6 +47,12 @@ function wm4d_resmap_single(current_add) {
     var ad1 = '<?php echo $wm4d_address; ?>';
     var newad1 = '<?php echo $wm4d_map_address; ?>';
     var newlink1 = '<?php echo $wm4d_map_link; ?>';
+
+    if ( '<?=$wm4d_map_console?>' == 'enable' ) {
+        console.log( 'resmap ad1 '+ad1 );
+        console.log( 'resmap newad1 '+newad1 );
+        console.log( 'resmap newlink1 '+newlink1 );
+    }
 
     // DESICION MAKING AREA
         // SINGLE OPTION
@@ -65,6 +75,12 @@ function wm4d_resmap_multiple(current_add) {
     var ad2 = <?php echo $wm4d_addresses; ?>;
     var newad2 = <?php echo $wm4d_map_addresses; ?>;
     var newlink2 = <?php echo $wm4d_map_links; ?>;
+
+    if ( '<?=$wm4d_map_console?>' == 'enable' ) {
+        console.log( 'resmap ad2 '+ad2 );
+        console.log( 'resmap newad2 '+newad2 );
+        console.log( 'resmap newlink2 '+newlink2 );
+    }
 
     // DESICION MAKING AREA
         // MULTIPLE OPTION    
