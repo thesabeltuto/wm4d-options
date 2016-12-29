@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
 	jquery_check_links('');
 
 	//responsive map
-	$("div.responsive-map").mouseenter(function(event) {
+	/*$("div.responsive-map").mouseenter(function(event) {
 		if($("div.gmap_marker").length > 0) {
 			jquery_check_links("div.gmap_marker");
 		} else {
@@ -12,7 +12,10 @@ jQuery(document).ready(function($) {
 				$("div.responsive-map").off(event);
 			});
 		}
-	});
+	});*/
+	$("div.responsive-map div.gmap_marker").live('mouseenter',function(event) {  
+      jquery_check_links("div.gmap_marker");   
+    });
 
 	function jquery_check_links(element){
 		var element = element;

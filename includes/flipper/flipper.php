@@ -366,7 +366,7 @@ function flipper_add_wm4d_rid($form) {
 			$in = serialize(array('ref'=>$_COOKIE['ref'],'landing'=>$_COOKIE['wm4d_landing'],'time'=>time(),'_referer'=>$_SERVER['HTTP_REFERER']));
 			$cr=flipper_wm4d_rid_encode($in);
 	};
-	$out="[{WM4D Record ID: ".$cr."}]";
+	$out="<!-- [{WM4D Record ID: ".$cr."}] -->";
 	if (isset($form['notifications'])) // for new multisite gf
 		foreach ($form['notifications'] as $id=>$nt) {
 			if ($nt['name']=='Admin Notification') {
@@ -824,8 +824,14 @@ function flipper_wm4d_phone($attrs, $content = null) {
 //		$attrs['phone']=flipper_escape_var($attrs['phone']);
 //		print_r("innnn");exit;
 		if ($content!="") $attrs['only']='phone';
-
-		$res=wm4d_phones($attrs, $content);
+		if (function_exists("wm4d_short_phones")) $res=wm4d_short_phones($attrs, $content);
+		else /*if (function_exists("wm4d_phones"))*/ $res=wm4d_phones($attrs, $content);
+/*		
+		if ($_SERVER['REMOTE_ADDR']=='109.194.111.151') {
+			echo "flipper_wm4d_phones in";
+			print_r($res);	
+		};
+*/
 //		echo $res;exit;
 		extract(shortcode_atts(array( 'id' => '', 'only' => '', 'and' => '', 'count' => ''), $attrs ));
 
@@ -881,15 +887,16 @@ function flipper_init() {
 	}
 */
 
-	if (function_exists("wm4d_phone")) {	
+	if (function_exists("wm4d_phone")/* || function_exists("wm4d_short_phone")*/) {	
 //		echo "<!-- wm4d_phone ".print_r(get_option('wm4d_phone'),true)."-->";
 
 		remove_shortcode ( "phone_number");	
 		add_shortcode ( "phone_number", "flipper_wm4d_phone");		
 	}
+//	if ($_SERVER['REMOTE_ADDR']=='109.194.111.151') echo "<!-- wm4d_phones ".print_r(get_option('wm4d_phones'),true)."-->";
 
 
-	if (function_exists("wm4d_phones")) {	
+	if (function_exists("wm4d_phones") || function_exists("wm4d_short_phones") ) {	
 //		echo "<!-- wm4d_phones ".print_r(get_option('wm4d_phones'),true)."-->";
 
 		remove_shortcode ( "phone_numbers");	
@@ -952,7 +959,7 @@ function flipper_init() {
 	}
 //	if (strpos($_SERVER['HTTP_HOST'], $domain) !== false) $found=true;
 
-	if ((strpos($_SERVER['HTTP_HOST'], 'south-florida-dental-implants') === false) && get_current_theme()=='soulmedic Geo' && function_exists("responsive_map_shortcode_edited")) {	
+	if (/*(strpos($_SERVER['HTTP_HOST'], 'south-florida-dental-implants') === false) && */get_current_theme()=='soulmedic Geo' && function_exists("responsive_map_shortcode_edited")) {	
 //		echo "<!-- ".get_current_theme()."-->";
 		remove_shortcode ( "res_map");	
 		add_shortcode ( "res_map", "flipper_responsive_map_shortcode_edited");		

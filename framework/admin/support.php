@@ -3,7 +3,7 @@
 function WM4D_OPTIONS_PLUGIN_submenu_support() {
 ?>
 	<div class="wm4d_wrap">
-	<h1>WM4D Options</h1>
+	<h1>WM4D Options <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
 	
 
     <div id="wm4d_nav">
@@ -12,10 +12,9 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
        </ul>
     </div>
 
-
 		<div class="wm4d_content" id="wm4d_li-3">
 			<h2>Support</h2>
-            
+
             <h3>Client Options</h3>
             <div class="wm4d_section wm4d_support">
                 <p>Custom Codes was created for you to be able to customize and personalize your website. This section saves your client's information to the database.</p>
@@ -80,8 +79,10 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
             <div class="wm4d_section wm4d_support">
                 <p>Flipper Options was created for you to be able to flip phone numbers according to referer site the visitor came from.</p>
                 <p><strong>Enable / Disable Number Flipper</strong> is where you enable or disable the number flipper functions.</p>
+				<?php if( get_option('wm4d_flipper_select') == 'enable') { ?>
                 <p><strong>Referer List</strong> is where you enter the list of referers for your flipper.</p>
                 <p><strong>Phone Numbers to flip</strong> is where you will select the corresponding campaign number to flip for your Phone Number/s according to referer.</p>
+                <?php } ?>
             </div>
            
             <h3>Custom Codes</h3>
@@ -101,16 +102,21 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
             <div class="wm4d_section wm4d_support">
             	<p>Page Options is for you to have a full customization of WM4D Functions. In includes page texts for your archives page where you put descriptions to the Before and Afters, Testimonials and Office Images pages.</p>
             	<p><strong>Enable / Disable WM4D Functions</strong> is where you enable or disable the WM4D Functions such as the Procedures, Offers, Testimonials, Before and Afters, Office Images and the Widgets.</p>
+				<?php //WM4D FUNCTIONS SELETED ?>
+                <?php if(get_option('wm4d_functions_select') == 'enable') { ?>
             	<p><strong>Before and Afters Page Text</strong> is where you enter your desired text for Before and Afters archive page.
                 Shortcode is`[text_before_afters]`.</p>
             	<p><strong>Testimonials Page Text</strong> is where you enter your desired text for Testimonials archive page.
                 Shortcode is`[text_testimonials]`.</p>
             	<p><strong>Office Images Page Text</strong> is where you enter your desired text for Office Images archive page.
                 Shortcode is`[text_office_images]`.</p>
-                <?php WM4D_OPTIONS_PLUGIN__support_page_post_types(); ?>
+				<?php WM4D_OPTIONS_PLUGIN__support_page_post_types();
+				} ?>
             </div>
 
 
+			<?php //WM4D FUNCTIONS SELETED ?>
+			<?php if(get_option('wm4d_functions_select') == 'enable') { ?>
 			<h3>Custom Post Types</h3>
             <div class="wm4d_section wm4d_support">
             	<p>Custom Post Types are created for ease of navigation and categorization of contents for your website.</p>
@@ -124,19 +130,44 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
                 A widget is available for this post type for you to display a slider section to your website.</p>
             	<p><strong>Office Images</strong> is where you add Office contents. Contents posted in this section will be displayed as a regular post page.
                 A widget is available for this post type for you to display a slider section to your website.</p>
-                <?php WM4D_OPTIONS_PLUGIN__support_custom_post_types(); ?>
+				<?php WM4D_OPTIONS_PLUGIN__support_custom_post_types(); ?>
             </div>
-
 
 			<h3>Widgets</h3>
             <div class="wm4d_section wm4d_support">
              	<p>Wigets are created to feature your Special Offers, Before and Afters, Office Images, and Testimonials in your website.</p>
            	<p><strong>Special Offer</strong> is widget where you can display your offers, NOT linked to any custom post type Offers above.
             Displaying different Special Offer to different Procedures or pages, you will need the <a href="https://wordpress.org/plugins/widget-context/" target="_blank">Widget Context</a> plugin.</p>
-             	<p><strong>Before and Afters</strong> is a widget slider that will cycle all content posted in the custom post type Before and Afters. It will display the featured image of the content.</p>
+             	<p><strong>Before and Afters</strong> is a widget slider that will cycle all content posted in the custom post type Before and Afters. It will display the featured image of the content. Shortcode is also available `[before_afters title=t category=n]` where <u>t</u> is your desired title and <u>n</u> is category slug.</p>
             	<p><strong>Testimonials</strong> is a widget slider that will cycle all content posted in the custom post type Testimonials. It will display images, texts, embeds, iframes, etc.</p>
-            	<p><strong>Office Images</strong> is a widget slider that will cycle all content posted in the custom post type Office Images. It will display the featured image of the content.</p>
+            	<p><strong>Office Images</strong> is a widget slider that will cycle all content posted in the custom post type Office Images. It will display the featured image of the content. Shortcode is also available `[office_images title=t category=n]` where <u>t</u> is your desired title and <u>n</u> is category slug.</p></p>
            </div>
+			<?php } ?>
+            
+
+			<?php WM4D_OPTIONS_PLUGIN_support_mods(); ?>        
+
+            <form method="post" action="options.php">
+               <?php WM4D_OPTIONS_PLUGIN_selection();
+					settings_fields( 'wm4d-support-group' );
+                        do_settings_sections( 'wm4d-support-group' ); ?>
+                <div id="wm4d_select_support">
+                <h2><input id="wm4d_console_select" name="wm4d_console_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_console_select') == 'enable' ); ?> /> &nbsp;
+                Enable / Disable PHP/WP Console</h2>
+                <hr />
+                <p>Enabling this will allow you to see console log of PHP/WP errors and warnings.
+                </p>
+
+                <h2><input id="wm4d_beta_select" name="wm4d_beta_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_beta_select') == 'enable' ); ?> /> &nbsp;
+                Enable / Disable BETA-TEST PAGE</h2>
+                <hr />
+                <p>Enabling this will allow you to have a dedicated page for BETA TESTING.
+                </p>
+                </div>
+                                
+				<?php submit_button(); ?>
+            </form>
+
 
 		</div>
     </div>
