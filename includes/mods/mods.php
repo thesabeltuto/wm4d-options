@@ -49,8 +49,8 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
                     <li>Jquery Console Log is currently <?=$wm4d_map_console?></li>
                     <li>Special Conditions is currently <?=$wm4d_map_condition_select?></li>
 					<?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
-                    <li>Manual Office Location is <?=$wm4d_map_condition_address?></li>
-                    <li>Custom Map Location is <?=$wm4d_map_address?></li>
+                    <li>Manual Office Location is:<br /><?=nl2br($wm4d_map_condition_address)?></li>
+                    <li>Custom Map Location is:<br /><?=nl2br($wm4d_map_address)?></li>
                     <li>Custom Map Link is <span id="map_link"><?=$wm4d_map_link?></span></li>
 					<?php } ?>
 					<?php if ( get_option('wm4d_multiple_select') == 'enable' ) { ?>
@@ -59,7 +59,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
 						if($map_condition_matchs != '') {
 							echo '<ol>';
 							for($i = 0; $i < sizeof($map_condition_matchs);$i++) {
-								echo '<li>'.$map_condition_matchs[$i].'</li>';
+								echo '<li>'.nl2br($map_condition_matchs[$i]).'</li>';
 							}
 							echo '</ol>';
 						}
@@ -69,7 +69,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
 						if($map_addresses != '') {
 							echo '<ol>';
 							for($i = 0; $i < sizeof($map_addresses);$i++) {
-								echo '<li>'.$map_addresses[$i].'</li>';
+								echo '<li>'.nl2br($map_addresses[$i]).'</li>';
 							}
 							echo '</ol>';
 						}
