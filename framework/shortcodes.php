@@ -7,51 +7,51 @@ add_filter('the_excerpt', 'do_shortcode');
 //add_filter('gform_notification', 'do_shortcode', 10, 3);
 //add_filter('wp_init', 'do_shortcode')
 
-add_shortcode( 'text_before_afters', 'wm4d_before_afters' );	
-add_shortcode( 'text_testimonials', 'wm4d_testimonials' );	
-add_shortcode( 'text_office_images', 'wm4d_office_images' );
+add_shortcode( 'text_before_afters', 'wm4d_short_before_afters' );	
+add_shortcode( 'text_testimonials', 'wm4d_short_testimonials' );	
+add_shortcode( 'text_office_images', 'wm4d_short_office_images' );
 
-add_shortcode( 'client_name', 'wm4d_client' );	
-add_shortcode( 'practice_name', 'wm4d_practice' );	
+add_shortcode( 'client_name', 'wm4d_short_client' );	
+add_shortcode( 'practice_name', 'wm4d_short_practice' );	
 
 if ( get_option('wm4d_multiple_select') != 'enable' ) {
-	add_shortcode( 'doctor_name', 'wm4d_doctor' );	
-	add_shortcode( 'phone_number', 'wm4d_phone' );	
-	add_shortcode( 'location', 'wm4d_location' );	
+	add_shortcode( 'doctor_name', 'wm4d_short_doctor' );
+	add_shortcode( 'phone_number', 'wm4d_short_phone' );		
+	add_shortcode( 'location', 'wm4d_short_location' );	
 }
 
 if ( get_option('wm4d_multiple_select') == 'enable' ) {
-	add_shortcode( 'doctor_names', 'wm4d_doctors' );	
-	add_shortcode( 'phone_numbers', 'wm4d_phones' );	
-	add_shortcode( 'locations', 'wm4d_locations' );	
+	add_shortcode( 'doctor_names', 'wm4d_short_doctors' );	
+	add_shortcode( 'phone_numbers', 'wm4d_short_phones' );	
+	add_shortcode( 'locations', 'wm4d_short_locations' );	
 }
 
-add_shortcode( 'offer', 'special_offer' );
-add_shortcode( 'testimonials', 'testimonials' );
-add_shortcode( 'before_afters', 'before_afters' );
-add_shortcode( 'office_images', 'office_images' );
+add_shortcode( 'offer', 'wm4d_widget_special_offer' );
+add_shortcode( 'testimonials', 'wm4d_widget_testimonials' );
+add_shortcode( 'before_afters', 'wm4d_widget_before_afters' );
+add_shortcode( 'office_images', 'wm4d_widget_office_images' );
 
-function wm4d_before_afters( $atts ){
+function wm4d_short_before_afters( $atts ){
 	$wm4d_before_afters = get_option('wm4d_before_afters');
 	return $wm4d_before_afters;
 }
 
-function wm4d_testimonials( $atts ){
+function wm4d_short_testimonials( $atts ){
 	$wm4d_testimonials = get_option('wm4d_testimonials');
 	return $wm4d_testimonials;
 }
 
-function wm4d_office_images( $atts ){
+function wm4d_short_office_images( $atts ){
 	$wm4d_office_images = get_option('wm4d_office_images');
 	return $wm4d_office_images;
 }
 
-function wm4d_client( $atts ){
+function wm4d_short_client( $atts ){
 	$wm4d_client = get_option('wm4d_client');
 	return $wm4d_client;
 }
 
-function wm4d_doctor( $atts ){
+function wm4d_short_doctor( $atts ){
 	extract(shortcode_atts(array( 'title' => '' ), $atts ));
 
 	if($title == true ) {
@@ -66,30 +66,16 @@ function wm4d_doctor( $atts ){
 	return $wm4d_doctor;
 }
 
-function wm4d_phone( $atts,$content="" ){
+function wm4d_short_phone( $atts,$content="" ){
 	$wm4d_phone = get_option('wm4d_phone');
-	$wm4d_phone=flipper_process_phone($wm4d_phone, $content);
-//	extract(shortcode_atts(array( ), $atts ));
-//	print_r($atts);	exit;
-/*
-	if (isset($_GET['esi']) && $_GET['esi']=='true') {		
-//		$wm4d_phone ="@".$wm4d_phone;
-		echo "Using ESI";
-		if ($wm4d_phone!="") $wm4d_phone=flipper_get_esi($wm4d_phone);	
-//			echo "<!-- ";
-//			print_r($_COOKIE);
-//			echo 'include src="/phone.php?p='.urlencode($match1)."\n";
-//			echo '<esi:include src="/wp-admin/admin-ajax.php?action=get_flipper_phone&p='.urlencode($match1).'"/>';
-
-//			echo '<esi:include src="/phone.php?"/>';
-//			echo "-->";
-
-	};
-*/
+	if ( get_option('wm4d_flipper_select') == 'enable' ) {
+		$wm4d_phone=flipper_process_phone($wm4d_phone, $content);
+	}
+	
 	return $wm4d_phone;
 }
 
-function wm4d_location( $atts ){
+function wm4d_short_location( $atts ){
 	extract(shortcode_atts(array( 'short' => '' ), $atts ));
 	if($short == true) {
 		$wm4d_location = get_option('wm4d_location_short');
@@ -99,7 +85,7 @@ function wm4d_location( $atts ){
 	return $wm4d_location;
 }
 
-function wm4d_doctors( $atts ){
+function wm4d_short_doctors( $atts ){
 	extract(shortcode_atts(array( 'id' => '', 'title' => '', 'and' => '', 'count' => '' ), $atts ));
 	
 	$array_id = $id-1;
@@ -155,11 +141,9 @@ function wm4d_doctors( $atts ){
 			return $doctors[$array_id];
 		}
 	}
-	
-	
 }
 
-function wm4d_phones( $atts ){
+function wm4d_short_phones( $atts ){
 	extract(shortcode_atts(array( 'id' => '', 'only' => '', 'and' => '', 'count' => ''), $atts ));
 
 	$phonesdata = get_option('wm4d_phones');
@@ -233,7 +217,7 @@ function wm4d_phones( $atts ){
 	}
 }
 
-function wm4d_locations( $atts ){
+function wm4d_short_locations( $atts ){
 	extract(shortcode_atts(array( 'id' => '', 'count' => '', 'short' => '', 'and' => '' ), $atts ));
 
 	$array_id = $id-1;
@@ -292,12 +276,12 @@ function wm4d_locations( $atts ){
 	}
 }
 
-function wm4d_practice( $atts ){
+function wm4d_short_practice( $atts ){
 	$wm4d_practice = get_option('wm4d_practice');
 	return $wm4d_practice;
 }
 
-function special_offer($atts){
+function wm4d_widget_special_offer($atts){
 	extract(shortcode_atts(array(
 		'title' => 'Special Offer',
 		'price' => '',
@@ -333,7 +317,7 @@ function special_offer($atts){
 	return $special_offer;
 }
 
-function testimonials( $atts ) {
+function wm4d_widget_testimonials( $atts ) {
 	extract(shortcode_atts(array(
 		'title' => '',
 		'all' => 'See All',
@@ -342,78 +326,84 @@ function testimonials( $atts ) {
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 	
-	$testimonials = '<div id="testimonials">';
-	$testimonials .= $title;
-	$testimonials .= '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
-	
 	$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1);
 	$loop = new WP_Query($slider_args);
-	while ($loop->have_posts()) : $loop->the_post();
-		$testimonials .= '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
-		$testimonials .= '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
-	endwhile;
+	if($loop->found_posts>0) {
+		$testimonials = '<div id="testimonials">';
+		$testimonials .= $title;
+		$testimonials .= '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
+		while ($loop->have_posts()) : $loop->the_post();
+			$testimonials .= '<div class="the-testimonial"><div class="testimonial-excerpt">'. get_the_excerpt() . '</div>';
+			$testimonials .= '<div class="testimonial-title"> &mdash; ' . get_the_title() . '</div></div>';
+		endwhile;
+		$testimonials .= '</div>';
+		if($loop->found_posts>1) {
+			$testimonials .= '<div id="testimonial-nav">';
+			$testimonials .= '<a href="#"><span id="prev">Prev</span></a>'; 
+			$testimonials .= '<a href="'. $url .'"><span id="seeall">'. $all .'</span></a>'; 
+			$testimonials .= '<a href="#"><span id="next">Next</span></a>';
+			$testimonials .= '</div>';
+		}
+		$testimonials .= '</div>';
+	}
 	wp_reset_postdata();
-		
-	$testimonials .= '</div>';
-	$testimonials .= '<div id="testimonial-nav">';
-	$testimonials .= '<a href="#"><span id="prev">Prev</span></a>'; 
-	$testimonials .= '<a href="'. $url .'"><span id="seeall">'. $all .'</span></a>'; 
-	$testimonials .= '<a href="#"><span id="next">Next</span></a>';
-	$testimonials .= '</div>';
-	$testimonials .= '</div>';
 	
 	return $testimonials;
 }
 
-function before_afters( $atts ) {
-	extract(shortcode_atts(array( 'title' => '' ), $atts ));
+function wm4d_widget_before_afters( $atts ) {
+	extract(shortcode_atts(array( 'title' => '', 'category' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 	
-	$bna = '<div id="before-after">';
-	$bna .= $title;
-	$bna .= '<ul id="before-after-cycle">';
-	
-	$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1);
+	$before_after_args = array('post_type' => 'before-and-afters', 'posts_per_page' => -1, 'before_and_afters_categories' => $category );
 	$before_after_loop = new WP_Query($before_after_args);
-	while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
-		$bna .= get_the_post_thumbnail();
-	endwhile;
-	//wp_reset_postdata();
-		
-	$bna .= '</ul>';
-	$bna .= '<div id="before-after-nav">';
-	$bna .= '<a href="#"><span id="before-after-prev">Prev</span></a>'; 
-	$bna .=  '<a href="#"><span id="before-after-next">Next</span></a>';
-	$bna .= '</div>';
-	$bna .= '</div>';
+	if($before_after_loop->found_posts>0) {
+		$bna = '<div id="before-after">';
+		$bna .= $title;
+		$bna .= '<ul id="before-after-cycle">';
+		while ($before_after_loop->have_posts()) : $before_after_loop->the_post();
+			$bna .= get_the_post_thumbnail();
+		endwhile;
+		$bna .= '</ul>';
+		if($before_after_loop->found_posts>1) {
+			$bna .= '<div id="before-after-nav">';
+			$bna .= '<a href="#"><span id="before-after-prev">Prev</span></a>'; 
+			$bna .=  '<a href="#"><span id="before-after-next">Next</span></a>';
+			$bna .= '</div>';
+		}
+		$bna .= '</div>';
+	}
+	wp_reset_postdata();
 	
 	return $bna;
 }
 
-function office_images( $atts ) {
-	extract(shortcode_atts(array( 'title' => '' ), $atts ));
+function wm4d_widget_office_images( $atts ) {
+	extract(shortcode_atts(array( 'title' => '', 'category' => '' ), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 
-	$office = '<div id="office-images">';
-	$office .= $title;
-	$office .= '<ul id="office-images-cycle">';
-	
-	$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1);
+	$office_images_args = array('post_type' => 'office-images', 'posts_per_page' => -1, 'office_images_categories' => $category);
 	$office_images_loop = new WP_Query($office_images_args);
-	while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
-		$office .= get_the_post_thumbnail();
-	endwhile;
+	if($office_images_loop->found_posts>0) {
+		$office = '<div id="office-images">';
+		$office .= $title;
+		$office .= '<ul id="office-images-cycle">';	
+		while ($office_images_loop->have_posts()) : $office_images_loop->the_post();
+			$office .= get_the_post_thumbnail();
+		endwhile;
+		$office .= '</ul>';
+		if($office_images_loop->found_posts>1) {
+			$office .= '<div id="office-images-nav">';
+			$office .= '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
+			$office .=  '<a href="#"><span id="office-images-next">Next</span></a>';
+			$office .= '</div>';
+		}
+		$office .= '</div>';
+	}
 	wp_reset_postdata();
 	
-	$office .= '</ul>';
-	$office .= '<div id="office-images-nav">';
-	$office .= '<a href="#"><span id="office-images-prev">Prev</span></a>'; 
-	$office .=  '<a href="#"><span id="office-images-next">Next</span></a>';
-	$office .= '</div>';
-	$office .= '</div>';
-
 	return $office;
 }
 ?>
