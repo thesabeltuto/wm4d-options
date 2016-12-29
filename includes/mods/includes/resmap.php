@@ -4,6 +4,8 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
 	if ( get_option('wm4d_map_addresses') == '' ) $wm4d_map_addresses = '';  else $wm4d_map_addresses = get_option('wm4d_map_addresses');
 	if ( get_option('wm4d_map_links') == '' ) $wm4d_map_links = '';  else $wm4d_map_links = get_option('wm4d_map_links');
 	$wm4d_locs = get_option('wm4d_locations');
+
+	if ( get_option('wm4d_map_condition_addresses') == '' ) $wm4d_map_condition_addresses = '';  else $wm4d_map_condition_addresses = get_option('wm4d_map_condition_addresses');
 ?>
 	<div class="wm4d_mods_wrap">
 	<h1>WM4D Options - MODS <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
@@ -48,6 +50,14 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                 </p>
                 </div>
 
+                <div id="wm4d_map_condition_select" class="map_select">
+                <h2><input id="wm4d_map_condition_select" name="wm4d_map_condition_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_map_condition_select') == 'enable' ); ?> /> &nbsp;
+                Enable / Disable Special Conditions</h2>
+                <hr />
+                <p>Enabling this will allow you to input special map conditions (Manual Location/s) that don't match the Client Options.
+                </p>
+                </div>
+
 
                 <?php if( get_option('wm4d_multiple_select') != 'enable') { ?>
                 
@@ -63,10 +73,16 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                     <table id="locations" border="0" cellspacing="0" cellpadding="8" class="wm4d_table_form">
                         <thead>
                             <th>Office Location</th>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <th>Special Condition (Manual Office Location)</th>
+							<?php } ?>
                             <th>Custom Map Location</th>
                         </thead>
                         <tr id="address">
                             <td><textarea readonly="readonly" name="wm4d_location"  cols="48" rows="4" value="get_option('wm4d_location')?>"><?=get_option('wm4d_location')?></textarea></td>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <td><textarea name="wm4d_map_condition_address"  cols="48" rows="4" value="get_option('wm4d_map_condition_address')?>"><?=get_option('wm4d_map_condition_address')?></textarea></td>
+							<?php } ?>
                             <td><textarea name="wm4d_map_address" cols="48" rows="4" value="<?php echo get_option('wm4d_map_address');?>"><?php echo get_option('wm4d_map_address');?></textarea></td>
                         </tr>
                     </table>
@@ -83,10 +99,16 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                     <table id="locations" border="0" cellspacing="0" cellpadding="8" class="wm4d_table_form">
                         <thead>
                             <th>Office Location</th>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <th>Special Condition (Manual Office Location)</th>
+							<?php } ?>
                             <th>Custom Map Link</th>
                         </thead>
                         <tr id="address">
                             <td><textarea readonly="readonly" name="wm4d_location" cols="48" rows="4" value="get_option('wm4d_location')?>"><?=get_option('wm4d_location')?></textarea></td>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <td><textarea readonly="readonly" name="wm4d_map_condition_address2"  cols="48" rows="4" value="get_option('wm4d_map_condition_address')?>"><?=get_option('wm4d_map_condition_address')?></textarea></td>
+							<?php } ?>
                             <td><input name="wm4d_map_link" type="text" size="48" value="<?=get_option('wm4d_map_link')?>" /></td>
                         </tr>
                     </table>
@@ -115,6 +137,9 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                         <thead>
                             <th>ID</th>
                             <th>Office Location</th>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <th>Special Condition (Manual Office Location)</th>
+							<?php } ?>
                             <th>Custom Map Location</th>
                         </thead>
                     <?php
@@ -122,7 +147,10 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                     for($i = 0; $i < sizeof($wm4d_locs);$i++) {  $id = $i+1; ?>
                         <tr id="addresses_<?=$id?>">
                             <td><input type="text" readonly="readonly" name="wm4d_locations_id" value="<?=$id?>" size="1" tabindex="-1"/></td>
-                            <td><textarea readonly="readonly" name="wm4d_locs[]" cols="48" rows="4" value="<?=$wm4d_locs[$i]?>"><?=$wm4d_locs[$i]?></textarea></td>
+                            <td><textarea readonly="readonly" name="wm4d_locs_<?=$id?>" cols="48" rows="4" value="<?=$wm4d_locs[$i]?>"><?=$wm4d_locs[$i]?></textarea></td>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                           <td><textarea name="wm4d_map_condition_addresses[]" id="wm4d_map_condition_addresses_<?=$id?>" cols="48" rows="4" value="<?=$wm4d_map_condition_addresses[$i]?>"><?=$wm4d_map_condition_addresses[$i]?></textarea></td>
+							<?php } ?>
                             <td><textarea name="wm4d_map_addresses[]" cols="48" rows="4" value="<?=$wm4d_map_addresses[$i]?>"><?=$wm4d_map_addresses[$i]?></textarea></td>
                         </tr>
                     <?php } ?>
@@ -141,6 +169,9 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                         <thead>
                             <th>ID</th>
                             <th>Office Location</th>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <th>Special Condition (Manual Office Location)</th>
+							<?php } ?>
                             <th>Custom Map Link</th>
                         </thead>
                     <?php
@@ -149,7 +180,10 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods_resmap() {
                     for($i = 0; $i < sizeof($wm4d_locs);$i++) {  $id = $i+1; ?>
                         <tr id="addresses_<?=$id?>">
                             <td><input type="text" readonly="readonly" name="wm4d_locations_id" value="<?=$id?>" size="1" tabindex="-1"/></td>
-                            <td><textarea readonly="readonly" name="wm4d_locs[]" cols="48" rows="4" value="<?=$wm4d_locs[$i]?>"><?=$wm4d_locs[$i]?></textarea></td>
+                            <td><textarea readonly="readonly" name="wm4d_locs_<?=$id?>" cols="48" rows="4" value="<?=$wm4d_locs[$i]?>"><?=$wm4d_locs[$i]?></textarea></td>
+                            <?php if ( get_option('wm4d_map_condition_select') == 'enable' ) { ?>
+                            <td><textarea readonly="readonly" name="wm4d_map_condition_addresses2[]" id="wm4d_map_condition_addresses2_<?=$id?>" cols="48" rows="4" value="<?=$wm4d_map_condition_addresses[$i]?>"><?=$wm4d_map_condition_addresses[$i]?></textarea></td>
+							<?php } ?>
                             <td><input type="text" size="48" name="wm4d_map_links[]" value="<?=$wm4d_map_links[$i]?>"/></td>
                         </tr>
                     <?php } ?>
