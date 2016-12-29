@@ -4,10 +4,13 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
 	if ( get_option('wm4d_map_link') == ''  ) $wm4d_map_link='currently <span class="empty">empty</span>'; else $wm4d_map_link=get_option('wm4d_map_link');
 	if ( get_option('wm4d_map_addresses') == ''  ) $wm4d_map_addresses='currently <span class="empty">empty</span>'; else $wm4d_map_addresses="includes:";
 	if ( get_option('wm4d_map_links') == ''  ) $wm4d_map_links='currently <span class="empty">empty</span>'; else $wm4d_map_links="includes:";
+	if ( get_option('wm4d_map_condition_address') == ''  ) $wm4d_map_condition_address='currently <span class="empty">empty</span>'; else $wm4d_map_condition_address=get_option('wm4d_map_condition_address');
+	if ( get_option('wm4d_map_condition_addresses') == ''  ) $wm4d_map_condition_addresses='currently <span class="empty">empty</span>'; else $wm4d_map_condition_addresses="includes:";
 
 
 	if ( get_option('wm4d_map_select') == '' ) $wm4d_map_select='currently <span class="empty">disabled</span>'; else $wm4d_map_select='<span class="filled">enabled</span>';
 	if ( get_option('wm4d_map_console') == '' ) $wm4d_map_console='currently <span class="empty">disabled</span>'; else $wm4d_map_console='<span class="filled">enabled</span>';
+	if ( get_option('wm4d_map_condition_select') == '' ) $wm4d_map_condition_select='currently <span class="empty">disabled</span>'; else $wm4d_map_condition_select='<span class="filled">enabled</span>';
 ?>
 	<div class="wm4d_mods_wrap">
 	<h1>WM4D Options - MODS <span>Version <?=$GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?></span></h1>
@@ -44,11 +47,23 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
 				<ol>
                     <li>Res Map Mod is currently <?=$wm4d_map_select?></li>
                     <li>Jquery Console Log is currently <?=$wm4d_map_console?></li>
+                    <li>Special Conditions is currently <?=$wm4d_map_condition_select?></li>
 					<?php if ( get_option('wm4d_multiple_select') != 'enable' ) { ?>
+                    <li>Special Condition is <?=$wm4d_map_condition_address?></li>
                     <li>Custom Map Location is <?=$wm4d_map_address?></li>
-                    <li>Custom Map Link is <?=$wm4d_map_link?></li>
+                    <li>Custom Map Link is <span id="map_link"><?=$wm4d_map_link?></span></li>
 					<?php } ?>
 					<?php if ( get_option('wm4d_multiple_select') == 'enable' ) { ?>
+                    <li>Special Conditions <?=$wm4d_map_condition_addresses?></li>
+                    <?php $map_condition_matchs = get_option('wm4d_map_condition_addresses');
+						if($map_condition_matchs != '') {
+							echo '<ol>';
+							for($i = 0; $i < sizeof($map_condition_matchs);$i++) {
+								echo '<li>'.$map_condition_matchs[$i].'</li>';
+							}
+							echo '</ol>';
+						}
+					?>
                     <li>Custom Map Locations <?=$wm4d_map_addresses?></li>
                     <?php $map_addresses = get_option('wm4d_map_addresses');
 						if($map_addresses != '') {
@@ -64,7 +79,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_mods() {
 						if($map_links != '') {
 							echo '<ol>';
 							for($i = 0; $i < sizeof($map_links);$i++) {
-								echo '<li>'.$map_links[$i].'</li>';
+								echo '<li class="map_links">'.$map_links[$i].'</li>';
 							}
 							echo '</ol>';
 						}

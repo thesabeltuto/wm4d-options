@@ -282,14 +282,14 @@ function call_description_shortcode($description){
 function call_addresses_shortcode($address){
 	if(preg_match('%location%', $address)){
 		$data = get_multi_data('location', $address);
-		$string = preg_replace("#\r\n#",', ',trim($data));
+		$string = preg_replace("#\r\n#",' ',trim($data));
 		$address = $string;
 	}
 	if(preg_match('%multi_data%', $address)){
 		$data = get_option('wm4d_locations');
 		
 		foreach($data as $k => $v) {
-			$locations = preg_replace("#\r\n#",', ',trim($v));
+			$locations = preg_replace("#\r\n#",' ',trim($v));
 			$string .= $locations . '|';
 		}
 		$address = $string;
