@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228J
 Tags: wm4d
 Requires at least: 3.5.1
 Tested up to: 4.0
-Stable tag: 3.3.5
+Stable tag: 3.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,8 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 16. Console logs for mods are added.
 17. Resmap special conditions are added.
 18. Resmap mod fixes.
+19. Custom code fixes.
+20. Shortcode fixes.
 
 == Upgrade notice ==
 
