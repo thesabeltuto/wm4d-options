@@ -262,9 +262,11 @@ function call_description_shortcode($description){
 		$all_locations = get_option('wm4d_locations');
 		
 		$string = '';
-		$string .= $practice . '{br}';
 
 		foreach($all_phones as $k => $v) {
+			
+			$string .= '<strong>' . $practice . '</strong>{br}';
+			
 			$locations = preg_replace("#\r\n#",'{br}',trim($all_locations[$k]));
 
 			$string .= $locations . '{br}';
