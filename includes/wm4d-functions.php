@@ -485,8 +485,9 @@ class gsdental_testimonials extends WP_Widget {
 	}
  
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'testimonial_title' => '', 'testimonial_seeall' => '', 'testimonial_seeallurl' => '') );
+		$instance = wp_parse_args( (array) $instance, array( 'testimonial_title' => '', 'testimonial_seeall' => '', 'testimonial_seeallurl' => '', 'testimonial_category' => '') );
 		$testimonial_title = $instance['testimonial_title'];
+		$testimonial_category = $instance['testimonial_category'];
 		$testimonial_seeall = $instance['testimonial_seeall'];
 		$testimonial_seeallurl = $instance['testimonial_seeallurl'];
 		
@@ -494,6 +495,10 @@ class gsdental_testimonials extends WP_Widget {
 		<p>
 		<label for="<?php echo $this->get_field_id('testimonial_title'); ?>">Title:</label>
 		<input id="<?php echo $this->get_field_id( 'testimonial_title' ); ?>" name="<?php echo   $this->get_field_name( 'testimonial_title' ); ?>" type="text" value="<?php echo $testimonial_title ?>"   />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('testimonial_category'); ?>">Category:</label>
+		<input id="<?php echo $this->get_field_id( 'testimonial_category' ); ?>" name="<?php echo   $this->get_field_name( 'testimonial_category' ); ?>" type="text" value="<?php echo $testimonial_category ?>"   />
 		</p>
 		<p>
 		<label for="<?php echo $this->get_field_id('testimonial_seeall'); ?>">See All Title:</label>
@@ -509,6 +514,7 @@ class gsdental_testimonials extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['testimonial_title'] = $new_instance['testimonial_title'];
+		$instance['testimonial_category'] = $new_instance['testimonial_category'];
 		$instance['testimonial_seeall'] = $new_instance['testimonial_seeall'];
 		$instance['testimonial_seeallurl'] = $new_instance['testimonial_seeallurl'];
 		return $instance;
@@ -517,6 +523,7 @@ class gsdental_testimonials extends WP_Widget {
 	public function widget( $args, $instance ) {
 		extract( $args );
 		$testimonial_title = apply_filters( 'widget_title', $instance['testimonial_title'] );
+		$testimonial_category = apply_filters( 'widget_title', $instance['testimonial_category'] );
 		$testimonial_seeall = apply_filters( 'widget_title', $instance['testimonial_seeall'] );
 		$testimonial_seeallurl = apply_filters( 'widget_title', $instance['testimonial_seeallurl'] );
 		
@@ -524,7 +531,7 @@ class gsdental_testimonials extends WP_Widget {
 		echo '<h2 class="widget-title">'.$testimonial_title.'</h2>';
 		echo '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
 		
-		$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1);
+		$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1, 'testimonial_categories' => $testimonial_category );
 		$loop = new WP_Query($slider_args);
 		while ($loop->have_posts()) : $loop->the_post();
 			//echo '<div class="the-testimonial"><div class="testimonial-content">' . get_the_content() . '</div>';

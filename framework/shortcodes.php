@@ -320,13 +320,14 @@ function wm4d_widget_special_offer($atts){
 function wm4d_widget_testimonials( $atts ) {
 	extract(shortcode_atts(array(
 		'title' => '',
+		'category' => '',
 		'all' => 'See All',
 		'url' => '/testimonials/'
 	), $atts ));
 	
 	if($title != ''){ $title = '<h2 class="widget-title">'.$title.'</h2>';	}
 	
-	$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1);
+	$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1, 'testimonial_categories' => '');
 	$loop = new WP_Query($slider_args);
 	if($loop->found_posts>0) {
 		$testimonials = '<div id="testimonials">';
