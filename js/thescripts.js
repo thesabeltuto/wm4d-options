@@ -40,21 +40,30 @@ jQuery(document).ready(function($) {
 		openEffect	: 'elastic',
 		closeEffect	: 'elastic',
 	});
+	
+	$("[id^=cycle]").each(function() {
+		var testimonial_prev = $(this).next().children('a').children('span').first();
+		var testimonial_next = $(this).next().children('a').children('span').last();
 
-	$("#cycle").cycle({
-		timeout: 0,
-		fx:      'scrollHorz',
-		prev:    '#prev',
-        next:    '#next'
-	});
-
-	$( "#cycle" ).click(function() {
-	   $(this).cycle("pause");
+        $(this).cycle({
+			/*timeout: 0,*/
+			fx:      'scrollHorz',
+			prev:    testimonial_prev,
+			next:    testimonial_next
+		});
+		
+		$(this).click(function() {
+		   $(this).cycle("pause");
+		});
+    });
+	
+	$("[id^=testimonial-nav]").each(function() {
+		$(this).children('a').children('span').click(function() {
+		   $(this).parent().parent().prev().cycle("resume");
+		});
 	});
 	
-	$( "#testimonial-nav span" ).click(function() {
-	   $("#cycle").cycle("resume");
-	});
+	
     $("[id^=before-after-cycle]").each(function(){
 		var before_after_prev = $(this).next().children('a').children('span').first();
 		var before_after_next = $(this).next().children('a').children('span').last();

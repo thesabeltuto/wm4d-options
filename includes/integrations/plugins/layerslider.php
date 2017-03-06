@@ -86,7 +86,7 @@ function procedure_slider_out($post_id) {
               <!-- Layered Slider -->
               <div id="layerslider" class="custom-box" <?php echo $layerslider;?>>
               	<h3><?php _e('Layer Slider','dt_themes');?></h3>
-                <?php if(dttheme_is_plugin_active('LayerSlider/layerslider.php')):?>
+                <?php if(wm4d_is_plugin_active('LayerSlider/layerslider.php')):?>
                 <?php // Get WPDB Object
 					  global $wpdb;
 					  // Table name
