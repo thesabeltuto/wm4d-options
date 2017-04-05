@@ -74,8 +74,10 @@ function WM4D_OPTIONS_PLUGIN_register_client_options() {
 	register_setting( 'wm4d-client-group', 'wm4d_practice' );
 	register_setting( 'wm4d-client-group', 'wm4d_multiple_select' );
 	register_setting( 'wm4d-client-group', 'wm4d_phone_format_select' );
+	register_setting( 'wm4d-client-group', 'wm4d_phone_format_select2' );
 
 	register_setting( 'wm4d-client-group', 'wm4d_phones_loc' );
+	register_setting( 'wm4d-client-group', 'wm4d_phone_format' );
 }
 
 function WM4D_OPTIONS_PLUGIN_register_flipper_options() {
@@ -146,6 +148,17 @@ function WM4D_OPTIONS_PLUGIN_selection() {
 				update_option( 'wm4d_console_select', 'false' );
 
 		
+			if ( isset( $_POST['wm4d_phone_format_select'] ) )
+				update_option( 'wm4d_phone_format_select', 'enable' );
+			else
+				update_option( 'wm4d_phone_format_select', 'false' );
+
+			if ( isset( $_POST['wm4d_phone_format_select2'] ) )
+				update_option( 'wm4d_phone_format_select2', 'enable' );
+			else
+				update_option( 'wm4d_phone_format_select2', 'false' );
+
+
 			if(isset($_POST['wm4d_doctors'])){
 				$wm4d_doctors =array();
 				foreach($_POST['wm4d_doctors'] as $key => $value){
@@ -171,6 +184,13 @@ function WM4D_OPTIONS_PLUGIN_selection() {
 				$wm4d_phones_loc =array();
 				foreach($_POST['wm4d_phones_loc'] as $key => $value){
 					array_push($wm4d_phones_loc, $value);
+				}
+			}
+
+			if(isset($_POST['wm4d_phone_format'])){
+				$wm4d_phone_format =array();
+				foreach($_POST['wm4d_phone_format'] as $key => $value){
+					array_push($wm4d_phone_format, $value);
 				}
 			}
 			

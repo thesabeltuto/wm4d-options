@@ -44,11 +44,22 @@ function WM4D_OPTIONS_PLUGIN_submenu_client_options() {
                 </p>
                 </div>
 
-                <div id="wm4d_select_phone_format">
+<?php /*?>                <div id="wm4d_select_phone_format">
                 <h2><input id="wm4d_phone_format_select" name="wm4d_phone_format_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_phone_format_select') == 'enable' ); ?> /> &nbsp;
                 Enable / Disable International Phone Format</h2>
                 <hr />
                 <p>Enabling this will allow you to change the format of phone numbers from (999) 999-9999 to international +99 (999) 999-9999.
+                </p>
+                </div>
+<?php */?>
+                <div id="wm4d_select_phone_format">
+                <h2><input id="wm4d_phone_format_select" name="wm4d_phone_format_select" type="checkbox" value="enable" <?php checked( get_option('wm4d_phone_format_select') == 'enable' ); ?> /> &nbsp;
+                Enable / Disable Custom Phone Format</h2>
+                <hr />
+                </div>
+                <div class="phone_selections">
+                <p><input type="radio" name="wm4d_phone_format_select2" value="enable" <?php checked( get_option('wm4d_phone_format_select2') == 'enable' ); ?>>International +99 (999) 999-9999.<br>
+                    <input type="radio" name="wm4d_phone_format_select2" value="enable2" <?php checked( get_option('wm4d_phone_format_select2') == 'enable2' ); ?>>Other: <input name="wm4d_phone_format" type="text" size="20" value="<?php echo get_option('wm4d_phone_format'); ?>" />
                 </p>
                 </div>
                 

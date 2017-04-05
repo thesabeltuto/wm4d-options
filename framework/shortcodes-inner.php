@@ -316,7 +316,7 @@ function call_web_shortcode($url){
 	if(preg_match('%self%', $url)){
 		$url = site_url();
 		$a = preg_replace('#^[^:/.]*[:/]+#i', '',urldecode( $url ));
-		$out =	preg_replace('!\bwww3?\..*?\b!', '', $a);
+		$out = preg_replace('!\bwww3?\..*?\b!', '', $a);
 		$url = $out;	
 	}
 	else {
