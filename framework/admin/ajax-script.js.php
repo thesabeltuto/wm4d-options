@@ -3,7 +3,9 @@
 //$wm4d_phones=get_option('wm4d_phones');
 //$locations=get_option('wm4d_phones_loc');
 //$select_options=get_multiple_phones($wm4d_phones,$locations, '');
-$phone_format=get_option('wm4d_phone_format_select');
+$phone_format_select=get_option('wm4d_phone_format_select');
+$phone_format_select2=get_option('wm4d_phone_format_select2');
+$phone_format=get_option('wm4d_phone_format');
 ?>
 
 jQuery(document).ready(function($) {
@@ -319,11 +321,21 @@ function convert_phone_format() {
         }
 	});
     
-	if ( '<?=$phone_format?>' == 'enable') {
-        jQuery('input.phone_format').each(function() { 
-            jQuery(this).mask("+99 (999) 999-9999");
-        });
-    } else {
+	if ( '<?=$phone_format_select?>' == 'enable') {
+		if ( '<?=$phone_format_select2?>' == 'enable' ) {
+			jQuery('input.phone_format').each(function() { 
+				jQuery(this).mask("+99 (999) 999-9999");
+			});
+		} else if ( '<?=$phone_format_select2?>' == 'enable2' ) {
+			jQuery('input.phone_format').each(function() { 
+				jQuery(this).mask("<?=$phone_format?>");
+			});
+		} else {
+			jQuery('input.phone_format').each(function() { 
+				jQuery(this).mask("(999) 999-9999");
+			});
+		}
+	} else {
         jQuery('input.phone_format').each(function() { 
             jQuery(this).mask("(999) 999-9999");
         });

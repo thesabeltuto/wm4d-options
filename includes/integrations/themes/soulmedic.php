@@ -176,7 +176,7 @@
 		$out .= "<i class='fa fa-globe' ></i>";
 		$out .= __('Web : ','dt_themes');
 		if( !empty( $url ) ) {
-			$out .= "<a target='_blank' href='{$url}'>";
+			$out .= "<a target='_blank' href='http://{$url}'>";
 			$a = preg_replace('#^[^:/.]*[:/]+#i', '',urldecode( $url ));
 			$out .=	preg_replace('!\bwww3?\..*?\b!', '', $a);
 			$out .= "</a>";

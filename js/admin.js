@@ -1,13 +1,19 @@
 jQuery(document).ready(function($) {
 	multiple_select();
 	jQuery('#wm4d_select_options').click(function() {
-		console.log('wm4d_select_options');
+		//console.log('wm4d_select_options');
 		multiple_select();
 	});
 	
 	flipper_select();
 	jQuery('#wm4d_flipper_select').click(function() {
 		flipper_select();
+	});
+	
+	phone_format_select()
+	jQuery('#wm4d_select_phone_format').click(function() {
+		console.log("wm4d_select_phone_format");
+		phone_format_select();
 	});
 });
 
@@ -32,3 +38,12 @@ function flipper_select() {
 		jQuery('.flipper_select').hide();
 	}
 }
+
+function phone_format_select() {
+	if( jQuery('#wm4d_select_phone_format input').attr('checked') ) {
+		jQuery('.phone_selections').show();
+	} else {
+		jQuery('.phone_selections').hide();
+	}
+}
+
