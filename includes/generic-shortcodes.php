@@ -5,7 +5,8 @@
 //add_filter('the_title', 'do_shortcode');
 //add_filter('the_excerpt', 'do_shortcode');
 //add_filter('gform_notification', 'do_shortcode', 10, 3);
-//add_filter('wp_init', 'do_shortcode')
+//add_filter('wp_init', 'do_shortcode');
+add_filter('this_year', 'do_shortcode');
 
 add_shortcode( 'this_year', 'get_this_year' );	
 
