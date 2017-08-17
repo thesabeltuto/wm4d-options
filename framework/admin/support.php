@@ -145,6 +145,13 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
 			<?php } ?>
             
 
+			<h3>Generic Shortcodes</h3>
+            <div class="wm4d_section wm4d_support">
+             	<p>Generic Shortcodes are created to expand your site's flexibility to feature and display item below as fluid as possible.</p>
+           	<p><strong>This Year</strong> is used for Copyright settings in footer area. Shortcode is available `[this_year]`</p>
+			</div>
+
+
 			<?php WM4D_OPTIONS_PLUGIN_support_mods(); ?>        
 
             <form method="post" action="options.php">

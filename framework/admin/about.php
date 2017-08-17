@@ -44,7 +44,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_about() {
             
             <h3>Donate</h3>
             <div class="wm4d_section about">
-                <p>Donations are accepted via Paypal Donate to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=US&item_name=TT%2dPlugins%3a%20Support%20WordPress%20Plugin%20Development&item_number=TT%2dPlugins&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">TT Plugins</a>.
+                <p>Donations are accepted via Paypal Donate to <a href="https://www.paypal.me/T22Gaming" target="_blank">TT Plugins</a>.
                 Please donate to support the author in improving this plugin and in creating more useful and helpful plugins.
                 Thank you for supporting!</p>
             </div>
