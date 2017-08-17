@@ -7,11 +7,18 @@
 //add_filter('gform_notification', 'do_shortcode', 10, 3);
 //add_filter('wp_init', 'do_shortcode');
 add_shortcode( 'this_year', 'get_this_year' );	
+add_shortcode( 'this_site', 'get_this_site' );	
 
 function get_this_year( $atts ){
 	$the_year = date("Y");
 	
 	return $the_year;
+}
+
+function get_this_site ( $atts ) {
+	$this_site = get_bloginfo('name');
+	
+	return $this_site;
 }
 
 ?>
