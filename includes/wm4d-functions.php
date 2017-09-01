@@ -529,7 +529,7 @@ class gsdental_testimonials extends WP_Widget {
 		
 		echo $before_widget;
 		echo '<h2 class="widget-title">'.$testimonial_title.'</h2>';
-		echo '<div id="cycle" style="height:auto!important;max-height:300px!important;">';
+		echo '<div id="cycle" style="height:auto;max-height:300px!important;">';
 		
 		$slider_args = array('post_type' => 'testimonials', 'posts_per_page' => -1, 'testimonial_categories' => $testimonial_category );
 		$loop = new WP_Query($slider_args);
