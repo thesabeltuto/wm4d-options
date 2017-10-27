@@ -5,7 +5,7 @@
 	Description: This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D</a> plugin that includes custom post types and widgets of  before and afters, prodecures, offers, office images and testimonials.
 	This plugin also includes theme options that can help you edit styles and scripts on dashboard. Client options has been added to provide flexibilty of information across the website.
 	Number flipper has been added to help you flip phone numbers for specific website visitors.
-	Version: 3.4.1
+	Version: 3.4.2
 	Author: Thesabel Tuto
 	Author URI: http://thesabeltuto.blogspot.com
 	Donate link: https://www.paypal.me/T22Gaming
@@ -34,7 +34,7 @@ define('WM4D_OPTIONS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WM4D_OPTIONS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 // Global variables
-$WM4D_OPTIONS_PLUGIN_VERSION = '3.4.1';
+$WM4D_OPTIONS_PLUGIN_VERSION = '3.4.2';
 $WM4D_OPTIONS_PLUGIN_CSS_VERSION = '3.0.9'; // style
 $WM4D_OPTIONS_PLUGIN_JS_VERSION = '3.1.3'; // thescript
 $WM4D_OPTIONS_PLUGIN_JS2_VERSION = '0.1.4'; // phonescript
@@ -110,7 +110,6 @@ function WM4D_OPTIONS_PLUGIN_wm4d_functions() {
 	if ( get_option('wm4d_functions_select') == 'enable' ) {
 		require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types.php');
 		require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/general-functions.php');
-		require(WM4D_OPTIONS_PLUGIN_DIR.'/includes/wm4d-functions.php');
 	}
 	
 	require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/shortcodes.php');
