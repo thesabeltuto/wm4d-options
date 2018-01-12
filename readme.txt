@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228J
 Tags: wm4d
 Requires at least: 3.5.1
 Tested up to: 4.0
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 22. Additional testimonial widget functions.
 23. Fixed on shortcodes. Added Custom form format.
 24. Added generic shortcodes.
-24. Fixed salient theme integrations.
+25. Fixed Salient Theme issue with Layerslider
 
 == Upgrade notice ==
 

@@ -8,12 +8,10 @@ add_action( 'admin_enqueue_scripts', 'add_ajax_wm4d_mods' );
 add_action( 'wp_ajax_nopriv_add_wm4d_mods', 'add_wm4d_mods');
 add_action( 'wp_ajax_add_wm4d_mods', 'add_wm4d_mods');
 
+add_action( 'wp_enqueue_scripts', 'add_ajax_wm4d_mods_resmap' );
+add_action( 'wp_ajax_nopriv_add_wm4d_mods_resmap', 'add_wm4d_mods_resmap');
+add_action( 'wp_ajax_add_wm4d_mods_resmap', 'add_wm4d_mods_resmap');
 
-if ( get_option('wm4d_resmap_select') == 'enable' ) {
-	add_action( 'wp_enqueue_scripts', 'add_ajax_wm4d_mods_resmap' );
-	add_action( 'wp_ajax_nopriv_add_wm4d_mods_resmap', 'add_wm4d_mods_resmap');
-	add_action( 'wp_ajax_add_wm4d_mods_resmap', 'add_wm4d_mods_resmap');
-}
 
 function WM4D_OPTIONS_PLUGIN_theme_create_mods_menu() {
 

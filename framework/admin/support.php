@@ -149,6 +149,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_support() {
             <div class="wm4d_section wm4d_support">
              	<p>Generic Shortcodes are created to expand your site's flexibility to feature and display item below as fluid as possible.</p>
            	<p><strong>This Year</strong> is used for Copyright settings in footer area. Shortcode is available `[this_year]`</p>
+           	<p><strong>This Site</strong> displays the site name with link. It is a shortcode for the get_bloginfo('name') in WordPress PHP code. Shortcode is available `[this_site]`</p>
 			</div>
 
 

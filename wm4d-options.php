@@ -110,6 +110,7 @@ function WM4D_OPTIONS_PLUGIN_wm4d_functions() {
 	if ( get_option('wm4d_functions_select') == 'enable' ) {
 		require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types.php');
 		require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/general-functions.php');
+		require(WM4D_OPTIONS_PLUGIN_DIR.'/includes/wm4d-functions.php');
 	}
 	
 	require(WM4D_OPTIONS_PLUGIN_DIR.'/framework/shortcodes.php');
