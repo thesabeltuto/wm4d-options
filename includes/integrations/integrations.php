@@ -5,7 +5,6 @@
 //	theme integration settings
 	if( wp_get_theme( 'soulmedic' )->exists() ) {
 		include(WM4D_OPTIONS_PLUGIN_DIR.'/includes/integrations/themes/soulmedic.php');
-
 	}
 
 //	plugin integration settings
