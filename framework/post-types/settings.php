@@ -1,11 +1,11 @@
 <?php
 require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/doctors.php');
 require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/team.php');
-require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/procedures.php');
-require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/offers.php');
-require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/office-images.php');
-require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/testimonials.php');
-require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/before-afters.php');
+//require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/procedures.php');
+//require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/offers.php');
+//require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/office-images.php');
+//require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/testimonials.php');
+//require_once(WM4D_OPTIONS_PLUGIN_DIR.'/framework/post-types/before-afters.php');
 
 /** MAKE THUMBNAILS WORK ON CUSTOM POSTS **/
 add_action( 'after_setup_theme', 'WM4D_OPTIONS_PLUGIN_post_type_thumbs', 99 );
