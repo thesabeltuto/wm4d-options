@@ -55,7 +55,7 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 22. Additional testimonial widget functions.
 23. Fixed on shortcodes. Added Custom form format.
 24. Added generic shortcodes.
-25. Fixed Salient Theme issue with Layerslider
+25. Fixed Salient Theme issue with Layerslider.
 
 == Upgrade notice ==
 
