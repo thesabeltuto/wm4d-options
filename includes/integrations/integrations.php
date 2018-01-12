@@ -4,8 +4,8 @@
 	
 //	theme integration settings
 	include(WM4D_OPTIONS_PLUGIN_DIR.'/includes/integrations/themes/soulmedic.php');
-	if( wp_get_theme( 'soulmedic' )->exists() ) {
-	//if( wp_get_theme() == 'soulmedic' ) {
+	//if( wp_get_theme( 'soulmedic' )->exists() ) {
+	if( wp_get_theme() == 'soulmedic' ) {
 		include(WM4D_OPTIONS_PLUGIN_DIR.'/includes/integrations/plugins/layerslider.php');
 	}
 
