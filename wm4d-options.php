@@ -34,7 +34,7 @@ define('WM4D_OPTIONS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WM4D_OPTIONS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 // Global variables
-$WM4D_OPTIONS_PLUGIN_VERSION = '3.4.1';
+$WM4D_OPTIONS_PLUGIN_VERSION = '3.4.2';
 $WM4D_OPTIONS_PLUGIN_CSS_VERSION = '3.0.9'; // style
 $WM4D_OPTIONS_PLUGIN_JS_VERSION = '3.1.3'; // thescript
 $WM4D_OPTIONS_PLUGIN_JS2_VERSION = '0.1.4'; // phonescript
