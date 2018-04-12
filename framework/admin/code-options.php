@@ -15,7 +15,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_custom_codes() {
         <div class="wm4d_content" id="wm4d_li-1">
 			<h2>Custom Codes</h2>
     		<?php submit_button(); ?>
-			<div class="wm4d_section">
+			<div class="wm4d_section wm4d_custom_codes">
             <h3>Custom Style</h3>
             <textarea type="text" name="wm4d_css" rows="7" cols="60" /><?php echo get_option('wm4d_css'); ?></textarea>
             <br />Enter your custom style in css.
@@ -23,7 +23,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_custom_codes() {
             <br />&nbsp;
             </div>
             
-			<div class="wm4d_section">
+			<div class="wm4d_section wm4d_custom_codes">
 			<h3>Custom Script</h3>
             <textarea type="text" name="wm4d_script" rows="7" cols="60" /><?php echo get_option('wm4d_script'); ?></textarea>
             <br />Enter your custom script in javascript or jquery.
@@ -31,7 +31,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_custom_codes() {
             <br />&nbsp;
             </div>
 			
-			<div class="wm4d_section">
+			<div class="wm4d_section wm4d_custom_codes">
             <h3>Custom HTML in Header</h3>
             <textarea type="text" name="wm4d_html" rows="7" cols="60" /><?php echo get_option('wm4d_html'); ?></textarea>
             <br />Enter your custom scripts in javascript, jquery or css.
@@ -39,7 +39,7 @@ function WM4D_OPTIONS_PLUGIN_submenu_custom_codes() {
             <br />Located inside the &lt;header&gt;.
             </div>
             
-			<div class="wm4d_section">
+			<div class="wm4d_section wm4d_custom_codes">
 			<h3>Custom HTML in Footer</h3>
             <textarea type="text" name="wm4d_footer" rows="7" cols="60" /><?php echo get_option('wm4d_footer'); ?></textarea>
             <br />Enter your custom scripts in javascript, jquery or css.

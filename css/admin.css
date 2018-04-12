@@ -75,6 +75,8 @@
 .wm4d_wrap .wm4d_section.flipnote, wm4d_wrap .wm4d_select.flipper_select,
 .wm4d_wrap .wm4d_select.map_select { display: none; }
 
+.wm4d_wrap .wm4d_section.wm4d_custom_codes textarea { resize: both; }
+
 
 /** FOOTER AREA **/
 
