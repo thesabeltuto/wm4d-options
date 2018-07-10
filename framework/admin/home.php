@@ -248,7 +248,7 @@ function WM4D_OPTIONS_PLUGIN_home_page() {
             <h3>About</h3>
 				All detailed information about the plugin and the author is in the about section.
                 Click <a href="?page=wm4d_options_about">here</a> to navigate to about section now.
-                Click <a href="https://www.paypal.me/T22Gaming" target="_blank">here</a> to donate to the author now.
+                Click <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228JQZP6269J&lc=US&item_name=TT%2dPlugins%3a%20Support%20WordPress%20Plugin%20Development&item_number=TT%2dPlugins&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">here</a> to donate to the author now.
                 Version <?= $GLOBALS['WM4D_OPTIONS_PLUGIN_VERSION']?>.
             </div>            
 		</div>
