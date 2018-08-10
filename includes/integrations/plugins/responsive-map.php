@@ -28,35 +28,34 @@ function responsive_map_shortcode_edited($atts) {
       'directionstext'  => '',        // The text to be displayed for directions link
       'center'          => '',        // The point where the map should be centered (latitude, longitude) for instance: center="38.980288, 22.145996"
       'icon'            => 'green',   // Possible color values: black, blue, gray, green, magenta, orange, purple, red, white, yellow or a http link to a custom image
+      'iconsize'        => '',        // Icon size
       'style'           => '1',       // Use style values between 1-50
       'refresh'         => 'no',      // 'yes' or 'no'
       'locateme'        => 'no',      // 'yes' or 'no'
+      'fullscreen'      => 'no',      // 'yes' or 'no'
+      'tabfix'          => 'no',      // 'yes' or 'no'
       'key'             => ''         // Google Maps API key
+
     ), $atts);
-    
+
     // Enque jQuery
-    wp_enqueue_script("jquery");
+    wp_enqueue_script('jquery');
 
-    // Google Maps API link, http or https
-    $api_url = is_ssl() ? 'https://maps-api-ssl.google.com' : 'http://maps.googleapis.com';
+    // Save the Google Maps API key from the shortcode in the database
+    $api_key = $atts['key'];
 
-    // Add to Google Maps API the Google Maps API key parameter if is set in the shortcode
-    $api_key = '';
-    if (isset($atts['key'])) {
-        if (trim($atts['key']) != '') {
-            $api_key = '&key=' . trim($atts['key']);
+    if (isset($api_key)) {
+        // Sanitize it
+        $api_key = sanitize_text_field($api_key);
+        // And save it in the database
+        if ($api_key != "") {
+            update_option('resmap_apikey', $api_key);
         }
     }
 
-    // And enqueue the Google Maps Api
-    wp_enqueue_script('googlemapsapi', $api_url . '/maps/api/js?v=3.exp&libraries=places' . $api_key, array('jquery'), null, true);
-	
-	/* ----------------------------------------------
-	// - WM4D SHORTCODE EDIT - catch script url
-	// ---------------------------------------------- */
-    // Enqueue the responsive maps javascripts
-    wp_enqueue_script('resmap', '/wp-content/plugins/responsive-maps-plugin/includes/js/resmap.min.js', array('jquery'), '3.4', true);
-    
+    // Enqueue Google Maps required scripts at the end of body, before of closing body tag (to prevent being overriden by other plugins)
+    add_action('wp_footer', 'resmap_enqueue_scripts');
+
     // Generate a unique identifier for the map
     $mapid = rand();
 
@@ -65,10 +64,12 @@ function responsive_map_shortcode_edited($atts) {
 
     // If width or height were specified in the shortcode, extract them too
     $dimensions = '';
-    if(isset($atts['height']))
+    if (isset($atts['height'])) {
         $dimensions .= 'height:' . $atts['height'] . ';';
-    if(isset($atts['width']))
+    }
+    if (isset($atts['width'])) {
         $dimensions .= 'width:' . $atts['width'] . ';';
+    }
 
     // Set the pre-defined style which corresponds to the number given in the shortcode
     $atts['style'] = getStyleString($atts['style']);
@@ -84,7 +85,8 @@ function responsive_map_shortcode_edited($atts) {
     if (trim($atts['center'])  != "") {
         sscanf($atts['center'], '%f, %f', $lat, $long);
     } else {
-        $lat = 'null'; $long = 'null';
+        $lat = 'null';
+        $long = 'null';
     }
 
     // Prepare markers list
@@ -92,7 +94,6 @@ function responsive_map_shortcode_edited($atts) {
 
     // Split the addresses, descriptions and icons (by the pipeline "|" delimiter)
     if ($atts['address'] != '') {
-	
 	/* -----------------------------------------------
 	// - WM4D SHORTCODE EDIT - catch %% shortcodes
 	// ----------------------------------------------- */
@@ -106,84 +107,88 @@ function responsive_map_shortcode_edited($atts) {
 //		console.log('$att_address '+$att_address);
 //		console.log('$att_description '+$att_description);
 //		console.log('$att_icon '+$att_icon);
-
-      $addresses = explode("|", $att_address ); 
-	  $descriptions = explode("|", $att_description);
-	  $icons = explode("|", $att_icon); 
-	  
-	  
-	  $total_addresses = count($addresses);
+		
+        $addresses = explode("|", $att_address);
+        $total_addresses = count($addresses);
+        $descriptions = explode("|", $att_description);
+        $icons = explode("|", $att_icon);
 
       // Start building the markers JSON array
-      $markers = '[';
+        $markers = '[';
 
       // For each address from the list, build a marker (with popup with description and an icon)
-      for($i = 0; $i < $total_addresses; $i ++) {
+        for ($i = 0; $i < $total_addresses; $i ++) {
+            // Remove unneccessary line breaks from the addresses list
+            $address = resmap_cleanHtml($addresses[$i]);
 
-        // Remove unneccessary line breaks from the addresses list
-        $address = resmap_cleanHtml($addresses[$i]);
-        
-        // If it's empty, set the default description equal to the the address
-        if(isset($descriptions[$i]) && strlen(trim($descriptions[$i])) != 0) {
-            $html = $descriptions[$i];  
-        }
-        else {
-           $html = $address;
-        }
+            $html = "<div id='resmap_popup'>";
             
-        // Add the directions link to the description
-        if (isset($atts['directionstext']) && strlen(trim($atts['directionstext'])) != 0) {
-            $directions = 'http://maps.google.com/?daddr=' . urlencode($address);
-            $html .= "<br><strong><a target='_blank' href='". $directions ."'>". $atts['directionstext'] ."</a></strong>" ;
-        }
-            
-        // Remove unneccessary line breaks from the $html and transforms {br} to <br>
-        $html = resmap_cleanHtml($html);
-        
-        // Get the correct icon image based on icon color/url which were given in the shortcode
-        if(isset($icons[$i])) {
-            $icon = resmap_getIcon($icons[$i]);
-        } 
-
-        // Extract the lagitude and longitude
-        $marker_latitude = null;
-        $marker_longitude = null;
-        if (trim($address)  != "") {
-            sscanf($address, '%f, %f', $marker_latitude, $marker_longitude);
-        }
-
-        // See if we show popups. 
-        // If only one address, popup is true or false (what's given in the shortcode)
-        // If more addresses and in shortcode popup is true, show the open popup only for first address.
-        $popup = 'false';
-        if (isset($atts['popup']) && $atts['popup'] == 'yes') {
-            if ($total_addresses == 1) {
-                $popup = 'true';
-            } else if ($total_addresses >= 1) {
-                $i == 0 ? ($popup = 'true') : ($popup = 'false');
+            // If it's empty, set the default description equal to the the address
+            if (isset($descriptions[$i]) && strlen(trim($descriptions[$i])) != 0) {
+                $html .= $descriptions[$i];
+            } else {
+                $html .= $address;
             }
-        }
+                
+            // Add the directions link to the description
+            if (isset($atts['directionstext']) && strlen(trim($atts['directionstext'])) != 0) {
+                $directions = 'http://maps.google.com/?daddr=' . urlencode($address);
+                $html .= "<br><strong><a target='_blank' href='". $directions ."'>". $atts['directionstext'] ."</a></strong>" ;
+            }
+                
+            // Remove unneccessary line breaks from the $html and transforms {br} to <br>
+            $html = resmap_cleanHtml($html);
+            $html .= "</div>";
+            
+            // Get the correct icon image based on icon color/url which were given in the shortcode
+            if (isset($icons[$i])) {
+                $icon = resmap_getIcon($icons[$i]);
+            }
 
-        // If more markers, add the neccessary "," delimiter between markers
-        if ($i > 0) $markers .= ",";
-        
-        // Build markers list based on given address or latitude/longitude
-        if ($marker_latitude == '' || $marker_longitude == '') {
-            $markers .= "{
-                    address: '" . $address . "', 
-                    key: '". ($i + 1)  . "',";
-        } else {
-            $markers .= "{
-                    latitude:" . $marker_latitude .", 
-                    longitude:" . $marker_longitude .",
-                    key: '" . ($i +1) . "',";
-        }
-        $markers .= "html:'" . $html . "',
-                    popup: ". $popup . ",
-                    flat: true,
-                    icon: {
-                        image: '". $icon . "'
-                    }}";
+            // Extract the lagitude and longitude
+            $marker_latitude = null;
+            $marker_longitude = null;
+            if (trim($address)  != "") {
+                sscanf($address, '%f, %f', $marker_latitude, $marker_longitude);
+            }
+
+            // See if we show popups.
+            // If only one address, popup is true or false (what's given in the shortcode)
+            // If more addresses and in shortcode popup is true, show the open popup only for first address.
+            $popup = 'false';
+            if (isset($atts['popup']) && $atts['popup'] == 'yes') {
+                if ($total_addresses == 1) {
+                    $popup = 'true';
+                } elseif ($total_addresses >= 1) {
+                    $i == 0 ? ($popup = 'true') : ($popup = 'false');
+                }
+            }
+
+            // If more markers, add the neccessary "," delimiter between markers
+            if ($i > 0) {
+                $markers .= ",";
+            }
+            
+            // Build markers list based on given address or latitude/longitude
+            if ($marker_latitude == '' || $marker_longitude == '') {
+                $markers .= "{
+                        address: '" . $address . "', 
+                        key: '". ($i + 1)  . "',";
+            } else {
+                $markers .= "{
+                        latitude:" . $marker_latitude .", 
+                        longitude:" . $marker_longitude .",
+                        key: '" . ($i +1) . "',";
+            }
+              $markers .= "html:'" . $html . "',
+                        popup: ". $popup . ",
+                        flat: true,
+                        icon: {
+                            image: '". $icon . "'";
+            if (trim($atts['iconsize'])  != "") {
+                $markers .= ", iconsize: [" . $atts['iconsize'] . "]";
+            }
+              $markers .= "}}";
         }
         $markers .= ']';
     }
@@ -198,17 +203,18 @@ function responsive_map_shortcode_edited($atts) {
         // Create the map in the div 
         mapdiv.gMapResp({
             maptype: google.maps.MapTypeId.<?php echo $atts['maptype']; ?>,
-            log: <?php echo toBool($atts['logging']); ?>,
+            log: <?php echo resmap_toBool($atts['logging']); ?>,
             zoom: <?php echo $atts['zoom']; ?>,
             markers: <?php echo $markers; ?>,
-            panControl: <?php echo toBool($atts['pancontrol']); ?>,
-            zoomControl: <?php echo toBool($atts['zoomcontrol']); ?>,
-            draggable: <?php echo toBool($atts['draggable']); ?>,
-            scrollwheel: <?php echo toBool($atts['scrollwheel']); ?>,
-            mapTypeControl: <?php echo toBool($atts['typecontrol']); ?>,
-            scaleControl: <?php echo toBool($atts['scalecontrol']); ?>,
-            streetViewControl: <?php echo toBool($atts['streetcontrol']); ?>,
+            panControl: <?php echo resmap_toBool($atts['pancontrol']); ?>,
+            zoomControl: <?php echo resmap_toBool($atts['zoomcontrol']); ?>,
+            draggable: <?php echo resmap_toBool($atts['draggable']); ?>,
+            scrollwheel: <?php echo resmap_toBool($atts['scrollwheel']); ?>,
+            mapTypeControl: <?php echo resmap_toBool($atts['typecontrol']); ?>,
+            scaleControl: <?php echo resmap_toBool($atts['scalecontrol']); ?>,
+            streetViewControl: <?php echo resmap_toBool($atts['streetcontrol']); ?>,
             overviewMapControl: true,
+            fullscreenControl: <?php echo resmap_toBool($atts['fullscreen']); ?>,
             styles: <?php echo $atts['style']; ?>,
             latitude: <?php echo $lat; ?>,
             longitude: <?php echo $long; ?>,
@@ -219,30 +225,24 @@ function responsive_map_shortcode_edited($atts) {
                 }
             }
         });
-    gmap = mapdiv.data('gmap').gmap;
+        gmap = mapdiv.data('gmap').gmap;
     <?php if (isset($atts['searchbox']) && $atts['searchbox'] == 'yes') { ?>
     resmap_createSearchBox(gmap);
-    <?php } 
-    if (isset($atts['locateme']) && $atts['locateme'] == 'yes') { ?>
+    <?php }
+if (isset($atts['locateme']) && $atts['locateme'] == 'yes') { ?>
     resmap_addLocatemeButton(gmap);
-    <?php } ?>
-    resmap_fixDisplayInTabs(mapdiv, <?php echo toBool($atts['popup']); ?>);
-  });
-  <?php if (isset($atts['refresh']) && $atts['refresh'] == 'yes') { ?>
-  // If the refresh parameter is set to true, resize the map when window is resized 
-  window.onresize = function() {
+<?php }
+if (isset($atts['tabfix']) && $atts['tabfix'] == 'yes') { ?>
+    resmap_fixDisplayInTabs(mapdiv);
+<?php } ?>
+    });
+    <?php if (isset($atts['refresh']) && $atts['refresh'] == 'yes') { ?>
+    window.onresize = function() {
         jQuery('.responsive-map').each(function(i, obj) {
-            data = jQuery(this).data('gmap');
-            if (data) {
-                var gmap = data.gmap;
-                google.maps.event.trigger(gmap, 'resize');
-                jQuery(this).gMapResp('fixAfterResize');
-            }
+            jQuery(this).gMapResp('fixAfterResize');
         });
-  };
-  <?php } ?>
+    };
+    <?php } ?>
   </script>
-  <div id="responsive_map_<?php echo $mapid; ?>" class="responsive-map" style="<?php echo $dimensions; ?>"></div>
-<?php return ob_get_clean();
-}
-?>
+    <div id="responsive_map_<?php echo $mapid; ?>" class="responsive-map" style="<?php echo $dimensions; ?>"></div><?php return ob_get_clean();
+} ?>

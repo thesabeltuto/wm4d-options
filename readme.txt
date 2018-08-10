@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H228J
 Tags: wm4d
 Requires at least: 3.5.1
 Tested up to: 4.9.5
-Stable tag: 3.4.3
+Stable tag: 3.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,7 @@ This plugin is a simplified <a href="http://www.wm4d.com/" target="_blank">WM4D<
 23. Fixed on shortcodes. Added Custom form format.
 24. Added generic shortcodes.
 25. Fixed Salient Theme issue with Layerslider.
+26. Update integration for resmap.
 
 == Upgrade notice ==
 
